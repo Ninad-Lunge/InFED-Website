@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const navigate = useNavigate();
 
     function handleToggleMenu() {
         setIsMenuOpen(!isMenuOpen);
@@ -11,9 +14,18 @@ const Navbar = () => {
 
     }
 
+    function handleClickonImage(){
+        navigate('/LandingPage');
+    }
+
     return (
         <nav className="navbar font-sans flex flex-col md:flex-row justify-between m-5 items-center">
-            <img className='logo w-1/4 md:w-1/12 mb-4 md:mb-0' src={require('./assests/images/InFED-logo.jpg')} alt="infed-logo" />
+            <img 
+                className='logo w-1/4 md:w-1/12 mb-4 md:mb-0' 
+                src={require('../assests/images/InFED-logo.jpg')} 
+                alt="infed-logo"
+                onClick={handleClickonImage}
+            />
             
             {/* Hamburger menu icon for mobile screens */}
             <button 
@@ -26,12 +38,12 @@ const Navbar = () => {
             </button>
 
             <div className={`links ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row gap-y-4 md:gap-1 gap-x-6 md:gap-x-14 mb-4 md:mb-0 text-sm`}>
-                <a href="#top">About</a>
-                <a href="#program">Program</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#event">Event</a>
-                <a href="#ibfc">IBFC</a>
-                <a href="#contact">Contact</a>
+                <Link to="/about">About</Link>
+                <Link to="/program">Program</Link>
+                <Link to="/portfolio">Portfolio</Link>
+                <Link to="/event">Event</Link>
+                <Link to="/ibfc">IBFC</Link>
+                <Link to="/contact">Contact</Link>
             </div>
 
             <div>
