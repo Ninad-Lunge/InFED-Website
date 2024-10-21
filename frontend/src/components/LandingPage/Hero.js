@@ -5,7 +5,7 @@ const Hero = () => {
 
     return (
         <div className="hero flex flex-col md:flex-row m-5 md:ms-20 mt-20">
-            <div className="left-side text-left w-full md:w-1/2 grid gap-y-4">
+            <div className="left-side text-left w-full md:w-1/2 grid gap-y-4 order-2 md:order-1">
                 <div className="text-1 font-bold text-4xl md:text-6xl lg:text-8xl">
                     <p>Bring your ideas to life!</p>
                 </div>
@@ -25,7 +25,7 @@ const Hero = () => {
                     </button>
                 </div>
             </div>
-            <div className="right-side w-full md:w-1/2 me-0 md:me-20 ms-0 md:ms-20 mt-10 md:mt-0">
+            <div className="right-side w-full md:w-1/2 me-0 md:me-20 ms-0 md:ms-20 mt-10 md:mt-0 order-1 md:order-2">
                 <img src={require('./../../assests/images/HeroPlaceHolder.png')} alt="hero-img" className="hero-img" />
             </div>
         </div>
