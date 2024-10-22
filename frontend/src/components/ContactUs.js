@@ -6,7 +6,7 @@ const Contact = () => {
 
             <img src={require('../assests/images/InFED-mono.png')} alt="logo" className="logo w-52 py-20 ms-20" />
 
-            <div className="links flex flex-row gap-x-48 py-8 mx-20 mb-20">
+            <div className="links grid grid-cols-2 md:grid-cols-3 gap-x-48 py-8 mx-20 mb-20">
                 <div className="collaboration text-white text-left">
                     <h1 className="text-3xl pb-10 font-bold">Collaboration</h1>
                     <p className="text-[20px] my-2">Industry Partners</p>
@@ -25,16 +25,16 @@ const Contact = () => {
                         <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
                             <FaLinkedin className="text-white" size={30} />
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
                             <FaTwitter className="text-white" size={30} />
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
                             <FaFacebook className="text-white" size={30} />
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
                             <FaInstagram className="text-white" size={30} />
                         </a>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.gmail.com" target="_blank" rel="noopener noreferrer">
                             <FaEnvelope className="text-white" size={30} />
                         </a>
                     </div>

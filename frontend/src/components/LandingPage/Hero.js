@@ -18,13 +18,13 @@ const Hero = () => {
                 </div>
                 <div className="buttons flex flex-row gap-x-4 md:gap-x-16 items-start">
                     <button 
-                        className="incubation-btn p-2 md:px-4 md:py-2 bg-black text-white border border-black rounded-md transition transform hover:-translate-y-1 hover:scale-105 hover:bg-white hover:text-black"
+                        className="incubation-btn p-2 md:px-4 md:py-2 bg-black text-white border border-black rounded-md transition transform hover:-translate-y-1 hover:scale-105 shadow-sm hover:shadow-2xl"
                         onClick={handleClick}
                     >
                         Apply for Incubation
                     </button>
                     <button 
-                        className="join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md transition transform hover:scale-105 hover:-translate-y-1 hover:bg-black hover:text-white"
+                        className="join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md transition transform hover:scale-105 hover:-translate-y-1 shadow-sm hover:shadow-2xl"
                         onClick={handleClick}
                     >
                         Join the Community
