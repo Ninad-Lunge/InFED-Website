@@ -3,7 +3,7 @@ import CountUp from 'react-countup';
 
 const Statistics = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-16 mt-20 mx-5 md:mx-20 mt-[150px]">
+    <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-16 mt-20 mx-5 md:mx-20 mt-[150px] mb-[150px]">
       {/* Enterprises */}
       <div className="flex flex-col items-center ">
         <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#F7A221]">
