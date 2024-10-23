@@ -6,7 +6,7 @@ const VerticalNavbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="m-2 h-auto w-52 bg-black flex flex-col items-center justify-start p-2 rounded-lg">
+    <div className="m-2 h-auto w-60 bg-black flex flex-col items-center justify-start p-2 rounded-lg">
       <img 
         src={require('../assests/InFED-mono.png')} 
         alt="img" 
@@ -34,7 +34,7 @@ const VerticalNavbar = () => {
       <button className="w-full bg-transparent text-white border-none py-3 px-4 px-8 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-programs')}>
         <FaPencilAlt className="mr-2" /> Edit Programs
       </button>
-      <button className="w-full bg-transparent text-white border-none py-3 px-4 px-8 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-events')}>
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 px-8 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-about')}>
         <FaInfoCircle className="mr-2" /> Edit About Page
       </button>
 
