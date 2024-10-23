@@ -5,7 +5,7 @@ import About from "./pages/About";
 import Portfolio from "./pages/Portfolio";
 import Event from "./pages/Event";
 import IBFC from "./pages/IBFC";
-import Statistics from "./components/LandingPage/Statistics";
+import StartupDetails from "./components/Portfolio/StartupDetails";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
           <Route path="/event" element={<Event />} />
           <Route path="/ibfc" element={<IBFC />} />
           {/* <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/startup/:id" element={<StartupDetails />} />
         </Routes>
       </Router>
     </div>
