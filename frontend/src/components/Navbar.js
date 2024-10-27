@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ contactRef }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-
     const navigate = useNavigate();
 
     function handleToggleMenu() {
         setIsMenuOpen(!isMenuOpen);
     }
 
-    function handleClick(){
-
+    function handleClick() {
+        contactRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function handleClickonImage(){
+    function handleClickonImage() {
         navigate('/LandingPage');
     }
 
     return (
-        <nav className="navbar font-sans flex flex-col md:flex-row justify-between m-5 items-center">
+        <nav className="navbar font-sans flex flex-col md:flex-row justify-between px-5 mb-5 items-center sticky top-0 left-0 right-0 bg-white z-40">
             <img 
                 className='logo w-1/4 md:w-1/12 mb-4 md:mb-0' 
                 src={require('../assests/images/InFED-logo.jpg')} 
@@ -27,7 +26,6 @@ const Navbar = () => {
                 onClick={handleClickonImage}
             />
             
-            {/* Hamburger menu icon for mobile screens */}
             <button 
                 className="md:hidden block focus:outline-none" 
                 onClick={handleToggleMenu}
@@ -43,7 +41,7 @@ const Navbar = () => {
                 <Link to="/portfolio">Portfolio</Link>
                 <Link to="/event">Event</Link>
                 <Link to="/ibfc">IBFC</Link>
-                <Link to="/contact">Contact</Link>
+                <button onClick={handleClick}>Contact</button>
             </div>
 
             <div>
@@ -53,6 +51,6 @@ const Navbar = () => {
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;

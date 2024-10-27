@@ -15,7 +15,7 @@ const StartupCard = ({ startup }) => {
     }    
 
     return (
-        <div className="p-4 hover:shadow-2xl hover:rounded-2xl cursor-pointer flex flex-col items-center w-60 h-60" onClick={handleClick}>
+        <div className="p-6 hover:shadow-2xl hover:rounded-2xl cursor-pointer flex flex-col items-center w-60 h-60" onClick={handleClick}>
             <img src={startup.image} alt={startup.name} className="w-40 h-40 object-contain rounded-full" />
             <h2 className="mt-2 text-lg font-bold">{startup.name}</h2>
         </div>

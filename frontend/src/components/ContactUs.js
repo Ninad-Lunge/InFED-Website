@@ -1,8 +1,9 @@
 import { FaLinkedin, FaTwitter, FaEnvelope, FaInstagram, FaFacebook } from 'react-icons/fa';
+import React, { forwardRef } from 'react';
 
-const Contact = () => {
+const Contact = forwardRef((props, ref) => {
     return(
-        <div className="contact bg-black mt-20">
+        <div ref={ref} id="contact" className="contact bg-black mt-20">
 
             <img src={require('../assests/images/InFED-mono.png')} alt="logo" className="logo w-52 py-20 ms-20" />
 
@@ -49,6 +50,6 @@ const Contact = () => {
 
         </div>
     );
-}
+});
 
 export default Contact;

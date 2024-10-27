@@ -2,13 +2,13 @@ const Leadership = () =>{
     return(
         <div className="leadership-section mx-12 my-8">
             <h1 className="text-3xl text-left my-10">Leadership at <span className="text-[#F7A221] font-bold">InFED</span></h1>
-            <div className="partition grid grid-cols-3 gap-x-8">
-                <div className="about-image flex flex-col gap-y-2">
-                    <img src="" alt="img" className=" border border-yellow-400 rounded-md h-[500px] px-20" />
+            <div className="partition flex flex-col md:grid md:grid-cols-3 gap-x-8 order-1">
+                <div className="about-image flex flex-col gap-y-2 mb-5">
+                    <img src={require('../../assests/images/aboutPage/Bhimaraya-Metri.png')} alt="img" className="border border-yellow-400 rounded-md p-2 md:mx-16 object-fit" />
                     <h1 className="font-bold text-lg">Dr. Bhimaraya Metri</h1>
                     <h1 className="text-gray-400 font-semibold text-base">Chairman InFED, IIM Nagpur</h1>
                 </div>
-                <div className="text col-span-2">
+                <div className="text md:col-span-2 order-2">
                     <p className="text-xl text-left">
                         The IIMN Foundation for Entrepreneurship Development (InFED) has been established to 
                         facilitate the development of a thriving ecosystem for aspiring entrepreneurs – 
