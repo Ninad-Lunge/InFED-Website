@@ -3,6 +3,8 @@ import Navbar from "../components/Navbar";
 import Contact from "../components/ContactUs";
 import Statistics from "../components/LandingPage/Statistics";
 import Objectives from "../components/LandingPage/Objectives";
+import Programme from "../components/LandingPage/Programme";
+import Partners from "../components/LandingPage/Partners";
 import { useRef } from 'react';
 
 const LandingPage = () => {
@@ -15,6 +17,8 @@ const LandingPage = () => {
       <Hero />
       <Statistics />
       <Objectives />
+      <Programme />
+      <Partners />
       <Contact ref={contactRef} />
     </div>
   );
