@@ -39,8 +39,9 @@ const Navbar = ({ contactRef }) => {
                 <Link to="/about">About</Link>
                 <Link to="/program">Program</Link>
                 <Link to="/portfolio">Portfolio</Link>
-                <Link to="/event">Event</Link>
-                <Link to="/ibfc">IBFC</Link>
+                <Link to="/initiatives">Initiatives</Link>
+                <Link to="/event">Events</Link>
+                <Link to="/reports">Reports</Link>
                 <button onClick={handleClick}>Contact</button>
             </div>
 

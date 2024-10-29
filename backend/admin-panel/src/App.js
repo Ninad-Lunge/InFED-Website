@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import AddStartUp from './pages/AddStartUp';
 import PersonManager from './pages/PersonManager';
 import StartupManager from './pages/StartupManager';
+import SchemeManager from './pages/SchemeManager';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/edit-about" element={<PersonManager />} />
             <Route path="/add-startup" element={<AddStartUp />} />
-            <Route path="/edit-startup" element={<StartupManager />} />
+            <Route path="/manage-startup" element={<StartupManager />} />
+            <Route path="/manage-schemes" element={<SchemeManager />} />
           </Routes>
         </div>
       </div>

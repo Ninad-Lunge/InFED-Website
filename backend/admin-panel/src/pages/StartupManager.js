@@ -114,8 +114,8 @@ const StartupManager = () => {
             goals: startup.goals,
             achievements: startup.achievements,
             schemes: startup.schemes,
-        })
-    }
+        });
+    };
 
     return(
         <div className="startup-manager">

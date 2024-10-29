@@ -17,7 +17,7 @@ const StartupsGrid = () => {
     }, []);
 
     return (
-        <div className="grid grid-cols-4 gap-4 mx-12">
+        <div className="grid grid-cols-2 scale-75 md:scale-100 md:grid-cols-4 gap-4 md:mx-12">
             {startups.map((startup, index) => {
                 // console.log('Rendering startup:', startup);
                 return <StartupCard key={index} startup={startup} />;
