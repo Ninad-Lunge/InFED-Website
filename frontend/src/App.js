@@ -6,6 +6,7 @@ import Portfolio from "./pages/Portfolio";
 import Event from "./pages/Event";
 import Initiatives from "./pages/Initiatives";
 import StartupDetails from "./components/Portfolio/StartupDetails";
+import ProgramDetails from "./components/Program/ProgramDetails";
 import Reports from "./pages/Reports";
 import Program from "./pages/Program";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/initiatives" element={<Initiatives />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/startup/:id" element={<StartupDetails />} />
+          <Route path="/scheme/:id" element={<ProgramDetails />} />
         </Routes>
       </Router>
     </div>
