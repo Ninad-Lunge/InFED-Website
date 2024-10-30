@@ -2,7 +2,7 @@ import Navbar from '../components/Navbar';
 import Contact from '../components/ContactUs';
 import { useRef } from 'react';
 
-const Event = () => {
+const Program = () => {
     const contactRef = useRef(null);
 
     return(
@@ -13,4 +13,4 @@ const Event = () => {
     );
 }
 
-export default Event;
+export default Program;

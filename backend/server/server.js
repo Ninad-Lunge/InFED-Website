@@ -1,10 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const peopleRoutes = require('./routes/people');
 const personRoutes = require('./routes/person');
 const eventRoutes = require('./routes/eventRoutes');
+=======
+>>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 const cors = require('cors');
 require('dotenv').config();
+
+const peopleRoutes = require('./routes/people');
+const personRoutes = require('./routes/person');
+const startupRoutes = require('./routes/startup');
+const schemeRoutes = require('./routes/scheme');
 
 const app = express();
 
@@ -23,11 +31,16 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/api', peopleRoutes);
 app.use('/api', personRoutes);
+<<<<<<< HEAD
 app.use('/api', eventRoutes);
+=======
+app.use('/api', startupRoutes);
+app.use('/api', schemeRoutes);
+>>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 
 // Home route
 app.get('/', (req, res) => {
-    res.send('Welcome to the Person Info API');
+    res.send('Welcome to the InFED Admin Panel API');
 });
 
 // Error handling middleware

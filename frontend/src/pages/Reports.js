@@ -2,15 +2,15 @@ import Navbar from '../components/Navbar';
 import Contact from '../components/ContactUs';
 import { useRef } from 'react';
 
-const Event = () => {
+const Reports = () => {
     const contactRef = useRef(null);
 
     return(
-        <div className="event mt-10">
-            <Navbar contactRef={contactRef} />
+        <div className="reports mt-10">
+            <Navbar />
             <Contact ref={contactRef} />
         </div>
     );
 }
 
-export default Event;
+export default Reports;

@@ -1,22 +1,46 @@
+import { motion } from 'framer-motion';
+
 const Hero = () => {
-    function handleClick() {
-        // Handle click event
-    }
+    const handleClick = () => { /* Handle click event */ };
 
     return (
-        <div className="hero flex flex-col md:flex-row m-5 md:ms-20 mt-20">
-            <div className="left-side text-left w-full md:w-1/2 grid gap-y-4 order-2 md:order-1">
-                <div className="text-1 font-bold text-4xl md:text-6xl lg:text-8xl">
+        <motion.div 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            transition={{ duration: 1 }}
+            className="hero flex flex-col md:flex-row m-5 md:ms-20 mt-20"
+        >
+            <motion.div 
+                initial={{ x: -100, opacity: 0 }} 
+                animate={{ x: 0, opacity: 1 }} 
+                transition={{ duration: 1 }}
+                className="left-side text-left w-full md:w-1/2 grid gap-y-4 order-2 md:order-1"
+            >
+                <motion.div 
+                    initial={{ y: 50, opacity: 0 }} 
+                    animate={{ y: 0, opacity: 1 }} 
+                    transition={{ duration: 0.8 }}
+                    className="text-1 font-bold text-4xl md:text-6xl lg:text-8xl"
+                >
                     <p>Bring your ideas to life!</p>
-                </div>
-                <div className="text-2 text-lg md:text-2xl md:py-4">
+                </motion.div>
+                <motion.div 
+                    initial={{ y: 50, opacity: 0 }} 
+                    animate={{ y: 0, opacity: 1 }} 
+                    transition={{ duration: 1, delay: 0.2 }}
+                    className="text-2 text-lg md:text-2xl md:py-4"
+                >
                     <p>
-                        Start your{' '}
-                        <span className="text-yellow-400 font-bold"w>Entrepreneurship Journey</span> with{' '}
+                        Start your <span className="text-yellow-400 font-bold">Entrepreneurship Journey</span> with{' '}
                         <span className="text-yellow-400 font-bold">InFED</span> today.
                     </p>
-                </div>
-                <div className="buttons flex flex-row gap-x-4 md:gap-x-16 items-start">
+                </motion.div>
+                <motion.div 
+                    initial={{ y: 50, opacity: 0 }} 
+                    animate={{ y: 0, opacity: 1 }} 
+                    transition={{ duration: 1, delay: 0.4 }}
+                    className="buttons flex flex-row gap-x-4 md:gap-x-16 items-start"
+                >
                     <button 
                         className="incubation-btn p-2 md:px-4 md:py-2 bg-black text-white border border-black rounded-md transition transform hover:-translate-y-1 hover:scale-105 shadow-sm hover:shadow-2xl"
                         onClick={handleClick}
@@ -29,12 +53,17 @@ const Hero = () => {
                     >
                         Join the Community
                     </button>
-                </div>
-            </div>
-            <div className="right-side w-full md:w-1/2 me-0 md:me-20 ms-0 md:ms-20 mt-10 md:mt-0 order-1 md:order-2 transition transform hover:scale-90">
+                </motion.div>
+            </motion.div>
+            <motion.div 
+                initial={{ scale: 0.8, opacity: 0 }} 
+                animate={{ scale: 1, opacity: 1 }} 
+                transition={{ duration: 1, delay: 0.5 }}
+                className="right-side w-full md:w-1/2 me-0 md:me-20 ms-0 md:ms-20 mt-10 md:mt-0 order-1 md:order-2"
+            >
                 <img src={require('./../../assests/images/HeroPlaceHolder.png')} alt="hero-img" className="hero-img" />
-            </div>
-        </div>
+            </motion.div>
+        </motion.div>
     );
 };
 
