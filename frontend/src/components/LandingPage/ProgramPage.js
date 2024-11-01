@@ -39,7 +39,7 @@ const Programme = () => {
       >
         {programs.map((program) => (
           <SwiperSlide key={program.id}>
-            <div className="flex flex-col mb-[100px] items-center gap-y-4 p-2  md:p-6 border border-gray-300 rounded-md hover:shadow-lg transition-transform duration-300 hover:scale-105">
+            <div className="flex flex-col mb-[100px] items-center gap-y-4 p-2  md:p-6 border border-gray-300 rounded-md hover:shadow-lg transition-transform duration-300 hover:scale-104">
               <img
                 src={program.image}
                 alt={program.title}
