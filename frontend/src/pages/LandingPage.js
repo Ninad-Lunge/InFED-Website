@@ -11,7 +11,7 @@ const LandingPage = () => {
   const contactRef = useRef(null);
 
   return (
-    <div className="LandingPage mt-[10px]">
+    <div className="LandingPage mt-5">
       <Navbar contactRef={contactRef} />
       <Hero />
       <Statistics />
