@@ -3,12 +3,11 @@ import Navbar from "../components/Navbar";
 import Contact from "../components/ContactUs";
 import Statistics from "../components/LandingPage/Statistics";
 import Objectives from "../components/LandingPage/Objectives";
-import Programme from "../components/LandingPage/Programme";
+import Programs from "../components/LandingPage/ProgramPage";
 import Partners from "../components/LandingPage/Partners";
-import { useRef } from 'react';
+import { useRef } from "react";
 
 const LandingPage = () => {
-
   const contactRef = useRef(null);
 
   return (
@@ -17,7 +16,7 @@ const LandingPage = () => {
       <Hero />
       <Statistics />
       <Objectives />
-      <Programme />
+      <Programs />
       <Partners />
       <Contact ref={contactRef} />
     </div>
