@@ -5,6 +5,7 @@ import Statistics from "../components/LandingPage/Statistics";
 import Objectives from "../components/LandingPage/Objectives";
 import Programs from "../components/LandingPage/ProgramPage";
 import Partners from "../components/LandingPage/Partners";
+import EventsCalendar from "../components/LandingPage/EventsCalendar";
 import { useRef } from "react";
 
 const LandingPage = () => {
@@ -17,6 +18,7 @@ const LandingPage = () => {
       <Statistics />
       <Objectives />
       <Programs />
+      <EventsCalendar/>
       <Partners />
       <Contact ref={contactRef} />
     </div>
