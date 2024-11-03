@@ -26,12 +26,55 @@ router.post('/add-event', async (req, res) => {
 });
 
 // Route to get all events
-router.get('/', async (req, res) => {
+router.get('/get-events', async (req, res) => {
     try {
-        const events = await Event.find();
-        res.status(200).json(events);
+        const events = await Event.find({});
+        res.json(events);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch events' });
+        console.error('Error fetching Events:', err);
+        res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+});
+
+// Route to get a single event by ID
+router.get('/get-event/:id', async (req, res) => {
+    try {
+        const event = await Event.findById(req.params.id);
+        if (!event) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(200).json(event);
+    } catch (error) {
+        console.error('Error fetching event:', error);
+        res.status(500).json({ error: 'Failed to fetch event' });
+    }
+});
+
+// Route to update an event by ID
+router.put('/update-event/:id', async (req, res) => {
+    try {
+        const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedEvent) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(200).json({ message: 'Event updated successfully', updatedEvent });
+    } catch (error) {
+        console.error('Error updating event:', error);
+        res.status(500).json({ error: 'Failed to update event' });
+    }
+});
+
+// Route to delete an event by ID
+router.delete('/delete-event/:id', async (req, res) => {
+    try {
+        const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+        if (!deletedEvent) {
+            return res.status(404).json({ error: 'Event not found' });
+        }
+        res.status(200).json({ message: 'Event deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        res.status(500).json({ error: 'Failed to delete event' });
     }
 });
 

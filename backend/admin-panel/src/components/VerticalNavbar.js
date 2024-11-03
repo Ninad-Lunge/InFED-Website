@@ -19,16 +19,16 @@ const VerticalNavbar = () => {
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-events')}>
         <FaCalendarPlus className="mr-2" /> Manage Events
       </button>
-      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-startup')}>
-        <FaRocket className="mr-2" /> Manage Startups
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-portfolio')}>
+        <FaRocket className="mr-2" /> Manage Portfolio
       </button>
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-schemes')}>
         <FaRupeeSign className="mr-2" /> Manage Schemes
       </button>
-      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-programs')}>
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-programs')}>
         <FaPencilAlt className="mr-2" /> Edit Programs
       </button>
-      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-about')}>
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-persons')}>
         <FaInfoCircle className="mr-2" /> Edit About Page
       </button>
 
