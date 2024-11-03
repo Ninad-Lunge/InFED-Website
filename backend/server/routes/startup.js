@@ -27,7 +27,17 @@ router.post('/add-startup', async (req, res) => {
 
 router.get('/get-startups', async (req, res) => {
     try {
-        const startups = await StartUp.find({}, 'name'); // Fetch only the name field
+        const startups = await StartUp.find({}); // Fetch only the name field
+        res.json(startups);
+    } catch (err) {
+        console.error('Error fetching startups:', err);
+        res.status(500).json({ message: 'Internal Server Error', error: err.message });
+    }
+});
+
+router.get('/get-startups-names', async (req, res) => {
+    try {
+        const startups = await StartUp.find({}, 'names'); // Fetch only the name field
         res.json(startups);
     } catch (err) {
         console.error('Error fetching startups:', err);

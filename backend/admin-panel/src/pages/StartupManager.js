@@ -222,7 +222,7 @@ const StartupManager = () => {
                     ))};
                 </select>
 
-                <div className="flex justify-end grid content-end">
+                <div className="ms-auto grid content-end">
                     <button 
                         type="submit" 
                         className="p-2 bg-blue-500 text-white rounded ring-2 ring-black-500 w-[200px] h-[40px]"
