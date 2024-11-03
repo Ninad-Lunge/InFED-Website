@@ -3,7 +3,7 @@ const router = express.Router();
 const StartUp = require('../models/Startup');
 
 router.post('/add-startup', async (req, res) => {
-    const { name, image, description, websiteLink, targetAudience, goals, achievements, schemes } = req.body;
+    const { name, image, description, websiteLink, targetAudience, goals, achievements, schemes, founders } = req.body;
 
     try{
         const newStartUp = new StartUp({
@@ -14,7 +14,8 @@ router.post('/add-startup', async (req, res) => {
             targetAudience,
             goals,
             achievements,
-            schemes
+            schemes,
+            founders
         });
 
         await newStartUp.save();
@@ -26,7 +27,7 @@ router.post('/add-startup', async (req, res) => {
 
 router.get('/get-startups', async (req, res) => {
     try {
-        const startups = await StartUp.find({});
+        const startups = await StartUp.find({}, 'name'); // Fetch only the name field
         res.json(startups);
     } catch (err) {
         console.error('Error fetching startups:', err);

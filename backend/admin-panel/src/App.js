@@ -6,6 +6,7 @@ import AddStartUp from './pages/AddStartUp';
 import PersonManager from './pages/PersonManager';
 import StartupManager from './pages/StartupManager';
 import SchemeManager from './pages/SchemeManager';
+import FounderManager from './pages/FounderManager';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/add-startup" element={<AddStartUp />} />
             <Route path="/manage-startup" element={<StartupManager />} />
             <Route path="/manage-schemes" element={<SchemeManager />} />
+            <Route path="/manage-founders" element={<FounderManager />} />
           </Routes>
         </div>
       </div>
