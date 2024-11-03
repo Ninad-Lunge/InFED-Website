@@ -57,12 +57,12 @@ const StartupDetails = () => {
 
             <div className="founders mx-6 md:mx-12 mt-12 text-left">
                 <h1 className="text-lg font-semibold text-[#F7A221]">Founders</h1>
-                <div className="col-span-3 mt-4 grid grid-cols-2 gap-14 mx-12">
+                <div className="col-span-3 mt-8 grid grid-cols-2 gap-14 mx-12">
                     {founders.map((founder, index) => (
                         <FounderCard key={index} founder={founder} />
                     ))}
                 </div>
-            </div>
+            </div> 
 
             <div className="achievements mx-6 md:mx-12 mt-12 mb-10 text-left">
                 <h1 className="text-lg font-semibold text-[#F7A221]">Achievements</h1>

@@ -18,7 +18,7 @@ const FounderManager = () => {
 
     const [startups, setStartups] = useState([]);
     const [founders, setFounders] = useState([]);
-    const [founderId, setFounderId] = useState([]);
+    const [founderId, setFounderId] = useState('');
 
     useEffect(() => {
         const fetchStartups = async () => {
@@ -26,15 +26,23 @@ const FounderManager = () => {
                 const response = await fetch('/api/get-startups-names');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                setStartups(data.map(startup => startup.name));
+    
+                // Check if data is an array and contains objects with `name` properties
+                if (Array.isArray(data) && data.every(item => item.name)) {
+                    setStartups(data.map(startup => startup.name));
+                } else {
+                    console.error('Unexpected data format:', data);
+                    setStartups([]); // Set an empty array if data is not as expected
+                }
             } catch (error) {
                 console.error('Error fetching startups:', error);
+                setStartups([]); // Set an empty array on error
             }
         };
-
+    
         fetchStartups();
     }, []);
-
+    
     useEffect(() => {
         const fetchFounders = async () => {
             try{
@@ -42,7 +50,7 @@ const FounderManager = () => {
                 const data = await response.json();
                 setFounders(data);
             } catch (error) {
-                console.error('Error fetching startups: ', error);
+                console.error('Error fetching founderss: ', error);
             }
         };
 
@@ -78,10 +86,7 @@ const FounderManager = () => {
                         : 'Founder added successfully!'
                 );
                 const newFounder = await response.json();
-                setFormData(prevData => ({
-                    ...prevData,
-                    founders: [...prevData.founders, newFounder]
-                }));
+                setFounders((prevFounders) => [...prevFounders, newFounder.founder]);
                 resetFormData();
             } else {
                 throw new Error('Failed to add founder');
@@ -223,36 +228,41 @@ const FounderManager = () => {
                     type="submit" 
                     className="p-2 bg-blue-500 text-white rounded ring-2 ring-black-500 w-[200px] h-[40px]"
                 >
-                    Add Founder
+                    {founderId ? 'Update Founder' : 'Add Founder'}
                 </button>
             </form>
 
             <h3 className="text-lg font-semibold mb-4">Founders List</h3>
             <ul className="border border-gray-400 p-2 rounded-md">
-                {founders.map((founder) => (
-                    <li
-                        key={founder._id}
-                        className="grid grid-cols-3 gap-x-6 p-1 mb-0.5 border border-gray-400"
-                    >
-                        <span className="col-span-2">{founder.name}</span>
-                        <div className="grid grid-cols-2 place-items-end">
-                            <button
-                                onClick={() => handleEdit(founder)}
-                                className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
+                {Array.isArray(founders) && founders.length > 0 ? (
+                    founders.map((founder) => (
+                        founder && founder.name ? (
+                            <li
+                                key={founder._id}
+                                className="grid grid-cols-3 gap-x-6 p-1 mb-0.5 border border-gray-400"
                             >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => deleteFounder(founder._id)}
-                                className="py-1 px-2 bg-red-500 text-white rounded"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </li>
-                ))}
+                                <span className="col-span-2">{founder.name}</span>
+                                <div className="grid grid-cols-2 place-items-end">
+                                    <button
+                                        onClick={() => handleEdit(founder)}
+                                        className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => deleteFounder(founder._id)}
+                                        className="py-1 px-2 bg-red-500 text-white rounded"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </li>
+                        ) : null
+                    ))
+                ) : (
+                    <p>No founders available.</p>
+                )}
             </ul>
-
         </div>
     );
 };

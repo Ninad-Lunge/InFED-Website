@@ -2,7 +2,7 @@ import { FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const FounderCard = ({ founder }) => {
     return(
-        <div className='founder-card flex px-4 py-12 hover:shadow-2xl justify-center'>
+        <div className='founder-card flex px-4 py-12 hover:shadow-2xl justify-between mx-auto rounded-lg'>
             <img 
                 src={founder.photo} 
                 alt={founder.name} 
