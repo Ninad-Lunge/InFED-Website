@@ -4,16 +4,17 @@ const Event = require('../models/Event');
 
 router.post('/add-event', async (req, res) => {
     try {
-        const { eventName, eventImage, eventShortDesc, eventDate, eventVenue, description } = req.body;
+        const {name, image, shortDesc, date, venue, description, mode} = req.body;
 
         // Create a new event instance
         const newEvent = new Event({
-            eventName,
-            eventImage,
-            eventShortDesc,
-            eventDate,
-            eventVenue,
-            description
+            name, 
+            image, 
+            shortDesc, 
+            date, 
+            venue, 
+            description, 
+            mode
         });
 
         // Save event to the database

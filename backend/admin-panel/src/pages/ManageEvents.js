@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 const ManageEvents = () => {
   const [formData, setFormData] = useState({
-    eventName: '',
-    eventImage: '',
-    eventShortDesc: '',
-    eventDate: '',
-    eventVenue: '',
-    description: '',   // Renamed to match the backend schema
+    name: '',
+    image: '',
+    shortDesc: '',
+    date: '',
+    venue: '',
+    description: '', 
+    mode: ''  // Renamed to match the backend schema
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -21,33 +22,35 @@ const ManageEvents = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { eventName, eventImage, eventShortDesc, eventDate, eventVenue, description } = formData;
+    const { name, image, shortDesc, date, venue, description, mode } = formData;
 
     try {
-      const response = await fetch('http://localhost:5000/api/add-event', {
+      const response = await fetch('/api/add-event', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          eventName,
-          eventImage,
-          eventShortDesc,
-          eventDate,
-          eventVenue,
+          name,
+          image,
+          shortDesc,
+          date,
+          venue,
           description,
+          mode
         })
       });
       
       if (response.ok) {
         setSuccessMessage('Event added successfully');
         setFormData({
-          eventName: '',
-          eventImage: '',
-          eventShortDesc: '',
-          eventDate: '',
-          eventVenue: '',
-          description: ''
+          name: '',
+          image: '',
+          shortDesc: '',
+          date: '',           
+          venue: '',
+          description: '', 
+          mode: ''
         });
       } else {
         setSuccessMessage('Failed to add event');
@@ -62,12 +65,13 @@ const ManageEvents = () => {
     <div className="add-event-form">
       <h2>Add New Event</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="eventName" placeholder="Event Name" value={formData.eventName} onChange={handleChange} required />
-        <input type="text" name="eventImage" placeholder="Event Image URL" value={formData.eventImage} onChange={handleChange} required />
-        <textarea name="eventShortDesc" placeholder="Event Short Description" value={formData.eventShortDesc} onChange={handleChange} required />
-        <input type="date" name="eventDate" value={formData.eventDate} onChange={handleChange} required />
-        <input type="text" name="eventVenue" placeholder="Event Venue" value={formData.eventVenue} onChange={handleChange} required />
+        <input type="text" name="name" placeholder="Event Name" value={formData.name} onChange={handleChange} required />
+        <input type="text" name="image" placeholder="Event Image URL" value={formData.image} onChange={handleChange} required />
+        <textarea name="shortDesc" placeholder="Event Short Description" value={formData.shortDesc} onChange={handleChange} required />
+        <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+        <input type="text" name="venue" placeholder="Event Venue" value={formData.venue} onChange={handleChange} required />
         <textarea name="description" placeholder="Event Detailed Description" value={formData.description} onChange={handleChange} required /> {/* Updated name to match schema */}
+        <textarea name="mode" placeholder="Mode of Conduction of Event" value={formData.mode} onChange={handleChange} required />
         <button type="submit">Add Event</button>
       </form>
       {successMessage && <p>{successMessage}</p>}
