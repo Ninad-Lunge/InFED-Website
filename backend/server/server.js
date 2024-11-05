@@ -1,8 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const peopleRoutes = require('./routes/people');
-const personRoutes = require('./routes/person');
-const eventRoutes = require('./routes/eventRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -11,6 +8,7 @@ const personRoutes = require('./routes/person');
 const startupRoutes = require('./routes/startup');
 const schemeRoutes = require('./routes/scheme');
 const founderRoutes = require('./routes/founder');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
@@ -29,12 +27,9 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/api', peopleRoutes);
 app.use('/api', personRoutes);
-<<<<<<< HEAD
 app.use('/api', eventRoutes);
-=======
 app.use('/api', startupRoutes);
 app.use('/api', schemeRoutes);
->>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 app.use('/api', founderRoutes);
 
 // Home route
