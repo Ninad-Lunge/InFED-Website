@@ -1,8 +1,5 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const peopleRoutes = require('./routes/people');
-const personRoutes = require('./routes/person');
-const eventRoutes = require('./routes/eventRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -11,6 +8,7 @@ const personRoutes = require('./routes/person');
 const startupRoutes = require('./routes/startup');
 const schemeRoutes = require('./routes/scheme');
 const founderRoutes = require('./routes/founder');
+const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
