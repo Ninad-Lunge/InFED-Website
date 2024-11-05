@@ -1,11 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-<<<<<<< HEAD
 const peopleRoutes = require('./routes/people');
 const personRoutes = require('./routes/person');
 const eventRoutes = require('./routes/eventRoutes');
-=======
->>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 const cors = require('cors');
 require('dotenv').config();
 
