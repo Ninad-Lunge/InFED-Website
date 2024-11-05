@@ -7,6 +7,7 @@ const peopleRoutes = require('./routes/people');
 const personRoutes = require('./routes/person');
 const startupRoutes = require('./routes/startup');
 const schemeRoutes = require('./routes/scheme');
+const eventRoutes = require('./routes/eventRoutes');
 const founderRoutes = require('./routes/founder');
 const eventRoutes = require('./routes/eventRoutes');
 
@@ -29,6 +30,7 @@ app.use('/api', peopleRoutes);
 app.use('/api', personRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', startupRoutes);
+app.use('/api', eventRoutes);
 app.use('/api', schemeRoutes);
 app.use('/api', founderRoutes);
 
