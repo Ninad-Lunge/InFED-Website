@@ -1,10 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-<<<<<<< HEAD
-import AddPersonForm from './pages/AddPersonForm';
+// import AddPersonForm from './pages/AddPersonForm';
 import AddEventForm from './pages/AddEventForm';
-=======
->>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 import VerticalNavbar from './components/VerticalNavbar';
 import Home from './pages/Home';
 import AddStartUp from './pages/AddStartUp';
@@ -20,18 +17,15 @@ function App() {
         <VerticalNavbar />
         <div className="px-5 flex-auto mt-2">
           <Routes>
-<<<<<<< HEAD
             <Route path="/" element={<AddEventForm />} />
             {/* <Route path="/calendar" element={<Calendar />} />
             <Route path="/profile" element={<Profile />} /> */}
-=======
             <Route path="/" element={<Home />} />
             <Route path="/edit-about" element={<PersonManager />} />
             <Route path="/add-startup" element={<AddStartUp />} />
             <Route path="/manage-startup" element={<StartupManager />} />
             <Route path="/manage-schemes" element={<SchemeManager />} />
             <Route path="/manage-founders" element={<FounderManager />} />
->>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
           </Routes>
         </div>
       </div>
