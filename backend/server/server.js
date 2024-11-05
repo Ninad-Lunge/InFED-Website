@@ -29,12 +29,9 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/api', peopleRoutes);
 app.use('/api', personRoutes);
-<<<<<<< HEAD
 app.use('/api', eventRoutes);
-=======
 app.use('/api', startupRoutes);
 app.use('/api', schemeRoutes);
->>>>>>> b1da84a7044115ef63b1cb0d9c0220f15c33b602
 app.use('/api', founderRoutes);
 
 // Home route
