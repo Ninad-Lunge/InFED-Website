@@ -16,6 +16,22 @@ const ManagePortfolio = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [startups, setStartups] = useState([]);
     const [startupId, setStartupId] = useState('');
+    const [schemes, setSchemes] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/get-schemes')
+            .then((response) => {
+                if(!response.ok){
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                const schemeNames = data.map((scheme) => scheme.name);
+                setSchemes(schemeNames);
+            })
+            .catch((error) => console.error('Error fetching schemes:', error));
+    }, []);
 
     useEffect(() => {
         const fetchStartups = async () => {
@@ -191,17 +207,19 @@ const ManagePortfolio = () => {
                     required
                 />
 
-                <label className="col">Select Schemes (Multi-select):</label>
+                <label className="col-span-3">Select Schemes (Multi-select):</label>
                 <select
                     name="schemes"
                     multiple
                     value={formData.schemes}
                     onChange={handleSchemeChange}
-                    className="p-2 border rounded"
+                    className="p-2 border rounded col-span-3"
                 >
-                    <option value="Scheme1">Scheme1</option>
-                    <option value="Scheme2">Scheme2</option>
-                    <option value="Scheme3">Scheme3</option>
+                    {schemes.map((scheme, index) => (
+                        <option key={index} value={scheme}>
+                            {scheme}
+                        </option>
+                    ))};
                 </select>
 
                 <div className="flex justify-end col-span-2 grid content-end">
