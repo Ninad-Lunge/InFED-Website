@@ -19,7 +19,7 @@ const Programme = () => {
   return (
     <div className="mb-[80px] px-5 md:px-10 lg:px-20 relative">
       {/* Title Section */}
-      <div className="flex justify-start text-2xl md:text-3xl font-semibold mb-[30px]">
+      <div className="flex justify-start text-2xl md:text-2+xl font-semibold mb-[30px]">
         <span>Our</span>
         <span className="ml-2 text-[#F7A221]">Programs</span>
       </div>

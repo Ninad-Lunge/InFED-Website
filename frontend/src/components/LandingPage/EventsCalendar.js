@@ -53,9 +53,9 @@ const EventsCalendar = () => {
   }, []);
 
   return (
-    <div className="mb-[80px] px-5 md:px-10 lg:px-20 relative">
+    <div className="mb-20 px-5 md:px-10 lg:px-20 relative mb-[100px]">
       {/* Header */}
-      <div className="flex justify-start text-2xl md:text-3xl font-semibold mb-[30px]">
+      <div className="flex justify-start text-2xl md:text-2xl font-semibold mb-20">
         <span>Events</span>
         <span className="ml-2 text-[#F7A221]">Calendar</span>
       </div>
@@ -80,9 +80,9 @@ const EventsCalendar = () => {
                     isLeft ? "justify-end mr-auto" : "justify-start ml-auto"
                   } w-1/2 mb-8`}
                 >
-                  {/* Timeline dot */}
+                  {/* Timeline dot - Removed border-gray-300 from className */}
                   <div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white border-4 border-gray-300 z-10"
+                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white border-4 z-10"
                     style={{ borderColor: monthColor }}
                   />
 
