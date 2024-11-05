@@ -27,7 +27,7 @@ const PeopleGrid = () => {
         <div className='mx-12'>
             {groupedPeople.map((group, index) => (
                 <div key={index}>
-                    <h1 className='text-3xl text-left my-10'>{group.heading} at <span className="text-[#F7A221] font-bold"> InFED</span></h1>
+                    <h1 className='text-2xl text-left my-10'>{group.heading} at <span className="text-[#F7A221] font-bold"> InFED</span></h1>
                     {group.people.length > 0 ? (
                         <div className="grid grid-cols-2 scale-75 md:grid-cols-4 md:scale-100 gap-6 mx-10">
                             {group.people.map((person, personIndex) => (

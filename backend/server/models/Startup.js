@@ -8,7 +8,7 @@ const startupSchema = new mongoose.Schema({
     targetAudience: { type: String, required: true },
     goals: { type: String, required: true },
     achievements: { type: String, required: true },
-    schemes: { type: [String] }
+    schemes: { type: [String] },
 });
 
 const Startup = mongoose.model('Startup', startupSchema);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import StartupCard from './StartupCard';
 
-const StartupsGrid = () => {
+const StartupsGrid = ({ scheme }) => {
     const [startups, setStartups] = useState([]);
 
     useEffect(() => {
@@ -12,16 +12,21 @@ const StartupsGrid = () => {
                 }
                 return response.json();
             })
-            .then((data) => setStartups(data))
+            .then((data) => {
+                // If scheme is specified, filter startups by scheme
+                const filteredStartups = scheme 
+                    ? data.filter((startup) => startup.schemes.includes(scheme))
+                    : data; // If no scheme, keep all startups
+                setStartups(filteredStartups);
+            })
             .catch((error) => console.error('Error fetching startups:', error));
-    }, []);
+    }, [scheme]); // Rerun if scheme changes
 
     return (
         <div className="grid grid-cols-2 scale-75 md:scale-100 md:grid-cols-4 gap-4 md:mx-12">
-            {startups.map((startup, index) => {
-                // console.log('Rendering startup:', startup);
-                return <StartupCard key={index} startup={startup} />;
-            })}
+            {startups.map((startup, index) => (
+                <StartupCard key={index} startup={startup} />
+            ))}
         </div>
     );    
 };

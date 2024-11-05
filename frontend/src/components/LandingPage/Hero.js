@@ -8,7 +8,7 @@ const Hero = () => {
             initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }} 
             transition={{ duration: 1 }}
-            className="hero flex flex-col md:flex-row m-5 md:ms-20 mt-20"
+            className="hero flex flex-col md:flex-row m-5 md:ms-20 mt-10"
         >
             <motion.div 
                 initial={{ x: -100, opacity: 0 }} 

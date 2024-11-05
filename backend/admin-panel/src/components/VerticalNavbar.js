@@ -25,8 +25,8 @@ const VerticalNavbar = () => {
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-schemes')}>
         <FaRupeeSign className="mr-2" /> Manage Schemes
       </button>
-      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-programs')}>
-        <FaPencilAlt className="mr-2" /> Edit Programs
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-founders')}>
+        <FaEdit className="mr-2" /> Manage Founders
       </button>
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/edit-about')}>
         <FaInfoCircle className="mr-2" /> Edit About Page
