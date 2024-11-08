@@ -9,7 +9,6 @@ const startupRoutes = require('./routes/startup');
 const schemeRoutes = require('./routes/scheme');
 const eventRoutes = require('./routes/eventRoutes');
 const founderRoutes = require('./routes/founder');
-const eventRoutes = require('./routes/eventRoutes');
 
 const app = express();
 
