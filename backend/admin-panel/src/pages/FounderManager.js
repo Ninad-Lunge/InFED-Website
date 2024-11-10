@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 
 const FounderManager = () => {
     const [successMessage, setSuccessMessage] = useState('');
-
     const [formData, setFormData] = useState({
         name: '',
         photo: '',
@@ -26,31 +25,29 @@ const FounderManager = () => {
                 const response = await fetch('/api/get-startups');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-    
-                // Check if data is an array and contains objects with `name` properties
                 if (Array.isArray(data) && data.every(item => item.name)) {
                     setStartups(data.map(startup => startup.name));
                 } else {
                     console.error('Unexpected data format:', data);
-                    setStartups([]); // Set an empty array if data is not as expected
+                    setStartups([]);
                 }
             } catch (error) {
                 console.error('Error fetching startups:', error);
-                setStartups([]); // Set an empty array on error
+                setStartups([]);
             }
         };
     
         fetchStartups();
     }, []);
-    
+
     useEffect(() => {
         const fetchFounders = async () => {
-            try{
+            try {
                 const response = await fetch('/api/get-founders');
                 const data = await response.json();
                 setFounders(data);
             } catch (error) {
-                console.error('Error fetching founderss: ', error);
+                console.error('Error fetching founders:', error);
             }
         };
 
@@ -69,30 +66,40 @@ const FounderManager = () => {
         }
     };
 
-    const submitFounder = async () => {
+    const submitFounder = async (e) => {
+        e.preventDefault();
+
         if (formData.name.trim() === '' || formData.role.trim() === '') {
             alert("Please enter at least the founder's name and role.");
             return;
         }
 
         try {
-            const response = await fetch('/api/add-founder', {
-                method: 'POST',
+            const response = await fetch(founderId ? `/api/update-founder/${founderId}` : '/api/add-founder', {
+                method: founderId ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
             if (response.ok) {
-                setSuccessMessage('Founder added successfully.');
+                setSuccessMessage(`Founder ${founderId ? 'updated' : 'added'} successfully.`);
                 const newFounder = await response.json();
-                setFounders((prevFounders) => [...prevFounders, newFounder.founder]);
+                
+                if (founderId) {
+                    setFounders(prevFounders =>
+                        prevFounders.map(f => (f._id === founderId ? newFounder : f))
+                    );
+                } else {
+                    setFounders(prevFounders => [...prevFounders, newFounder]);
+                }
+
                 resetFormData();
             } else {
-                throw new Error('Failed to add founder');
+                throw new Error(`Failed to ${founderId ? 'update' : 'add'} founder`);
             }
         } catch (error) {
-            console.error('Error adding founder:', error);
-            setSuccessMessage('Failed to add founder. Please try again.');
+            console.error(`Error ${founderId ? 'updating' : 'adding'} founder:`, error);
+            setSuccessMessage(`Failed to ${founderId ? 'update' : 'add'} founder. Please try again.`);
         }
     };
 
@@ -109,6 +116,38 @@ const FounderManager = () => {
             role: '',
             startup: ''
         });
+        setFounderId('');
+    };
+
+    const handleEdit = (founder) => {
+        setFormData({
+            name: founder.name || '',
+            photo: founder.photo || '',
+            socialLinks: {
+                instagram: founder.socialLinks.instagram || '',
+                linkedin: founder.socialLinks.linkedin || '',
+                twitter: founder.socialLinks.twitter || ''
+            },
+            testimonial: founder.testimonial || '',
+            role: founder.role || '',
+            startup: founder.startup || ''
+        });
+        setFounderId(founder._id);
+    };
+
+    const deleteFounder = async (id) => {
+        try {
+            const response = await fetch(`/api/delete-founder/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                setFounders(prevFounders => prevFounders.filter(founder => founder._id !== id));
+                setSuccessMessage('Founder deleted successfully.');
+            } else {
+                throw new Error('Failed to delete founder');
+            }
+        } catch (error) {
+            console.error('Error deleting founder:', error);
+            setSuccessMessage('Failed to delete founder. Please try again.');
+        }
     };
 
     return (
@@ -181,7 +220,8 @@ const FounderManager = () => {
                     <option value="Co-Founder">Co-Founder</option>
                 </select>
                 <select 
-                    name="startup" value={formData.startup} 
+                    name="startup" 
+                    value={formData.startup} 
                     onChange={handleFounderChange}
                     className="p-2 border rounded col-span-2"
                 >
@@ -226,7 +266,7 @@ const FounderManager = () => {
                         ) : null
                     ))
                 ) : (
-                    <p>No founders available.</p>
+                    <p className="text-center">No founders available.</p>
                 )}
             </ul>
         </div>

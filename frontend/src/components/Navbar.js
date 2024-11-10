@@ -46,7 +46,7 @@ const Navbar = ({ contactRef }) => {
             </div>
 
             <div>
-                <button className='join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md text-sm' onClick={handleClick}>
+                <button className='join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md text-sm hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform' onClick={handleClick}>
                     Join the Community
                 </button>
             </div>

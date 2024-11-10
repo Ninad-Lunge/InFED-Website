@@ -42,13 +42,13 @@ const Hero = () => {
                     className="buttons flex flex-row gap-x-4 md:gap-x-16 items-start"
                 >
                     <button 
-                        className="incubation-btn p-2 md:px-4 md:py-2 bg-black text-white border border-black rounded-md transition transform hover:-translate-y-1 hover:scale-105 shadow-sm hover:shadow-2xl"
+                        className="incubation-btn p-2 md:px-4 md:py-2 bg-black text-white border border-black rounded-md transform hover:-translate-y-1 shadow-sm hover:shadow-[4px_4px_0px_#8D8D8D] hover:scale-105 transition-transform"
                         onClick={handleClick}
                     >
                         Apply for Incubation
                     </button>
                     <button 
-                        className="join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md transition transform hover:scale-105 hover:-translate-y-1 shadow-sm hover:shadow-2xl"
+                        className="join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform"
                         onClick={handleClick}
                     >
                         Join the Community

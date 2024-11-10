@@ -15,7 +15,7 @@ const EventGrid = () => {
   }, [])
   
   return (
-    <div className="grid grid-cols-2 scale-75">
+    <div className="grid grid-cols-2 gap-12 mx-24">
       {events.map((event,index) => {
         return <EventCard key = {index} event = {event} />;
       })}

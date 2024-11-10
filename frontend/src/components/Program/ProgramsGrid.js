@@ -18,7 +18,7 @@ const ProgramGrid = () => {
     }, []);
 
     return(
-        <div className="program-grid grid grid-cols-1 scale-75 md:scale-100 md:grid-cols-3 gap-4 md:mx-12 justify-items-center">
+        <div className="program-grid grid grid-cols-1 scale-75 md:scale-100 lg:grid-cols-3 md:grid-cols-2 gap-4 md:mx-12 justify-items-center">
             {schemes.map((scheme, index) => {
                 return <ProgramCard key={index} scheme={scheme} />
             })};

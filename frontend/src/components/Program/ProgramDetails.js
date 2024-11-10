@@ -27,7 +27,7 @@ const ProgramDetails = () => {
                 <h1 className='text-3xl font-bold'>{scheme.name}</h1>
                 <img src={scheme.image} alt={scheme.name} className="image p-10 w-60 m-4" />
                 <a href={scheme.link}>
-                <button className="apply-btn border border-black py-2 px-8 rounded m-4 transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_1px_#F7A221,6px_6px_2px_2px_rgba(0,0,0,0.8)]">
+                <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-1 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1">
                     Apply Now
                 </button>
                 </a>

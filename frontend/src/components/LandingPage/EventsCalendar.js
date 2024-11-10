@@ -55,7 +55,7 @@ const EventsCalendar = () => {
   return (
     <div className="mb-[80px] px-5 md:px-10 lg:px-20 relative">
       {/* Header */}
-      <div className="flex justify-start text-2xl md:text-3xl font-semibold mb-[30px]">
+      <div className="flex justify-start text-2xl font-semibold mb-[30px]">
         <span>Events</span>
         <span className="ml-2 text-[#F7A221]">Calendar</span>
       </div>
