@@ -123,20 +123,24 @@ const SchemeManager = () => {
         });
     };
 
-    const deleteScheme = async (id) =>{
-        try{
-            const response = await fetch(`/api/delete-scheme:${id}`, {
+    const deleteScheme = async (id) => {
+        try {
+            const response = await fetch(`/api/delete-scheme/${id}`, {
                 method: 'DELETE',
             });
             const data = await response.json();
-            if(response.ok){
+            if (response.ok) {
                 setSchemes(schemes.filter((p) => p._id !== id));
                 setSuccessMessage(data.message);
+            } else {
+                setSuccessMessage('Failed to delete scheme.');
             }
         } catch (error) {
-            setSuccessMessage('Error deleting scheme.')
+            setSuccessMessage('Error deleting scheme.');
+            console.error('Error deleting scheme:', error);
         }
-    }
+    };
+    
 
     return (
         <div className="scheme-manager">

@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef, useState as useStateReact } from 'react';
-import { FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+// import { FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { BsTwitterX, BsLinkedin, BsInstagram } from "react-icons/bs";
 
 const PeopleGrid = () => {
     const [people, setPeople] = useState([]);
-    const [activeIndex, setActiveIndex] = useStateReact(null); // Track active section index
+    const [activeIndex, setActiveIndex] = useStateReact(null);
     const headings = [
         'Honourable Advisory Board', 
         'ISMS', 
@@ -89,13 +90,13 @@ const PeopleGrid = () => {
                                         </div>
                                         <div className="links flex flex-row gap-x-6 mt-4">
                                             <a href={person.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                                                <FaInstagram className="text-black" size={30} />
+                                                <BsInstagram className="text-black" size={25} />
                                             </a>
                                             <a href={person.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                                                <FaLinkedin className="text-black" size={30} />
+                                                <BsLinkedin className="text-black" size={25} />
                                             </a>
                                             <a href={person.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                                                <FaTwitter className="text-black" size={30} />
+                                                <BsTwitterX className="text-black" size={25} />
                                             </a>
                                         </div>
                                     </div>
