@@ -3,7 +3,7 @@ import { FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const PeopleGrid = () => {
     const [people, setPeople] = useState([]);
-    const headings = ['Honourable Advisory Board', 'Mentors', 'Independent Observers', 'Consultants', 'Executive Team'];
+    const headings = ['Honourable Advisory Board', 'ISMS', 'Mentors', 'Executive Team', 'Independent Observers', 'Consultants'];
 
     useEffect(() => {
         fetch('/api/people')
