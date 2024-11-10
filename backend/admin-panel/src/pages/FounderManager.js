@@ -23,7 +23,7 @@ const FounderManager = () => {
     useEffect(() => {
         const fetchStartups = async () => {
             try {
-                const response = await fetch('/api/get-startups-names');
+                const response = await fetch('/api/get-startups');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
     
@@ -58,33 +58,32 @@ const FounderManager = () => {
     }, []);
 
     const handleFounderChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+        const { name, value } = e.target;
+        if (name in formData.socialLinks) {
+            setFormData(prevData => ({
+                ...prevData,
+                socialLinks: { ...prevData.socialLinks, [name]: value }
+            }));
+        } else {
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
-    const submitFounder = async (e) => {
-        e.preventDefault();
+    const submitFounder = async () => {
+        if (formData.name.trim() === '' || formData.role.trim() === '') {
+            alert("Please enter at least the founder's name and role.");
+            return;
+        }
 
         try {
-            const url = founderId
-                ? `/api/update-founder/${founderId}`
-                : "/api/add-founder";
-            const method = founderId ? "PUT" : "POST";
-
-            const response = await fetch(url, {
-                method,
+            const response = await fetch('/api/add-founder', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
 
             if (response.ok) {
-                setSuccessMessage(
-                    founderId
-                        ? 'Founder updated successfully!'
-                        : 'Founder added successfully!'
-                );
+                setSuccessMessage('Founder added successfully.');
                 const newFounder = await response.json();
                 setFounders((prevFounders) => [...prevFounders, newFounder.founder]);
                 resetFormData();
@@ -112,42 +111,9 @@ const FounderManager = () => {
         });
     };
 
-    const handleEdit = (founder) => {
-        setFounderId(founder._id);
-        setFormData({
-            name: founder.name,
-            photo: founder.photo,
-            socialLinks: {
-                instagram: founder.socialLinks.instagram,
-                linkedin: founder.socialLinks.linkedin,
-                twitter: founder.socialLinks.twitter,
-            },
-            testimonial: founder.testimonial,
-            role: founder.role,
-            startup: founder.startup
-        });
-    };    
-
-    const deleteFounder = async (id) => {
-        try {
-            const response = await fetch(`/api/delete-founder/${id}`, {
-                method: 'DELETE',
-            });
-            const data = await response.json();
-            
-            if (response.ok) {
-                setFounders(founders.filter((founder) => founder._id !== id));
-                setSuccessMessage(data.message);
-            }
-        } catch (error) {
-            console.error('Error deleting founder:', error);
-            setSuccessMessage('Error deleting founder');
-        }
-    };    
-
     return (
         <div className='founder-manager p-4'>
-            <h1 className="title text-2xl font-bold py-4">Manage Founders</h1>
+            <h1 className="title text-2xl font-bold py-4">Manage Founder</h1>
 
             {successMessage && (
                 <div className="success-msg text-green-500 mb-4">

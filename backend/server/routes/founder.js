@@ -77,9 +77,9 @@ router.delete('/delete-founder/:id', async (req, res) => {
     const { id } = req.params;
 
     try{
-        const deleteFounder = await Founder.findByIdAndDelete(id);
+        const deletedscheme = await Scheme.findByIdAndDelete(id);
 
-        if(!deleteFounder) {
+        if(!deletedscheme) {
             return res.status(404).json({ message: 'Founder not found' });
         }
 
