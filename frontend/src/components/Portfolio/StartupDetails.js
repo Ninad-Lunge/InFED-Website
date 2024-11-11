@@ -7,7 +7,7 @@ import FounderCard from './FounderCard';
 const StartupDetails = () => {
     const { id } = useParams();
     const [startup, setStartup] = useState(null);
-    const [founders, setFounders] = useState([]); // State for founders
+    const [founders, setFounders] = useState([]);
     const contactRef = useRef(null);
 
     useEffect(() => {
@@ -16,13 +16,13 @@ const StartupDetails = () => {
             .then((res) => res.json())
             .then((data) => {
                 setStartup(data);
-                fetchFounders(data.name); // Fetch founders by startup name
+                fetchFounders(data.name);
             })
             .catch((err) => console.error(err));
     }, [id]);
 
     const fetchFounders = (startupName) => {
-        fetch(`/api/get-founders/${startupName}`) // Call the new endpoint
+        fetch(`/api/get-founders/${startupName}`)
             .then((res) => res.json())
             .then((data) => setFounders(data))
             .catch((err) => console.error('Error fetching founders:', err));
@@ -33,30 +33,35 @@ const StartupDetails = () => {
     return (
         <div className='mt-5'>
             <Navbar contactRef={contactRef} />
-            <div className="flex flex-col md:flex-row mt-12 mx-1 gap-x-2 md:mx-12 gap-y-8 md:gap-x-14">
+            <div className="flex flex-col md:flex-row mt-12 mx-1 gap-x-2 md:mx-24 gap-y-8 md:gap-x-14">
                 <div className="image flex flex-col items-center md:basis-1/5">
-                    <img src={startup.image} alt={startup.name} className="rounded-lg w-40 h-40 md:w-[200px] md:h-[200px] object-contain hover:shadow-lg" />
-                    <h1 className="text-xl font-semibold mt-4 md:m-2">
+                    <img src={startup.image} alt={startup.name} className="rounded-full w-40 h-40 md:w-[200px] md:h-[200px] object-contain shadow-xl mb-6" />
+                    <h1 className="text-xl font-semibold md:m-2">
                         {startup.name}
                     </h1>
-                    <div className="link border border-black rounded py-1 px-4 mx-2 hover:bg-black">
-                        <a href={startup.websiteLink} className="text-black hover:text-white inline-block">Visit Website</a>
-                    </div>
+                    <button 
+                        className="border border-black rounded py-1 px-4 mx-2 mt-4 hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1"
+                        onClick={() => window.open(startup.websiteLink, '_blank')}
+                    > 
+                        Visit Website
+                    </button>
                 </div>
                 <div className="desc md:basis-4/5 grid place-content-start text-left">
-                    <h1 className='text-lg font-semibold text-[#F7A221]'>Description</h1>
-                    <p className='mt-2 text-base'>{startup.description}</p>
+                    <h1 className='text-xl font-semibold text-[#F7A221] mb-7'>Description</h1>
+                    <p className='text-base'>{startup.description}</p>
 
-                    <h1 className='text-lg font-semibold text-[#F7A221] mt-4'>Target Audience</h1>
-                    <p className='mt-2 text-base'>{startup.targetAudience}</p>
-
-                    <h1 className='text-lg font-semibold text-[#F7A221] mt-4'>Goals</h1>
-                    <p className='mt-2 text-base'>{startup.goals}</p>
+                    <h1 className='text-xl font-semibold text-[#F7A221] mt-12 mb-7'>Target Audience</h1>
+                    <p className='text-base'>{startup.targetAudience}</p>
                 </div>
             </div>
 
-            <div className="founders mx-6 md:mx-12 mt-12 text-left">
-                <h1 className="text-lg font-semibold text-[#F7A221]">Founders</h1>
+            <div className='mt-12 md:mx-24 text-left'>
+                <h1 className='text-xl font-semibold text-[#F7A221] mt-12 mb-7'>Goals</h1>
+                <p className='text-base'>{startup.goals}</p>
+            </div>
+
+            <div className="founders mx-6 md:mx-24 mt-12 text-left">
+                <h1 className="text-xl font-semibold text-[#F7A221]">Founders</h1>
                 <div className="col-span-3 mt-8 grid grid-cols-2 gap-14 mx-12">
                     {founders.map((founder, index) => (
                         <FounderCard key={index} founder={founder} />
@@ -64,9 +69,9 @@ const StartupDetails = () => {
                 </div>
             </div> 
 
-            <div className="achievements mx-6 md:mx-12 mt-12 mb-10 text-left">
-                <h1 className="text-lg font-semibold text-[#F7A221]">Achievements</h1>
-                <p className='text-left mt-2 text-base'>{startup.achievements}</p>
+            <div className="achievements mx-6 md:mx-24 mt-12 mb-10 text-left">
+                <h1 className="text-xl font-semibold text-[#F7A221] mb-7">Achievements</h1>
+                <p className='text-left text-base'>{startup.achievements}</p>
             </div>
 
             <Contact ref={contactRef} />

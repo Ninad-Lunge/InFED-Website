@@ -27,7 +27,7 @@ router.post('/add-startup', async (req, res) => {
 
 router.get('/get-startups', async (req, res) => {
     try {
-        const startups = await StartUp.find({}); // Fetch only the name field
+        const startups = await StartUp.find({});
         res.json(startups);
     } catch (err) {
         console.error('Error fetching startups:', err);

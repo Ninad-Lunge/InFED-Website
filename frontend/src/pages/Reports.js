@@ -7,7 +7,10 @@ const Reports = () => {
 
     return(
         <div className="reports mt-10">
-            <Navbar />
+            <Navbar contactRef={contactRef} />
+            <div className="flex flex-col items-center">
+                <h1 className='text-2xl text-left my-10 '>Our <span className="text-[#F7A221] font-bold"> Reports</span></h1>
+            </div>
             <Contact ref={contactRef} />
         </div>
     );
