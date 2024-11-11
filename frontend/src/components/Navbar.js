@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Navbar = ({ contactRef }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     function handleToggleMenu() {
         setIsMenuOpen(!isMenuOpen);
@@ -16,6 +17,7 @@ const Navbar = ({ contactRef }) => {
     function handleClickonImage() {
         navigate('/LandingPage');
     }
+    const isActive = (path) => location.pathname === path ? 'text-[#F7A221]' : 'text-black';
 
     return (
         <nav className="navbar font-sans flex flex-col md:flex-row justify-between px-5 mb-5 items-center sticky top-0 left-0 right-0 bg-white z-40">
@@ -36,13 +38,13 @@ const Navbar = ({ contactRef }) => {
             </button>
 
             <div className={`links ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row gap-y-4 md:gap-1 gap-x-6 md:gap-x-14 mb-4 md:mb-0 text-sm`}>
-                <Link to="/about">About</Link>
-                <Link to="/program">Program</Link>
-                <Link to="/portfolio">Portfolio</Link>
-                <Link to="/initiatives">Initiatives</Link>
-                <Link to="/event">Events</Link>
-                <Link to="/reports">Reports</Link>
-                <button onClick={handleClick}>Contact</button>
+                <Link to="/about" className={isActive('/about')}>About</Link>
+                <Link to="/program" className={isActive('/program')}>Program</Link>
+                <Link to="/portfolio" className={isActive('/portfolio')}>Portfolio</Link>
+                <Link to="/initiatives" className={isActive('/initiatives')}>Initiatives</Link>
+                <Link to="/event" className={isActive('/event')}>Events</Link>
+                <Link to="/reports" className={isActive('/reports')}>Reports</Link>
+                <button onClick={handleClick} className={isActive('#contact')}>Contact</button>
             </div>
 
             <div>
