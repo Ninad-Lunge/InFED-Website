@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import React from 'react';
 
 const EventCard = ({ event }) => {
     const formattedDate = new Date(event.date).toLocaleDateString("en-GB", {
@@ -8,18 +6,21 @@ const EventCard = ({ event }) => {
         month: "long",
         year: "numeric"
     });
+
     return (
-        <div className="w-[650px] h-[350px] flex flex-row items-center shadow-lg shadow-black/30 rounded-lg relative overflow-hidden transition-all duration-200 border-0 hover:border-r-[6px] hover:border-[#F7A221]">
-            <div className="p-6 flex flex-row gap-x-5">
-                <img src={event.image} alt={event.name} className="h-[280px] w-[260px]  " />
-                <div className="flex flex-col align-items:start">
-                    <h1 className="text-2xl flex content-start" style={{ color: '#F7A221' }}>
+        <div className="w-full md:w-auto h-auto flex flex-col md:flex-row items-center shadow-md shadow-black/20 rounded-lg relative overflow-hidden transition-all duration-300 border-0 hover:shadow-[8px_4px_0px_0px_#F7A221]">
+            <div className="p-4 md:p-5 flex flex-col md:flex-row gap-y-4 md:gap-x-4">
+                <img src={event.image} alt={event.name} className="h-40 w-full md:h-[250px] md:w-[220px] object-cover rounded-lg" />
+                
+                <div className="flex flex-col justify-between md:align-items:start md:pl-3">
+                    <h1 className="text-xl md:text-2xl" style={{ color: '#F7A221' }}>
                         {event.name}
                     </h1>
-                    <p className="mt-6 flex content-start text-left">{event.shortDesc}</p>
-                    <h5 className="mt-6 flex content-start">{formattedDate}</h5>
-                    <h5 className="flex content-start">{event.mode} - {event.venue}</h5>
-                    <button className="mt-auto mb-2 w-40 bg-white hover:bg-white-700 text-black font-bold py-2 px-4 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 hover:border-black transition-transform duration-200">
+                    <p className="mt-3 text-gray-700">{event.shortDesc}</p>
+                    <h5 className="mt-3 text-gray-500">{formattedDate}</h5>
+                    <h5 className="text-gray-500">{event.mode} - {event.venue}</h5>
+                    
+                    <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-4 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform duration-200">
                         Know More
                     </button>
                 </div>
@@ -27,4 +28,5 @@ const EventCard = ({ event }) => {
         </div>
     );
 };
+
 export default EventCard;

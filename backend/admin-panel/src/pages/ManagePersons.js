@@ -166,13 +166,12 @@ const ManagePersons = () => {
           className="p-2 border rounded col-span-2"
         >
           <option value="">Select Heading</option>
-          <option value="Honourable Advisory Board">
-            Honourable Advisory Board
-          </option>
+          <option value="Honourable Advisory Board">Honourable Advisory Board</option>
+          <option value="Honourable Advisory Board">ISMS</option>
+          <option value="Executive Team">Executive Team</option>
           <option value="Mentors">Mentors</option>
           <option value="Independent Observers">Independent Observers</option>
           <option value="Consultants">Consultants</option>
-          <option value="Executive Team">Executive Team</option>
         </select>
         <input
           type="text"

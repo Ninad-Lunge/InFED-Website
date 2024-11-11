@@ -5,7 +5,6 @@ import Home from './pages/Home';
 import ManagePortfolio from './pages/ManagePortfolio';
 import ManageSchemes from './pages/ManageSchemes';
 import ManageEvents from './pages/ManageEvents';
-import ManagePrograms from './pages/ManagePrograms';
 import ManagePersons from './pages/ManagePersons';
 import FounderManager from './pages/FounderManager';
 
@@ -20,7 +19,6 @@ function App() {
             <Route path="//manage-events" element={<ManageEvents />} />    
             <Route path="/manage-portfolio" element={<ManagePortfolio />} />    
             <Route path="/manage-schemes" element={<ManageSchemes />} />
-            <Route path="/manage-programs" element={<ManagePrograms />} />
             <Route path="/manage-persons" element={<ManagePersons />} />
             <Route path="/manage-founders" element={<FounderManager />} />
           </Routes>

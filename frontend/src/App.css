@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.fixed-navbar {
+  position: sticky;
+  top: 75px;
+  left: 0;
+  right: 0;
+  z-index: 30; /* Make sure it's on top of other content */
+  background-color: white; /* Ensure the background doesn't get transparent */
+  box-shadow: 0 4px 2px -2px gray; /* Optional: Adds a shadow to make it stand out */
+}

@@ -7,7 +7,7 @@ const Initiatives = () => {
 
     return(
         <div className="initiatives mt-10">
-            <Navbar />
+            <Navbar contactRef={contactRef}/>
             <Contact ref={contactRef} />
         </div>
     );
