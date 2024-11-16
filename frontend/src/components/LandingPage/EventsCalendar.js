@@ -97,7 +97,7 @@ const EventsCalendar = () => {
 
                   {/* Card */}
                   <div
-                    className={`flex flex-col w-[380px] h-[240px] rounded-xl shadow-lg relative ${
+                    className={`flex flex-col w-auto h-[240px] rounded-xl shadow-lg relative ${
                       isLeft ? "mr-8" : "ml-8"
                     }`}
                     style={{
@@ -121,7 +121,7 @@ const EventsCalendar = () => {
                           </h4>
                         </div>
                       </div>
-                      <div className="flex flex-col relative items-end items-center justify-center ml-auto">
+                      <div className="flex flex-col relative items-center justify-center ml-auto">
                         <h1
                           className="text-2xl font-semibold"
                           style={{ color: monthColor }}
