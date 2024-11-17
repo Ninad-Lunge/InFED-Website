@@ -16,6 +16,9 @@ const VerticalNavbar = () => {
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/')}>
         <FaHome className="mr-2" /> Home
       </button>
+      <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-initiatives')}>
+        <FaHome className="mr-2" /> Manage Initiatives
+      </button>
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-events')}>
         <FaCalendarPlus className="mr-2" /> Manage Events
       </button>
