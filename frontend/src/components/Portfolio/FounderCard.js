@@ -1,8 +1,9 @@
-import { FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+// import { FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { BsTwitterX, BsLinkedin, BsInstagram } from "react-icons/bs";
 
 const FounderCard = ({ founder }) => {
     return(
-        <div className='founder-card flex px-4 py-12 hover:shadow-2xl justify-between mx-auto rounded-lg'>
+        <div className='founder-card flex px-6 py-12 hover:shadow-2xl justify-between mx-auto rounded-lg border border-gray-200'>
             <img 
                 src={founder.photo} 
                 alt={founder.name} 
@@ -10,16 +11,17 @@ const FounderCard = ({ founder }) => {
             />
             <div className='flex flex-col ms-8'>
                 <h1 className='mb-auto'>{founder.testimonial}</h1>
-                <h1 className='text-[#F7A221] font-bold'>{founder.name}<span className='text-black font-semibold ms-2'>{founder.role} | {founder.startup}</span></h1>
+                <h1 className='text-[#F7A221] font-semibold'>{founder.name}</h1>
+                <p className='text-black font-base'>{founder.role} | {founder.startup}</p>
                 <div className="links flex flex-row gap-x-6 mt-4">
-                    <a href={founder.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                        <FaInstagram className="text-black" size={30} />
-                    </a>
                     <a href={founder.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                        <FaLinkedin className="text-black" size={30} />
+                        <BsLinkedin className="text-black" size={25} />
                     </a>
                     <a href={founder.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                        <FaTwitter className="text-black" size={30} />
+                        <BsTwitterX className="text-black" size={25} />
+                    </a>
+                    <a href={founder.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                        <BsInstagram className="text-black" size={25} />
                     </a>
                 </div>
             </div>

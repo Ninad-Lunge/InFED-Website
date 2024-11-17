@@ -12,7 +12,7 @@ const EventCard = ({ event }) => {
             <div className="p-4 md:p-5 flex flex-col md:flex-row gap-y-4 md:gap-x-4">
                 <img src={event.image} alt={event.name} className="h-40 w-full md:h-[250px] md:w-[220px] object-cover rounded-lg" />
                 
-                <div className="flex flex-col justify-between md:align-items:start md:pl-3">
+                <div className="flex flex-col justify-between md:align-items:start md:pl-3 text-left">
                     <h1 className="text-xl md:text-2xl" style={{ color: '#F7A221' }}>
                         {event.name}
                     </h1>

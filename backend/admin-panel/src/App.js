@@ -7,6 +7,7 @@ import ManageSchemes from './pages/ManageSchemes';
 import ManageEvents from './pages/ManageEvents';
 import ManagePersons from './pages/ManagePersons';
 import FounderManager from './pages/FounderManager';
+import ManageInitiatives from './pages/ManageInitiatives';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <div className="px-5 flex-auto mt-2">
           <Routes>
             <Route path="/" element={<Home />} />    
-            <Route path="//manage-events" element={<ManageEvents />} />    
+            <Route path="/manage-events" element={<ManageEvents />} />  
+            <Route path="/manage-initiatives" element={<ManageInitiatives/>}/>
             <Route path="/manage-portfolio" element={<ManagePortfolio />} />    
             <Route path="/manage-schemes" element={<ManageSchemes />} />
             <Route path="/manage-persons" element={<ManagePersons />} />

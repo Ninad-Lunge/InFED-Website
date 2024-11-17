@@ -32,7 +32,7 @@ router.get('/get-events', async (req, res) => {
         const events = await Event.find({});
         res.json(events);
     } catch (error) {
-        console.error('Error fetching Events:', err);
+        console.error('Error fetching Events:', error);
         res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
 });

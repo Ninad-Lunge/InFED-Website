@@ -5,6 +5,7 @@ const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
   const [page, setPage] = useState(0);
   const observerTarget = useRef(null);
+  const containerRef = useRef(null);
 
   // Generate dummy events for demonstration
   const generateEvents = (startDate, count) => {
@@ -63,12 +64,20 @@ const EventsCalendar = () => {
       {/* Scrollable container */}
       <div className="relative w-full max-w-6xl mx-auto">
         {/* Timeline container with fixed height and scroll */}
-        <div className="relative w-full h-[600px] overflow-y-auto overflow-x-hidden px-4">
-          {/* Central timeline line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300" />
+        <div 
+          ref={containerRef}
+          className="relative w-full h-[600px] overflow-y-auto overflow-x-hidden px-4"
+        >
+          {/* Timeline line wrapper - This ensures the line stays fixed within the scrollable area */}
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="sticky top-0 w-full h-full">
+              {/* Central timeline line */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300" />
+            </div>
+          </div>
 
           {/* Events container */}
-          <div className="relative">
+          <div className="relative min-h-full">
             {events.map((event, index) => {
               const isLeft = index % 2 === 0;
               const monthColor = index % 4 < 2 ? "#F7A221" : "#6B7280";
@@ -88,7 +97,7 @@ const EventsCalendar = () => {
 
                   {/* Card */}
                   <div
-                    className={`flex flex-col w-[380px] h-[240px] rounded-xl shadow-lg relative ${
+                    className={`flex flex-col w-auto h-[240px] rounded-xl shadow-lg relative ${
                       isLeft ? "mr-8" : "ml-8"
                     }`}
                     style={{
@@ -112,7 +121,7 @@ const EventsCalendar = () => {
                           </h4>
                         </div>
                       </div>
-                      <div className="flex flex-col relative items-end items-center justify-center ml-auto">
+                      <div className="flex flex-col relative items-center justify-center ml-auto">
                         <h1
                           className="text-2xl font-semibold"
                           style={{ color: monthColor }}
