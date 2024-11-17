@@ -60,7 +60,7 @@ const Hero = () => {
                 animate={{ 
                     scale: 1, 
                     opacity: 1, 
-                    y: [0, -15, 0],
+                    // y: [0, -15, 0],
                     // x: [0, 10, 0]
                 }} 
                 transition={{ 
