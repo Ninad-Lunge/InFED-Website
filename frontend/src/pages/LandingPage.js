@@ -7,6 +7,7 @@ import Programs from "../components/LandingPage/ProgramPage";
 import Partners from "../components/LandingPage/Partners";
 import EventsCalendar from "../components/LandingPage/EventsCalendar";
 import { useRef } from "react";
+import Objs from "../components/LandingPage/Objs";
 
 const LandingPage = () => {
   const contactRef = useRef(null);
@@ -17,6 +18,7 @@ const LandingPage = () => {
       <Hero />
       <Statistics />
       <Objectives />
+      <Objs/>
       <Programs />
       <EventsCalendar/>
       <Partners />
