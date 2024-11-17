@@ -9,6 +9,7 @@ const startupRoutes = require('./routes/startup');
 const schemeRoutes = require('./routes/scheme');
 const eventRoutes = require('./routes/eventRoutes');
 const founderRoutes = require('./routes/founder');
+const initiativesRoutes = require('./routes/initiatives');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use('/api', startupRoutes);
 app.use('/api', eventRoutes);
 app.use('/api', schemeRoutes);
 app.use('/api', founderRoutes);
+app.use('/api', initiativesRoutes);
 
 // Home route
 app.get('/', (req, res) => {
