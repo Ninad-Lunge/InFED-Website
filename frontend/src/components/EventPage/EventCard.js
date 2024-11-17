@@ -28,5 +28,4 @@ const EventCard = ({ event }) => {
         </div>
     );
 };
-
 export default EventCard;
