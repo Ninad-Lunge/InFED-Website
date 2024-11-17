@@ -35,11 +35,11 @@ const Objectives = () => {
         <div class="relative mx-auto">
           <div class="group relative flex cursor-pointer after:shadow-lg after:shadow-black">
             {/* <!-- hidden slide --> */}
-            <div class="relative -left-10 top-0 z-10 w-96 h-60 rounded-xl bg-[#F7A221] text-base font-semibold leading-7 transition-all duration-700 group-hover:-left-32 group-hover:bg-white group-hover:border-2 border-[#F7A221]">
+            <div class="relative -left-10 top-0 z-10 w-96 h-72 rounded-xl bg-[#F7A221] text-base font-semibold leading-7 transition-all duration-700 group-hover:-left-32 group-hover:bg-white group-hover:border-2 border-[#F7A221]">
               <div class="flex flex-col gap-4">
                 {/* <!-- item 1 --> */}
                 <div class="flex items-center gap-2">
-                  <div class="flex flex-col items-center rounded-xl justify-center gap-1 w-10 h-60 ">
+                  <div class="flex flex-col items-center rounded-xl justify-center gap-1 w-10 h-72 ">
                     <p class="text-l font-bold text-white transform -rotate-90 w-60 group-hover:text-[#F7A221]">
                       CURATED MENTORING
                     </p>
@@ -51,7 +51,7 @@ const Objectives = () => {
               </div>
             </div>
             {/* <!-- image --> */}
-            <div class="absolute -right-20 top-0 z-20 flex w-96 h-60 flex-col gap-4 self-end border-dashed border-2 border-[#000]-900 rounded-xl rounded-l-2xl bg-[#FFFFFF] text-base font-semibold leading-7 transition-all duration-700 group-hover:-right-14 group-hover:w-80 group-hover:rounded-l-lg overflow-hidden">
+            <div class="absolute -right-20 top-0 z-20 flex w-96 h-72 flex-col gap-4 self-end border-dashed border-2 border-[#000]-900 rounded-xl rounded-l-2xl bg-[#FFFFFF] text-base font-semibold leading-7 transition-all duration-700 group-hover:-right-14 group-hover:w-80 group-hover:rounded-l-lg overflow-hidden">
               <div class="w-full h-full">
                 <img
                   src={IIMNimg}
