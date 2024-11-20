@@ -22,7 +22,7 @@ const ManageEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('/api/get-events');
+      const response = await fetch('https://infed-website-kkva.onrender.com/api/get-events');
       if (response.ok) {
         const data = await response.json();
         setEvents(data);
@@ -56,7 +56,7 @@ const ManageEvents = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        const response = await fetch(`/api/delete-event/${id}`, {
+        const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-event/${id}`, {
           method: 'DELETE'
         });
         
@@ -77,8 +77,8 @@ const ManageEvents = () => {
     e.preventDefault();
     try {
       const url = editingId 
-        ? `/api/update-event/${editingId}`
-        : '/api/add-event';
+        ? `https://infed-website-kkva.onrender.com/api/update-event/${editingId}`
+        : 'https://infed-website-kkva.onrender.com/api/add-event';
       
       const method = editingId ? 'PUT' : 'POST';
       

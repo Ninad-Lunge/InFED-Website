@@ -13,7 +13,7 @@ const InitiativesCard = () => {
   useEffect(() => {
     const fetchInitiatives = async () => {
       try {
-        const response = await fetch('/api/get-initiatives');
+        const response = await fetch('https://infed-website-kkva.onrender.com/api/get-initiatives');
         const data = await response.json();
         setInitiatives(data);
       } catch (error) {
@@ -35,7 +35,7 @@ const InitiativesCard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/add-initiative', {
+      const response = await fetch('https://infed-website-kkva.onrender.com/api/add-initiative', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

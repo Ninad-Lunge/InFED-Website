@@ -93,7 +93,7 @@ const InitiativesCard = () => {
   useEffect(() => {
     const fetchInitiatives = async () => {
       try {
-        const response = await fetch('/api/get-initiatives');
+        const response = await fetch('https://infed-website-kkva.onrender.com/api/get-initiatives');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -137,8 +137,8 @@ const InitiativesCard = () => {
       }
 
       const endpoint = editingInitiative 
-        ? `/api/update-initiative/${editingInitiative.id}`
-        : '/api/add-initiative';
+        ? `https://infed-website-kkva.onrender.com/api/update-initiative/${editingInitiative.id}`
+        : 'https://infed-website-kkva.onrender.com/api/add-initiative';
 
       const method = editingInitiative ? 'PUT' : 'POST';
 
@@ -191,7 +191,7 @@ const InitiativesCard = () => {
     setDeletingIds(prev => new Set([...prev, initiativeId]));
     
     try {
-      const response = await fetch(`/api/delete-initiative/${initiativeId}`, {
+      const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-initiative/${initiativeId}`, {
         method: 'DELETE',
       });
 

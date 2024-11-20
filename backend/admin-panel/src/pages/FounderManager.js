@@ -22,7 +22,7 @@ const FounderManager = () => {
     useEffect(() => {
         const fetchStartups = async () => {
             try {
-                const response = await fetch('/api/get-startups');
+                const response = await fetch('https://infed-website-kkva.onrender.com/api/get-startups');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
                 if (Array.isArray(data) && data.every(item => item.name)) {
@@ -43,7 +43,7 @@ const FounderManager = () => {
     useEffect(() => {
         const fetchFounders = async () => {
             try {
-                const response = await fetch('/api/get-founders');
+                const response = await fetch('https://infed-website-kkva.onrender.com/api/get-founders');
                 const data = await response.json();
                 setFounders(data);
             } catch (error) {
@@ -75,7 +75,7 @@ const FounderManager = () => {
         }
 
         try {
-            const response = await fetch(founderId ? `/api/update-founder/${founderId}` : '/api/add-founder', {
+            const response = await fetch(founderId ? `https://infed-website-kkva.onrender.com/api/update-founder/${founderId}` : 'https://infed-website-kkva.onrender.com/api/add-founder', {
                 method: founderId ? 'PUT' : 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
@@ -137,7 +137,7 @@ const FounderManager = () => {
 
     const deleteFounder = async (id) => {
         try {
-            const response = await fetch(`/api/delete-founder/${id}`, { method: 'DELETE' });
+            const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-founder/${id}`, { method: 'DELETE' });
             if (response.ok) {
                 setFounders(prevFounders => prevFounders.filter(founder => founder._id !== id));
                 setSuccessMessage('Founder deleted successfully.');
