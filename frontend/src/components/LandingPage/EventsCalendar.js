@@ -5,6 +5,7 @@ import { ArrowDownCircle } from "lucide-react";
 const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
   const containerRef = useRef(null);
+  const [timelineHeight, setTimelineHeight] = useState(0);
 
   // Fetch events from the backend
   useEffect(() => {
@@ -18,6 +19,13 @@ const EventsCalendar = () => {
     };
 
     fetchEvents();
+  }, []);
+
+  useEffect(() => {
+    // Dynamically update the timeline height based on the scrollable content
+    if (containerRef.current) {
+      setTimelineHeight(containerRef.current.scrollHeight);
+    }
   }, []);
 
   return (
@@ -38,7 +46,10 @@ const EventsCalendar = () => {
           {/* Timeline line */}
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             <div className="sticky top-0 w-full h-full">
-              <div className="absolute left-1/2 transform -translate-x-1/2 min-h-full w-1 bg-gray-300" />
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300"
+                style={{ width: "2px", height: `${timelineHeight}px` }}
+              />{" "}
             </div>
           </div>
 
@@ -110,7 +121,7 @@ const EventsCalendar = () => {
                         className="font-semibold text-lg text-end mr-3 mt-3 absolute bottom-3 right-3"
                         style={{ color: monthColor }}
                       >
-                          Know More
+                        Know More
                       </h5>
                     </div>
                   </div>
