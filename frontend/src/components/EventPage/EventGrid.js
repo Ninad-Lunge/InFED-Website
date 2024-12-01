@@ -5,7 +5,7 @@ const EventGrid = () => {
   const [events, setEvent] = useState([]);
 
   useEffect(() => {
-    fetch('/api/get-events').then((response) => {
+    fetch('https://infed-website-kkva.onrender.com/api/get-events').then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

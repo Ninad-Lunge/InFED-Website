@@ -18,7 +18,7 @@ const ManagePersons = () => {
   useEffect(() => {
     const fetchPersons = async () => {
       try {
-        const response = await fetch("/api/people");
+        const response = await fetch("https://infed-website-kkva.onrender.com/api/people");
         const data = await response.json();
         setPersons(data);
       } catch (error) {
@@ -46,8 +46,8 @@ const ManagePersons = () => {
 
     try {
       const url = personId
-        ? `/api/update-person/${personId}`
-        : "/api/add-person";
+        ? `https://infed-website-kkva.onrender.com/api/update-person/${personId}`
+        : "https://infed-website-kkva.onrender.com/api/add-person";
       const method = personId ? "PUT" : "POST";
 
       const response = await fetch(url, {
@@ -95,7 +95,7 @@ const ManagePersons = () => {
   // Delete a person
   const deletePerson = async (id) => {
     try {
-      const response = await fetch(`/api/delete-person/${id}`, {
+      const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-person/${id}`, {
         method: "DELETE",
       });
       const data = await response.json();

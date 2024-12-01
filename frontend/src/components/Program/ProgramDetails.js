@@ -11,7 +11,7 @@ const ProgramDetails = () => {
     const [scheme, setScheme] = useState(null);
 
     useEffect(() => {
-        fetch(`/api/get-scheme/${id}`)
+        fetch(`https://infed-website-kkva.onrender.com/api/get-scheme/${id}`)
             .then((res) => res.json())
             .then((data) => setScheme(data))
             .catch((err) => console.error(err));
