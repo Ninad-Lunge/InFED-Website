@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
+const cors = require("cors");
 
 router.post('/add-event', async (req, res) => {
     try {
