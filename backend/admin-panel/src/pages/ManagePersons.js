@@ -170,7 +170,7 @@ const ManagePersons = () => {
           <option value="Honourable Advisory Board">ISMS</option>
           <option value="Executive Team">Executive Team</option>
           <option value="Mentors">Mentors</option>
-          <option value="Independent Observers">Independent Observers</option>
+          <option value="Independent Observers">Independent Observer</option>
           <option value="Consultants">Consultants</option>
         </select>
         <input

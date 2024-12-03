@@ -9,8 +9,8 @@ const PeopleGrid = () => {
         'Honourable Advisory Board', 
         'ISMS', 
         'Mentors', 
-        'Executive Team', 
-        'Independent Observers', 
+        'Executive Team',
+        'Independent Observer', 
         'Consultants'
     ];
 
