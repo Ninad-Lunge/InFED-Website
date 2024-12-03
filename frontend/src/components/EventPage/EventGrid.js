@@ -7,15 +7,39 @@ const EventGrid = () => {
   const [activeFilter, setActiveFilter] = useState('upcoming');
 
   useEffect(() => {
-    fetch('https://infed-website-kkva.onrender.com/api/get-events').then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
+    fetch('https://infed-website-kkva.onrender.com/api/get-events')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setEvents(data);
+        filterEvents(data, 'upcoming');
+      })
+      .catch((error) => console.error("Error fetching Events", error));
+  }, []);
+
+  const filterEvents = (eventsData, filter) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const filtered = eventsData.filter((event) => {
+      const eventDate = new Date(event.date);
+      eventDate.setHours(0, 0, 0, 0);
+      
+      if (filter === 'upcoming') {
+        return eventDate >= today;
+      } else {
+        return eventDate < today;
       }
-      return response.json();
-    }).then((data) => setEvent(data)).catch((error) =>  console.error("Error fetching Events",error)
-    );
-  }, [])
-  
+    });
+
+    setFilteredEvents(filtered);
+    setActiveFilter(filter);
+  };
+
   return (
     <div className="container mx-auto px-4">
       <div className="mb-8 flex gap-4">
