@@ -1,56 +1,31 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { ArrowDownCircle } from "lucide-react";
 
 const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
-  const [page, setPage] = useState(0);
-  const observerTarget = useRef(null);
   const containerRef = useRef(null);
+  const [timelineHeight, setTimelineHeight] = useState(0);
 
-  // Generate dummy events for demonstration
-  const generateEvents = (startDate, count) => {
-    const months = [];
-    const date = new Date(startDate);
-
-    for (let i = 0; i < count; i++) {
-      months.push({
-        id: i,
-        date: new Date(date.setMonth(date.getMonth() + 1)),
-        title: "Flutter UI Hackathon",
-        type: "In-person",
-        time: "2pm - 3pm",
-        description:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-      });
-    }
-    return months;
-  };
-
-  // Load more events when scrolling
+  // Fetch events from the backend
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setEvents((prev) => [
-            ...prev,
-            ...generateEvents(new Date(2024, prev.length, 1), 6),
-          ]);
-          setPage((prev) => prev + 1);
-        }
-      },
-      { threshold: 1.0 }
-    );
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get("/api/get-events"); // Replace with your actual backend route
+        setEvents(response.data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
-    }
-
-    return () => observer.disconnect();
+    fetchEvents();
   }, []);
 
-  // Initial load
   useEffect(() => {
-    setEvents(generateEvents(new Date(2024, 0, 1), 6));
+    // Dynamically update the timeline height based on the scrollable content
+    if (containerRef.current) {
+      setTimelineHeight(containerRef.current.scrollHeight);
+    }
   }, []);
 
   return (
@@ -63,16 +38,18 @@ const EventsCalendar = () => {
 
       {/* Scrollable container */}
       <div className="relative w-full max-w-6xl mx-auto">
-        {/* Timeline container with fixed height and scroll */}
-        <div 
+        {/* Timeline container */}
+        <div
           ref={containerRef}
           className="relative w-full h-[600px] overflow-y-auto overflow-x-hidden px-4"
         >
-          {/* Timeline line wrapper - This ensures the line stays fixed within the scrollable area */}
+          {/* Timeline line */}
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             <div className="sticky top-0 w-full h-full">
-              {/* Central timeline line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-300" />
+              <div
+                className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300"
+                style={{ width: "2px", height: `${timelineHeight}px` }}
+              />{" "}
             </div>
           </div>
 
@@ -84,18 +61,18 @@ const EventsCalendar = () => {
 
               return (
                 <div
-                  key={event.id}
+                  key={event._id}
                   className={`flex ${
                     isLeft ? "justify-end mr-auto" : "justify-start ml-auto"
                   } w-1/2 mb-8`}
                 >
                   {/* Timeline dot */}
                   <div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white border-4 border-gray-300 z-10"
+                    className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-white border-4 z-10"
                     style={{ borderColor: monthColor }}
                   />
 
-                  {/* Card */}
+                  {/* Event Card */}
                   <div
                     className={`flex flex-col w-auto h-[240px] rounded-xl shadow-lg relative ${
                       isLeft ? "mr-8" : "ml-8"
@@ -108,16 +85,14 @@ const EventsCalendar = () => {
                   >
                     <div className="flex flex-row p-5">
                       <div>
-                        <h1 className="text-2xl font-semibold">
-                          {event.title}
-                        </h1>
+                        <h1 className="text-2xl font-semibold">{event.name}</h1>
                         <div className="flex flex-row">
                           <div
                             className="w-2 h-2 rounded-full mt-2 mr-2"
                             style={{ backgroundColor: monthColor }}
                           />
                           <h4 className="text-gray-600 text-left mr-auto">
-                            {event.type}
+                            {event.mode}
                           </h4>
                         </div>
                       </div>
@@ -126,22 +101,24 @@ const EventsCalendar = () => {
                           className="text-2xl font-semibold"
                           style={{ color: monthColor }}
                         >
-                          {event.date.toLocaleDateString("en-US", {
+                          {new Date(event.date).toLocaleDateString("en-US", {
                             month: "short",
                             day: "numeric",
                           })}
                         </h1>
-                        <h1 className="text-sm">{event.time}</h1>
+                        <h1 className="text-sm">{event.time || "TBA"}</h1>
                       </div>
                     </div>
                     <div>
                       <h4 className="text-left mr-auto pl-5">
-                        {event.description}
+                        {event.description && event.description.length > 200
+                          ? event.description.substring(0, 200) + "..."
+                          : event.description || "No description available."}
                       </h4>
                     </div>
                     <div>
                       <h5
-                        className="font-semibold text-lg text-end mr-3 mt-3"
+                        className="font-semibold text-lg text-end mr-3 mt-3 absolute bottom-3 right-3"
                         style={{ color: monthColor }}
                       >
                         Know More
@@ -151,17 +128,6 @@ const EventsCalendar = () => {
                 </div>
               );
             })}
-
-            {/* Infinite scroll trigger */}
-            <div
-              ref={observerTarget}
-              className="flex justify-center items-center p-4"
-            >
-              <ArrowDownCircle
-                className="animate-bounce text-gray-400"
-                size={32}
-              />
-            </div>
           </div>
         </div>
       </div>

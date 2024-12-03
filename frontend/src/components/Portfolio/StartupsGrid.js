@@ -5,7 +5,7 @@ const StartupsGrid = ({ scheme }) => {
     const [startups, setStartups] = useState([]);
 
     useEffect(() => {
-        fetch('/api/get-startups')
+        fetch('https://infed-website-kkva.onrender.com/api/get-startups')
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

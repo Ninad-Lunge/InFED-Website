@@ -3,7 +3,7 @@ import { BsTwitterX, BsLinkedin, BsInstagram } from "react-icons/bs";
 
 const FounderCard = ({ founder }) => {
     return(
-        <div className='founder-card flex px-6 py-12 hover:shadow-2xl justify-between mx-auto rounded-lg border border-gray-200'>
+        <div className='founder-card flex px-6 py-12 hover:shadow-2xl justify-between mx-auto rounded-lg border border-c'>
             <img 
                 src={founder.photo} 
                 alt={founder.name} 

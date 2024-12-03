@@ -9,15 +9,15 @@ const PeopleGrid = () => {
         'Honourable Advisory Board', 
         'ISMS', 
         'Mentors', 
-        'Executive Team', 
-        'Independent Observers', 
+        'Executive Team',
+        'Independent Observer', 
         'Consultants'
     ];
 
     const headingRefs = useRef(headings.map(() => React.createRef()));
 
     useEffect(() => {
-        fetch('/api/people')
+        fetch('https://infed-website-kkva.onrender.com/api/people')
             .then((response) => response.json())
             .then((data) => setPeople(data))
             .catch((error) => console.error('Error fetching people:', error));

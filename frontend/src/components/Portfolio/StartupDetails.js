@@ -12,7 +12,7 @@ const StartupDetails = () => {
 
     useEffect(() => {
         // Fetch startup details
-        fetch(`/api/get-startups/${id}`)
+        fetch(`https://infed-website-kkva.onrender.com/api/get-startups/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setStartup(data);
@@ -22,7 +22,7 @@ const StartupDetails = () => {
     }, [id]);
 
     const fetchFounders = (startupName) => {
-        fetch(`/api/get-founders/${startupName}`)
+        fetch(`https://infed-website-kkva.onrender.com/api/get-founders/${startupName}`)
             .then((res) => res.json())
             .then((data) => setFounders(data))
             .catch((err) => console.error('Error fetching founders:', err));
