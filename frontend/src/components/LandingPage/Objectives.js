@@ -17,7 +17,7 @@ const Objectives = () => {
 
       {/* Subtitle Section */}
       <div className="mt-[30px] text-lg md:text-xl">
-        We give <span className="text-[#F7A221] font-bold">Everything</span> it takes.
+        We enable <span className="text-[#F7A221] font-bold">Everything</span> it takes.
       </div>
 
       {/* Description Section */}
