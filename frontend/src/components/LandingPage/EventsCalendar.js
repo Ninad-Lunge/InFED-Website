@@ -11,7 +11,7 @@ const EventsCalendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("/api/get-events"); // Replace with your actual backend route
+        const response = await axios.get("https://infed-website-kkva.onrender.com/api/get-events"); // Replace with your actual backend route
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);

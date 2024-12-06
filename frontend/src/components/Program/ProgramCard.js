@@ -14,7 +14,7 @@ const ProgramCard = ({ scheme }) => {
     } 
 
      return(
-        <div className="p-6 hover:shadow-2xl hover:rounded-2xl cursor-pointer flex flex-row w-96 h-60 gap-x-6 border border-gray-200 rounded-md" onClick={handleClick}>
+        <div className="p-6 hover:shadow-2xl hover:rounded-2xl cursor-pointer flex flex-row w-auto h-60 gap-x-6 border border-gray-200 rounded-md" onClick={handleClick}>
             <img src={scheme.image} alt={scheme.name} className="w-40 h-40 object-contain rounded self-center" />
             <div className="flex flex-col justify-between items-center my-8">
                 <h2 className="text-lg font-bold mb-1">{scheme.name}</h2>

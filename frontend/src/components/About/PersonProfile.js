@@ -76,7 +76,7 @@ const PeopleGrid = () => {
                         {group.people.length > 0 ? (
                             <div className="grid grid-cols-2 scale-75 md:grid-cols-4 md:scale-100 gap-6 mx-10">
                                 {group.people.map((person, personIndex) => (
-                                    <div key={personIndex} className="person w-[240px] h-[380px] rounded-lg flex flex-col items-center p-8 shadow-sm transition transform hover:shadow-2xl">
+                                    <div key={personIndex} className="person w-[240px] h-max rounded-lg flex flex-col items-center p-8 shadow-sm transition transform hover:shadow-2xl">
                                         <img
                                             className="w-[170px] h-[170px] mb-3 rounded-full border border-yellow-400 object-contain"
                                             src={person.image}
