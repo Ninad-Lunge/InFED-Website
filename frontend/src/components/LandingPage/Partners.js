@@ -1,13 +1,24 @@
 import React from 'react';
-import partner from '../../assests/images/partners.png'; // Adjust the path if needed
+import partner from '../../assests/images/partners.png';
+import { motion } from 'framer-motion';
 
 const Partners = () => {
   return (
     <div className="mb-[80px] px-5 md:px-10 lg:px-20">
-      <div className="flex justify-start text-2xl font-semibold mb-5">
-        <span>Our</span>
-        <span className="ml-2 text-[#F7A221]">Partners</span>
-      </div>
+      <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ 
+            opacity: 1, 
+            x: 0,
+            transition: {
+              duration: 0.6
+            }
+          }}
+          className="flex items-center text-2xl md:text-3xl font-bold mb-8"
+        >
+          <span className="text-gray-800">Our</span>
+          <span className="ml-3 text-[#F7A221]">Partners</span>
+      </motion.div>
 
       {/* Marquee Container towards left */}
       <div className="relative overflow-hidden h-[120px]">

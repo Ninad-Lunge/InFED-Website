@@ -44,7 +44,7 @@ const Contact = forwardRef((props, ref) => {
 
             <hr className="bg-white my-2 mx-20"/>
 
-            <div className="copyright mt-20 pb-10 ms-20">
+            <div className="copyright mt-20 pb-10 mx-20">
                 <p className="text-white text-left">Copyright © InFED 2024 - 2025 privacy policy terms of use</p>
             </div>
 

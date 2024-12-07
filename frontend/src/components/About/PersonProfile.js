@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef, useState as useStateReact } from 'react';
-// import { FaLinkedin, FaInstagram } from 'react-icons/fa';
-import { BsTwitterX, BsLinkedin, BsInstagram } from "react-icons/bs";
+import React, { useEffect, useState, useRef } from 'react';
+import { BsTwitterX, BsLinkedin, BsEnvelope } from "react-icons/bs";
 
 const PeopleGrid = () => {
     const [people, setPeople] = useState([]);
-    const [activeIndex, setActiveIndex] = useStateReact(null);
+    const [activeIndex, setActiveIndex] = useState(null);
     const headings = [
         'Honourable Advisory Board', 
         'ISMC', 
@@ -38,7 +37,7 @@ const PeopleGrid = () => {
         window.addEventListener('scroll', handleScroll);
 
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [setActiveIndex]);
+    }, []);
 
     const groupedPeople = headings.map(heading => ({
         heading,
@@ -74,36 +73,54 @@ const PeopleGrid = () => {
                             {group.heading} at <span className="text-[#F7A221] font-bold"> InFED</span>
                         </h1>
                         {group.people.length > 0 ? (
-                            <div className="grid grid-cols-2 scale-75 md:grid-cols-3 md:scale-100 gap-6 mx-10">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-4">
                                 {group.people.map((person, personIndex) => (
-                                    <div key={personIndex} className="person w-[400px] h-[450px] rounded-lg flex flex-col items-center p-8 shadow-sm transition transform hover:shadow-2xl">
-                                        <img
-                                            className="w-[170px] h-[170px] mb-3 rounded-full border border-yellow-400 object-contain"
-                                            src={person.image}
-                                            alt="profile-image"
-                                        />
-                                        <div className="name m-2">
-                                            <p className="font-semibold text-lg">{person.name}</p>
-                                        </div>
-                                        <div className="designation mb-2">
-                                            <p className="text-base text-gray-400">{person.designation}</p>
-                                        </div>
-                                        <div className="links flex flex-row gap-x-6 mt-4">
-                                            <a href={person.socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                                                <BsInstagram className="text-black" size={25} />
-                                            </a>
-                                            <a href={person.socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
-                                                <BsLinkedin className="text-black" size={25} />
-                                            </a>
-                                            <a href={person.socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                                                <BsTwitterX className="text-black" size={25} />
-                                            </a>
+                                    <div 
+                                        key={personIndex} 
+                                        className="person w-full max-w-[400px] mx-auto bg-white rounded-lg shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl flex flex-col"
+                                    >
+                                        <div className="flex flex-col items-center p-6 flex-grow">
+                                            <img
+                                                className="w-48 h-48 mb-4 rounded-full border-2 border-[#F7A221] object-cover shadow-md"
+                                                src={person.image}
+                                                alt={`${person.name} profile`}
+                                            />
+                                            <div className="text-center mb-4 flex flex-col items-center">
+                                                <h2 className="font-bold text-xl text-gray-800">{person.name}</h2>
+                                                <p className="text-gray-500 text-base text-center break-words max-w-full px-2 mt-2">
+                                                    {person.designation}
+                                                </p>
+                                            </div>
+                                            <div className="flex justify-center space-x-6 mt-auto pb-2">
+                                                <a 
+                                                    href={person.socialLinks.linkedin} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                >
+                                                    <BsLinkedin size={25} />
+                                                </a>
+                                                <a 
+                                                    href={`mailto:${person.email || ''}`} 
+                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                >
+                                                    <BsEnvelope size={25} />
+                                                </a>
+                                                <a 
+                                                    href={person.socialLinks.twitter} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                >
+                                                    <BsTwitterX size={25} />
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <p className="text-gray-500">No people found for this heading.</p>
+                            <p className="text-gray-500 text-center">No people found for this heading.</p>
                         )}
                     </div>
                 ))}

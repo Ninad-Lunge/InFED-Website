@@ -1,28 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import SISF from "../../assests/images/SISF.png";
-
-const programs = [
-  { id: 1, title: "Startup India Seed Fund Scheme (SISF)", image: SISF },
-  { id: 2, title: "Program 2", image: SISF },
-  { id: 3, title: "Program 3", image: SISF },
-  { id: 4, title: "Program 4", image: SISF },
-  { id: 5, title: "Program 5", image: SISF },
-];
-
 const Programme = () => {
+  const [programs, setPrograms] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      try {
+        const response = await fetch("https://infed-website-kkva.onrender.com/api/get-schemes");
+        const data = await response.json();
+        setPrograms(data);
+      } catch (error) {
+        console.error("Error fetching programs:", error);
+      }
+    };
+
+    fetchPrograms();
+  }, []);
+
+  const handleClick = (program) => {
+    if (program && program._id) {
+      navigate(`/scheme/${program._id}`);
+    }
+  };
+
   return (
     <div className="mb-[80px] px-5 md:px-10 lg:px-20 relative">
-      {/* Title Section */}
-      <div className="flex justify-start text-2xl font-semibold mb-[30px]">
-        <span>Our</span>
-        <span className="ml-2 text-[#F7A221]">Programs</span>
-      </div>
+      <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ 
+            opacity: 1, 
+            x: 0,
+            transition: {
+              duration: 0.6
+            }
+          }}
+          className="flex items-center text-2xl md:text-3xl font-bold mb-8"
+        >
+          <span className="text-gray-800">Our</span>
+          <span className="ml-3 text-[#F7A221]">Programs</span>
+      </motion.div>
 
       {/* Swiper Carousel with Pagination and Autoplay */}
       <Swiper
@@ -50,7 +74,10 @@ const Programme = () => {
                 <h2 className="text-lg md:text-xl font-bold text-center p-2">
                   {program.title}
                 </h2>
-                <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-4 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform duration-200">
+                <button
+                  className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-4 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform duration-200"
+                  onClick={() => handleClick(program)}
+                >
                   Know More
                 </button>
               </div>
