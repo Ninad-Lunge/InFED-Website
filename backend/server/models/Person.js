@@ -5,7 +5,7 @@ const personSchema = new mongoose.Schema({
     image: { type: String, required: true },
     designation: { type: String, required: true },
     socialLinks: {
-        instagram: { type: String },
+        email: { type: String },
         linkedin: { type: String },
         twitter: { type: String }
     },

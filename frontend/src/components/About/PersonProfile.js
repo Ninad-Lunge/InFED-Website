@@ -92,28 +92,37 @@ const PeopleGrid = () => {
                                                 </p>
                                             </div>
                                             <div className="flex justify-center space-x-6 mt-auto pb-2">
-                                                <a 
-                                                    href={person.socialLinks.linkedin} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer"
-                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                >
-                                                    <BsLinkedin size={25} />
-                                                </a>
-                                                <a 
-                                                    href={`mailto:${person.email || ''}`} 
-                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                >
-                                                    <BsEnvelope size={25} />
-                                                </a>
-                                                <a 
-                                                    href={person.socialLinks.twitter} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer"
-                                                    className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                >
-                                                    <BsTwitterX size={25} />
-                                                </a>
+                                                {/* LinkedIn */}
+                                                {person.socialLinks?.linkedin && (
+                                                    <a 
+                                                        href={person.socialLinks.linkedin} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                    >
+                                                        <BsLinkedin size={25} />
+                                                    </a>
+                                                )}
+                                                {/* Email */}
+                                                {person.socialLinks?.email && (
+                                                    <a 
+                                                        href={`mailto:${person.socialLinks.email}`} 
+                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                    >
+                                                        <BsEnvelope size={25} />
+                                                    </a>
+                                                )}
+                                                {/* Twitter */}
+                                                {person.socialLinks?.twitter && (
+                                                    <a 
+                                                        href={person.socialLinks.twitter} 
+                                                        target="_blank" 
+                                                        rel="noopener noreferrer"
+                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
+                                                    >
+                                                        <BsTwitterX size={25} />
+                                                    </a>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

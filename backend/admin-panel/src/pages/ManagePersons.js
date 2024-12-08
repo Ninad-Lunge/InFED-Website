@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 const ManagePersons = () => {
   const [formData, setFormData] = useState({
     name: "",
-    image: "",
+    image: null,
     designation: "",
-    instagram: "",
+    email: "",
     linkedin: "",
     twitter: "",
     heading: "",
@@ -37,12 +37,31 @@ const ManagePersons = () => {
     });
   };
 
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      image: e.target.files[0],
+    });
+  };
+
   // Add or update a person
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, image, designation, instagram, linkedin, twitter, heading } =
-      formData;
-    const socialLinks = { instagram, linkedin, twitter };
+    const { name, image, designation, email, linkedin, twitter, heading } = formData;
+
+    // Create FormData for file upload
+    const formDataToSend = new FormData();
+    formDataToSend.append('name', name);
+    formDataToSend.append('designation', designation);
+    formDataToSend.append('heading', heading);
+    formDataToSend.append('email', email);
+    formDataToSend.append('linkedin', linkedin);
+    formDataToSend.append('twitter', twitter);
+    
+    // Append image if it exists
+    if (image) {
+      formDataToSend.append('image', image);
+    }
 
     try {
       const url = personId
@@ -52,14 +71,8 @@ const ManagePersons = () => {
 
       const response = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          image,
-          designation,
-          socialLinks,
-          heading,
-        }),
+        body: formDataToSend,
+        // DO NOT set Content-Type header, let browser set it for multipart/form-data
       });
 
       const result = await response.json();
@@ -74,21 +87,27 @@ const ManagePersons = () => {
             ? persons.map((p) => (p._id === personId ? result.person : p))
             : [...persons, result.person]
         );
+        // Reset form
         setFormData({
           name: "",
-          image: "",
+          image: null,
           designation: "",
-          instagram: "",
+          email: "",
           linkedin: "",
           twitter: "",
           heading: "",
         });
+        // Clear file input
+        if (document.getElementById('imageInput')) {
+          document.getElementById('imageInput').value = '';
+        }
         setPersonId("");
       } else {
         setSuccessMessage("Failed to save person. Please try again.");
       }
     } catch (error) {
       setSuccessMessage("Error occurred. Please try again.");
+      console.error(error);
     }
   };
 
@@ -112,13 +131,13 @@ const ManagePersons = () => {
   const handleEdit = (person) => {
     setPersonId(person._id);
     setFormData({
-      name: person.name,
-      image: person.image,
-      designation: person.designation,
-      instagram: person.socialLinks.instagram,
-      linkedin: person.socialLinks.linkedin,
-      twitter: person.socialLinks.twitter,
-      heading: person.heading,
+        name: person.name,
+        image: person.image,
+        designation: person.designation,
+        email: person.socialLinks?.email || "",
+        linkedin: person.socialLinks?.linkedin || "",
+        twitter: person.socialLinks?.twitter || "",
+        heading: person.heading,
     });
   };
 
@@ -144,11 +163,11 @@ const ManagePersons = () => {
           className="p-2 border rounded col-span-2"
         />
         <input
-          type="text"
+          id="imageInput"
+          type="file"
           name="image"
-          placeholder="Image URL"
-          value={formData.image}
-          onChange={handleChange}
+          accept="image/*"
+          onChange={handleFileChange}
           className="p-2 border rounded col-span-2"
         />
         <input
@@ -175,9 +194,9 @@ const ManagePersons = () => {
         </select>
         <input
           type="text"
-          name="instagram"
-          placeholder="Instagram Link"
-          value={formData.instagram}
+          name="email"
+          placeholder="Email"
+          value={formData.email}
           onChange={handleChange}
           className="p-2 border rounded"
         />
