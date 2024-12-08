@@ -4,14 +4,13 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const Person = require('../models/Person');
 
-// Configure Cloudinary (add these to your .env file)
+// Configure Cloudinary
 cloudinary.config({ 
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
-// Configure multer for file upload
 const upload = multer({ 
   storage: multer.memoryStorage(),
   limits: {
