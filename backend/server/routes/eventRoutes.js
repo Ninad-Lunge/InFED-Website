@@ -31,7 +31,7 @@ router.post('/add-event', async (req, res) => {
 router.get('/get-events', async (req, res) => {
     try {
         const events = await Event.find({});
-        res.json(events);
+        res.status(200).json(events);
     } catch (error) {
         console.error('Error fetching Events:', error);
         res.status(500).json({ message: 'Internal Server Error', error: err.message });
