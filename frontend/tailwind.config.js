@@ -22,6 +22,15 @@ module.exports = {
         marquee: 'marquee 30s linear infinite',
         marqueeReverse: 'marqueeReverse 30s linear infinite',
       },
+      colors: {
+        customYellow: {
+          100: '#FFDB9C',
+          200: '#FFB347',
+          300: '#F7A221',
+          400: '#D7891E',
+          500: '#B5711A',
+        },
+      },
     },
   },
   plugins: [],

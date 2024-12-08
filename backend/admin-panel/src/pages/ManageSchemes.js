@@ -21,6 +21,7 @@ const SchemeManager = () => {
             try{
                 const response = await fetch('https://infed-website-kkva.onrender.com/api/get-schemes');
                 const data = await response.json();
+                console.log(data);
                 setSchemes(data);
             } catch (error) {
                 console.error('Error fetching schemes: ', error);

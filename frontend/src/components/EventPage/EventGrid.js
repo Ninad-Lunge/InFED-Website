@@ -42,11 +42,11 @@ const EventGrid = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="mb-8 flex gap-4">
+      <div className="mb-8 flex gap-4 mx-12">
         <div className="text-gray-600">Filter Events:</div>
         <button
           onClick={() => filterEvents(events, 'upcoming')}
-          className={`px-4 py-2 rounded-full ${
+          className={`px-4 py-2 rounded-md ${
             activeFilter === 'upcoming'
               ? 'bg-[#F7A221] text-white'
               : 'bg-white text-black border border-gray-300'
@@ -56,7 +56,7 @@ const EventGrid = () => {
         </button>
         <button
           onClick={() => filterEvents(events, 'past')}
-          className={`px-4 py-2 rounded-full ${
+          className={`px-4 py-2 rounded-md ${
             activeFilter === 'past'
               ? 'bg-[#F7A221] text-white'
               : 'bg-white text-black border border-gray-300'
@@ -66,7 +66,7 @@ const EventGrid = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-12 mx-24">
+      <div className="grid grid-cols-2 gap-12 mx-20">
         {filteredEvents.map((event, index) => (
           <EventCard key={index} event={event} />
         ))}

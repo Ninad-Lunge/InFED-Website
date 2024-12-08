@@ -57,13 +57,13 @@ const InitiativesCard = () => {
   return (
     <div className="w-full max-w-4xl mx-auto p-4 space-y-4">
       {/* Add New Initiative Button */}
-      <button 
+      {/* <button 
         onClick={() => setIsAddingNew(!isAddingNew)}
         className="bg-blue-500 text-white px-4 py-2 rounded-md flex items-center gap-2 mb-4 hover:bg-blue-600"
       >
         <Plus className="w-4 h-4" />
         Add New Initiative
-      </button>
+      </button> */}
 
       {/* Add New Initiative Form */}
       {isAddingNew && (
