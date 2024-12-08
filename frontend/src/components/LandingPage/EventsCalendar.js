@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import { motion } from 'framer-motion';
+import { ArrowDownCircle } from "lucide-react";
 
 const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -11,7 +11,7 @@ const EventsCalendar = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get("https://infed-website-kkva.onrender.com/api/get-events");
+        const response = await axios.get("/api/get-events"); // Replace with your actual backend route
         setEvents(response.data);
       } catch (error) {
         console.error("Error fetching events:", error);
@@ -30,20 +30,11 @@ const EventsCalendar = () => {
 
   return (
     <div className="mb-[80px] px-5 md:px-10 lg:px-20 relative">
-      <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ 
-            opacity: 1, 
-            x: 0,
-            transition: {
-              duration: 0.6
-            }
-          }}
-          className="flex items-center text-2xl md:text-3xl font-bold mb-8"
-        >
-          <span className="text-gray-800">Events</span>
-          <span className="ml-3 text-[#F7A221]">Calendar</span>
-      </motion.div>
+      {/* Header */}
+      <div className="flex justify-start text-2xl font-semibold mb-[30px]">
+        <span>Events</span>
+        <span className="ml-2 text-[#F7A221]">Calendar</span>
+      </div>
 
       {/* Scrollable container */}
       <div className="relative w-full max-w-6xl mx-auto">
