@@ -96,11 +96,11 @@ const ManagePortfolio = () => {
             formDataToSend.append("targetAudience", targetAudience);
             formDataToSend.append("goals", goals);
             formDataToSend.append("achievements", achievements);
-            formDataToSend.append("schemes", JSON.stringify(schemes)); // Add schemes as a JSON string
+            formDataToSend.append("schemes", JSON.stringify(schemes));
     
             const response = await fetch(url, {
                 method,
-                body: formDataToSend, // Use FormData here
+                body: formDataToSend,
             });
     
             const result = await response.json();

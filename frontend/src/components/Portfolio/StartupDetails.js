@@ -35,7 +35,7 @@ const StartupDetails = () => {
             <Navbar contactRef={contactRef} />
             <div className="flex flex-col md:flex-row mt-12 mx-1 gap-x-2 md:mx-24 gap-y-8 md:gap-x-14">
                 <div className="image flex flex-col items-center md:basis-1/5">
-                    <img src={startup.image} alt={startup.name} className="rounded-full w-40 h-40 md:w-[200px] md:h-[200px] object-contain shadow-xl mb-6" />
+                    <img src={startup.image} alt={startup.name} className="rounded-md w-40 h-40 md:w-[200px] md:h-[200px] object-contain shadow-xl mb-6" />
                     <h1 className="text-xl font-semibold md:m-2">
                         {startup.name}
                     </h1>
