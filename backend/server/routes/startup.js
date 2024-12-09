@@ -67,14 +67,12 @@ router.post('/add-startup', upload.single('image'), async (req, res) => {
 });
 
 router.get('/get-startups', async (req, res) => {
-    const { scheme } = req.query;
-
     try {
-        const query = scheme ? { schemes: scheme } : {};
-        const startups = await StartUp.find(query);
+        const startups = await StartUp.find({});
         res.json(startups);
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching startups', error });
+    } catch (err) {
+        console.error('Error fetching startups:', err);
+        res.status(500).json({ message: 'Internal Server Error', error: err.message });
     }
 });
 

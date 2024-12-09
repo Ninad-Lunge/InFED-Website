@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import StartupCard from './StartupCard';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const StartupsGrid = ({ scheme }) => {
-    const [startups, setStartups] = useState([]);
-    const [loading, setLoading] = useState(true);
+const StartupCard = ({ startup }) => {
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!scheme) return;
+    const handleClick = () => {
+        if (startup && startup._id) {
+            navigate(`/startup/${startup._id}`);
+        }
+    };
 
-        fetch(`https://infed-website-kkva.onrender.com/api/get-startups?scheme=${scheme}`)
-            .then((response) => response.json())
-            .then((data) => {
-                setStartups(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching startups:", error);
-                setLoading(false);
-            });
-    }, [scheme]);
-
-    if (loading) return <div>Loading...</div>;
-
-    if (!startups.length) return <div>No startups available for this scheme.</div>;
+    if (!startup) {
+        return null;
+    }    
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {startups.map((startup) => (
-                <StartupCard key={startup._id} startup={startup} />
-            ))}
+        <div className="p-6 hover:shadow-2xl hover:rounded-2xl cursor-pointer flex flex-col items-center w-60 h-60" onClick={handleClick}>
+            <img src={startup.image} alt={startup.name} className="w-40 h-40 object-contain rounded-md" />
+            <h2 className="mt-2 text-lg font-semibold">{startup.name}</h2>
         </div>
     );
 };
 
-export default StartupsGrid;
+export default StartupCard;
