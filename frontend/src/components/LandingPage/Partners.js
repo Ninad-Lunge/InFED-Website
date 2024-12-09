@@ -8,7 +8,7 @@ const Partners = () => {
   useEffect(() => {
     // Fetch data from backend
     axios
-      .get('/api/partners/get')
+      .get('https://infed-website-kkva.onrender.com/api/partners/get')
       .then(response => {
         setPartners(response.data);
       })
