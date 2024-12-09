@@ -1,44 +1,94 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 const Event = require('../models/Event');
-const cors = require("cors");
 
-router.post('/add-event', async (req, res) => {
+// Configure Cloudinary
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB file size limit
+    },
+});
+
+// Helper function to upload image to Cloudinary
+const uploadToCloudinary = (file) => {
+    return new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+            { folder: 'events' }, // Organize uploads in a specific folder
+            (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
+            }
+        );
+
+        const stream = require('stream');
+        const bufferStream = new stream.PassThrough();
+        bufferStream.end(file.buffer);
+        bufferStream.pipe(uploadStream);
+    });
+};
+
+// Add a new event with multiple image uploads
+router.post('/add-event', upload.array('images', 5), async (req, res) => {
+    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode } = req.body;
+
+    if (!['Online', 'Offline'].includes(mode)) {
+        return res.status(400).json({ message: 'Invalid mode. Allowed values are Online or Offline.' });
+    }
+
     try {
-        const {name, image, shortDesc, date, venue, description, mode} = req.body;
+        const uploadedImages = [];
 
-        // Create a new event instance
+        // Upload images if files exist
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const cloudinaryResponse = await uploadToCloudinary(file);
+                uploadedImages.push(cloudinaryResponse.secure_url);
+            }
+        }
+
+        // Create a new event
         const newEvent = new Event({
-            name, 
-            image, 
-            shortDesc, 
-            date, 
-            venue, 
-            description, 
-            mode
+            name,
+            images: uploadedImages,
+            shortDesc,
+            startDate,
+            endDate,
+            startTime,
+            endTime,
+            venue,
+            description,
+            mode,
         });
 
-        // Save event to the database
         await newEvent.save();
-        res.status(201).json({ message: 'Event added successfully' });
+        res.status(201).json({ message: 'Event added successfully', event: newEvent });
     } catch (error) {
         console.error('Error adding event:', error);
-        res.status(500).json({ error: 'Failed to add event' });
+        res.status(500).json({ message: 'Error adding event', error: error.message });
     }
 });
 
-// Route to get all events
+// Get all events
 router.get('/get-events', async (req, res) => {
     try {
         const events = await Event.find({});
-        res.json(events);
+        res.status(200).json(events);
     } catch (error) {
-        console.error('Error fetching Events:', error);
-        res.status(500).json({ message: 'Internal Server Error', error: err.message });
+        console.error('Error fetching events:', error);
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 });
 
-// Route to get a single event by ID
+// Get a single event by ID
 router.get('/get-event/:id', async (req, res) => {
     try {
         const event = await Event.findById(req.params.id);
@@ -52,21 +102,55 @@ router.get('/get-event/:id', async (req, res) => {
     }
 });
 
-// Route to update an event by ID
-router.put('/update-event/:id', async (req, res) => {
+// Update an event by ID
+router.put('/update-event/:id', upload.array('images', 5), async (req, res) => {
+    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode } = req.body;
+
+    if (!['Online', 'Offline'].includes(mode)) {
+        return res.status(400).json({ message: 'Invalid mode. Allowed values are Online or Offline.' });
+    }
+
     try {
-        const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!updatedEvent) {
-            return res.status(404).json({ error: 'Event not found' });
+        const uploadedImages = [];
+
+        // Upload new images if files exist
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const cloudinaryResponse = await uploadToCloudinary(file);
+                uploadedImages.push(cloudinaryResponse.secure_url);
+            }
         }
+
+        // Find and update the event
+        const updatedEvent = await Event.findByIdAndUpdate(
+            req.params.id,
+            {
+                name,
+                images: uploadedImages.length > 0 ? uploadedImages : undefined, // Only update images if there are new ones
+                shortDesc,
+                startDate,
+                endDate,
+                startTime,
+                endTime,
+                venue,
+                description,
+                mode,
+            },
+            { new: true }
+        );
+
+        if (!updatedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+
         res.status(200).json({ message: 'Event updated successfully', updatedEvent });
     } catch (error) {
         console.error('Error updating event:', error);
-        res.status(500).json({ error: 'Failed to update event' });
+        res.status(500).json({ message: 'Error updating event', error: error.message });
     }
 });
 
-// Route to delete an event by ID
+// Delete an event by ID
 router.delete('/delete-event/:id', async (req, res) => {
     try {
         const deletedEvent = await Event.findByIdAndDelete(req.params.id);

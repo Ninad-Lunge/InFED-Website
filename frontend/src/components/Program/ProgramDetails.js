@@ -4,20 +4,33 @@ import Navbar from '../Navbar';
 import Contact from '../ContactUs';
 import StartupsGrid from '../Portfolio/StartupsGrid';
 
+const LoadingSpinner = () => (
+    <div className="fixed inset-0 flex items-center justify-center bg-white/70">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#F7A221] border-solid"></div>
+    </div>
+);
+
 const ProgramDetails = () => {
     const contactRef = useRef(null);
     
     const { id } = useParams();
     const [scheme, setScheme] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch(`https://infed-website-kkva.onrender.com/api/get-scheme/${id}`)
             .then((res) => res.json())
-            .then((data) => setScheme(data))
-            .catch((err) => console.error(err));
+            .then((data) => {
+                setScheme(data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setLoading(false);
+            });
     }, [id]);
 
-    if (!scheme) return <div>Loading...</div>;
+    if (loading) return <LoadingSpinner />;
 
     return (
         <div className="program-details mt-5">
@@ -25,11 +38,19 @@ const ProgramDetails = () => {
             
             <div className='scheme-details mt-10 flex flex-col items-center mx-12'>
                 <h1 className='text-3xl font-bold'>{scheme.name}</h1>
+                
                 <img src={scheme.image} alt={scheme.name} className="image p-10 w-60 m-4" />
+
+                {scheme.desc && (
+                    <p className="text-gray-600 text-center max-w-6xl my-4 px-4 text-lg">
+                        {scheme.desc}
+                    </p>
+                )}
+
                 <a href={scheme.link}>
-                <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-1 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1">
-                    Apply Now
-                </button>
+                    <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-1 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1">
+                        Apply Now
+                    </button>
                 </a>
             </div>
 

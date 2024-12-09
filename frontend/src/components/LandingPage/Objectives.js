@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import image from '../../assests/images/image.png';
 import image1 from '../../assests/images/image-1.png';
 import image2 from '../../assests/images/image-2.png';
@@ -6,50 +7,122 @@ import image3 from '../../assests/images/image-3.png';
 import image4 from '../../assests/images/image-4.png';
 import image5 from '../../assests/images/image-5.png';
 
-const Objectives = () => {
+const ObjectiveCard = ({ img, text }) => {
   return (
-    <div className="mb-[120px] px-5 md:px-10 lg:px-20">
-      {/* Title Section */}
-      <div className="flex justify-start text-2xl font-semibold">
-        <span>Our</span>
-        <span className="ml-2 text-[#F7A221]">Objectives</span>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ 
+        opacity: 1, 
+        y: 0,
+        transition: {
+          duration: 0.6,
+          ease: "easeOut"
+        }
+      }}
+      whileHover={{
+        boxShadow: "0 10px 15px -3px rgba(247, 162, 33, 0.3)",
+        y: -10,
+        transition: {
+          duration: 0.3
+        }
+      }}
+      className="group flex flex-col items-center space-y-4 p-6 
+      border border-gray-200 rounded-xl 
+      bg-white 
+      transition-all duration-300 
+      hover:border-[#F7A221]
+      hover:bg-yellow-50/50
+      transform"
+    >
+      <div className="p-4 bg-yellow-100 rounded-full mb-2 
+      group-hover:bg-yellow-200 transition-colors duration-300">
+        <img
+          src={img}
+          alt=""
+          className="w-[60px] md:w-[80px] h-auto object-contain"
+        />
       </div>
+      <h3 className="font-semibold text-center text-gray-800 
+      whitespace-pre-line group-hover:text-[#F7A221] 
+      transition-colors duration-300">
+        {text}
+      </h3>
+    </motion.div>
+  );
+};
 
-      {/* Subtitle Section */}
-      <div className="mt-[30px] text-lg md:text-xl">
-        We enable <span className="text-[#F7A221] font-bold">Everything</span> it takes.
-      </div>
+const Objectives = () => {
+  const objectivesData = [
+    { img: image, text: 'Curated\nMentoring' },
+    { img: image1, text: 'Market\nLinkages' },
+    { img: image2, text: 'Networking\nOpportunities' },
+    { img: image3, text: 'Startup-Scaleup\nSupport' },
+    { img: image4, text: 'Paid Pilot\nOpportunity' },
+    { img: image5, text: 'Funding\nOpportunities' },
+  ];
 
-      {/* Description Section */}
-      <div className="mt-[50px] text-base md:text-lg lg:text-xl mx-5 md:mx-32 lg:mx-[250px] mb-[80px] text-center">
-        Mentoring entrepreneurs with incubation support, providing essential techno-business services, 
-        and empowering the startup ecosystem through research and education.
-      </div>
+  return (
+    <div className="py-16 px-4 md:px-10 lg:px-20">
+      <div className="container mx-auto">
+        {/* Title Section */}
+        <motion.div 
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ 
+            opacity: 1, 
+            x: 0,
+            transition: {
+              duration: 0.6
+            }
+          }}
+          className="flex items-center text-2xl md:text-3xl font-bold mb-8"
+        >
+          <span className="text-gray-800">Our</span>
+          <span className="ml-3 text-[#F7A221]">Objectives</span>
+        </motion.div>
 
-      {/* Cards Section */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[50px] mt-10 px-5 md:px-10 lg:px-20">
-        {[
-          { img: image, text: 'Curated\nMentoring' },
-          { img: image1, text: 'Market\nLinkages' },
-          { img: image2, text: 'Networking\nOpportunities' },
-          { img: image3, text: 'Startup-Scaleup\nSupport' },
-          { img: image4, text: 'Paid Pilot\nOpportunity' },
-          { img: image5, text: 'Funding\nOpportunities' },
-        ].map(({ img, text }, index) => (
-          <div
-            key={index}
-            className="group flex flex-col items-center space-y-2 p-5 border border-black rounded-md transition-transform duration-300 ease-in-out hover:shadow-[10px_10px_0px_#F7A221] hover:scale-105 hover:border-black"
-          >
-            <img
-              src={img}
-              alt=""
-              className="w-[80px] md:w-[100px] h-auto object-cover"
+        {/* Subtitle Section */}
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ 
+            opacity: 1, 
+            x: 0,
+            transition: {
+              duration: 0.6,
+              delay: 0.2
+            }
+          }}
+          className="text-xl md:text-2xl text-gray-700 mb-8"
+        >
+          We provide <span className="text-[#F7A221] font-bold">Everything</span> it takes.
+        </motion.div>
+
+        {/* Description Section */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ 
+            opacity: 1,
+            transition: {
+              duration: 0.6,
+              delay: 0.4
+            }
+          }}
+          className="text-center text-base md:text-lg lg:text-xl 
+          text-gray-600 max-w-3xl mx-auto mb-16"
+        >
+          Mentoring entrepreneurs with incubation support, providing essential techno-business services, 
+          and empowering the startup ecosystem through research and education.
+        </motion.div>
+
+        {/* Cards Section */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          {objectivesData.map((objective, index) => (
+            <ObjectiveCard 
+              key={index} 
+              img={objective.img} 
+              text={objective.text} 
             />
-            <h1 className="font-semibold text-center whitespace-pre-line">
-              {text}
-            </h1>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

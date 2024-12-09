@@ -1,15 +1,55 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 const Scheme = require('../models/Scheme');
 
-router.post('/add-scheme', async (req, res) => {
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET 
+});
+
+const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // 5MB file size limit
+    },
+});
+
+const uploadToCloudinary = (file) => {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { folder: 'schemes' },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+  
+      // Convert buffer to stream
+      const stream = require('stream');
+      const bufferStream = new stream.PassThrough();
+      bufferStream.end(file.buffer);
+      bufferStream.pipe(uploadStream);
+    });
+};
+
+router.post('/add-scheme', upload.single('image'), async (req, res) => {
     console.log('Request Body:', req.body);
-    const { name, image, desc, link, eligibilityCriteria, schemeBenefits} = req.body;
+    const { name, desc, link, eligibilityCriteria, schemeBenefits} = req.body;
 
     try{
+        let imageUrl = '';
+
+        if (req.file) {
+            const cloudinaryResponse = await uploadToCloudinary(req.file);
+            imageUrl = cloudinaryResponse.secure_url;
+        }
+
         const newScheme = new Scheme({
             name,
-            image,
+            image: imageUrl,
             desc,
             link,
             eligibilityCriteria,
@@ -46,11 +86,16 @@ router.get('/get-scheme/:id', async (req, res) => {
     }
 });
 
-router.put('/update-scheme/:id', async (req, res) =>{
+router.put('/update-scheme/:id', upload.single('image'), async (req, res) =>{
     const { id } = req.params;
     const updateData = req.body;
 
     try{
+        if (req.file) {
+            const cloudinaryResponse = await uploadToCloudinary(req.file);
+            updateData.image = cloudinaryResponse.secure_url;
+        }
+        
         const updatedscheme = await Scheme.findByIdAndUpdate(id, updateData, { new: true });
 
         if(!updateData) {

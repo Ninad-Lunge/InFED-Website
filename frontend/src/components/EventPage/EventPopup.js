@@ -3,7 +3,7 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const EventPopup = ({ event, onClose }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = Array.isArray(event.image) ? event.image : [event.image];
+  const images = Array.isArray(event.images) ? event.images : [event.image];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
@@ -65,11 +65,7 @@ const EventPopup = ({ event, onClose }) => {
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                          index === currentImageIndex
-                            ? 'bg-[#F7A221]'
-                            : 'bg-gray-300'
-                        }`}
+                        className={`w-2 h-2 rounded-full transition-colors duration-200 ${index === currentImageIndex ? 'bg-[#F7A221]' : 'bg-gray-300'}`}
                       />
                     ))}
                   </div>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { Calendar, MapPin, Globe } from 'lucide-react';
 import EventPopup from './EventPopup';
 
 const EventCard = ({ event }) => {
   const [showPopup, setShowPopup] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const formattedDate = new Date(event.date).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -12,27 +14,65 @@ const EventCard = ({ event }) => {
 
   return (
     <>
-      <div className="w-full md:w-auto h-auto flex flex-col md:flex-row items-center shadow-md shadow-black/20 rounded-lg relative overflow-hidden transition-all duration-300 border-0 hover:shadow-[8px_4px_0px_0px_#F7A221]">
-        <div className="p-4 md:p-5 flex flex-col md:flex-row gap-y-4 md:gap-x-4">
-          <img 
-            src={Array.isArray(event.image) ? event.image[0] : event.image} 
-            alt={event.name} 
-            className="h-40 w-full md:h-[250px] md:w-[220px] object-cover rounded-lg" 
-          />
-          
-          <div className="flex flex-col justify-between md:align-items:start md:pl-3 text-left">
-            <h1 className="text-xl md:text-2xl" style={{ color: '#F7A221' }}>
-              {event.name}
-            </h1>
-            <p className="mt-3 text-gray-700">{event.shortDesc}</p>
-            <h5 className="mt-3 text-gray-500">{formattedDate}</h5>
-            <h5 className="text-gray-500">{event.mode} - {event.venue}</h5>
-            
+      <div 
+        className={`w-full max-w-4xl mx-auto bg-white 
+          rounded-xl shadow-lg overflow-hidden 
+          transition-all duration-300 ease-in-out
+          transform hover:-translate-y-2 hover:shadow-2xl
+          border-l-4 border-customYellow-300
+          ${isHovered ? 'scale-[1.02]' : ''}`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="flex flex-col md:flex-row">
+          {/* Image Section */}
+          <div className="md:w-1/3 relative">
+            <img 
+              src={Array.isArray(event.images) ? event.images[0] : event.image} 
+              alt={event.name} 
+              className="w-full h-60 md:h-full object-cover transition-transform duration-300 transform hover:scale-105"
+            />
+            {event.mode === 'Online' && (
+              <div className="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
+                Online Event
+              </div>
+            )}
+          </div>
+
+          {/* Content Section */}
+          <div className="p-6 md:w-2/3 flex flex-col justify-between">
+            <div>
+              <h1 className="text-2xl font-bold mb-3 text-customYellow-300 tracking-tight">
+                {event.name}
+              </h1>
+              <p className="text-gray-600 mb-4 line-clamp-3">
+                {event.shortDesc}
+              </p>
+            </div>
+
+            <div className="space-y-3 mb-4">
+              <div className="flex items-center text-gray-500">
+                <Calendar className="mr-2 w-5 h-5 text-customYellow-300" />
+                <span>{formattedDate}</span>
+              </div>
+              <div className="flex items-center text-gray-500">
+                <MapPin className="mr-2 w-5 h-5 text-customYellow-300" />
+                <span>{event.venue}</span>
+              </div>
+              <div className="flex items-center text-gray-500">
+                <Globe className="mr-2 w-5 h-5 text-customYellow-300" />
+                <span>{event.mode}</span>
+              </div>
+            </div>
+
             <button 
               onClick={() => setShowPopup(true)}
-              className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-4 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform duration-200"
+              className="w-full py-3 px-6 bg-customYellow-300 text-white font-semibold rounded-lg transition-colors duration-300 flex items-center justify-center group"
             >
               Know More
+              <span className="ml-2 group-hover:translate-x-1 transition-transform">
+                →
+              </span>
             </button>
           </div>
         </div>

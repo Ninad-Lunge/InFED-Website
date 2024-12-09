@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Contact from "../components/ContactUs";
 import Statistics from "../components/LandingPage/Statistics";
 import Objectives from "../components/LandingPage/Objectives";
-import Programs from "../components/LandingPage/ProgramPage";
+import Programs from "../components/LandingPage/Programs";
 import Partners from "../components/LandingPage/Partners";
 import EventsCalendar from "../components/LandingPage/EventsCalendar";
 import { useRef } from "react";
@@ -18,7 +18,7 @@ const LandingPage = () => {
       <Hero />
       <Statistics />
       <Objectives />
-      <Objs/>
+      {/* <Objs/> */}
       <Programs />
       <EventsCalendar/>
       <Partners />

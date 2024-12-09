@@ -4,7 +4,7 @@ const ManagePortfolio = () => {
 
     const [formData, setFormData] = useState({
         name: '',
-        image: '',
+        image: null,
         description: '',
         websiteLink: '',
         targetAudience: '',
@@ -54,6 +54,13 @@ const ManagePortfolio = () => {
         });
     };
 
+    const handleFileChange = (e) => {
+        setFormData({
+          ...formData,
+          image: e.target.files[0],
+        });
+    };
+
     const handleSchemeChange = (e) => {
         const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
         setFormData({ ...formData, schemes: selectedOptions });
@@ -61,48 +68,66 @@ const ManagePortfolio = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const { name, image, description, websiteLink, targetAudience, goals, achievements, schemes } = formData;
-
+    
+        const {
+            name,
+            image,
+            description,
+            websiteLink,
+            targetAudience,
+            goals,
+            achievements,
+            schemes,
+        } = formData;
+    
         try {
             const url = startupId
                 ? `https://infed-website-kkva.onrender.com/api/update-startup/${startupId}`
                 : "https://infed-website-kkva.onrender.com/api/add-startup";
             const method = startupId ? "PUT" : "POST";
-
+    
+            const formDataToSend = new FormData();
+            formDataToSend.append("name", name);
+            if (image) {
+                formDataToSend.append("image", image); // Add file
+            }
+            formDataToSend.append("description", description);
+            formDataToSend.append("websiteLink", websiteLink);
+            formDataToSend.append("targetAudience", targetAudience);
+            formDataToSend.append("goals", goals);
+            formDataToSend.append("achievements", achievements);
+            formDataToSend.append("schemes", JSON.stringify(schemes)); // Add schemes as a JSON string
+    
             const response = await fetch(url, {
                 method,
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, image, description, websiteLink, targetAudience, goals, achievements, schemes }),
+                body: formDataToSend, // Use FormData here
             });
-
+    
             const result = await response.json();
             if (response.ok) {
                 setSuccessMessage(
-                    startupId
-                        ? 'Startup updated successfully!'
-                        : 'Startup added successfully!'
+                    startupId ? "Startup updated successfully!" : "Startup added successfully!"
                 );
                 setFormData({
-                    name: '',
-                    image: '',
-                    description: '',
-                    websiteLink: '',
-                    targetAudience: '',
-                    goals: '',
-                    achievements: '',
+                    name: "",
+                    image: null,
+                    description: "",
+                    websiteLink: "",
+                    targetAudience: "",
+                    goals: "",
+                    achievements: "",
                     schemes: [],
                 });
-                setStartupId('');
+                setStartupId("");
             } else {
-                console.error('Error adding startup:', result);
-                setSuccessMessage('Failed to add startup. Please try again.');
+                console.error("Error adding/updating startup:", result);
+                setSuccessMessage("Failed to save startup. Please try again.");
             }
         } catch (error) {
-            console.error('Error submitting form:', error);
-            setSuccessMessage('Error occurred. Please try again.');
+            console.error("Error submitting form:", error);
+            setSuccessMessage("An error occurred. Please try again.");
         }
-    };
+    };    
 
     const deleteStartup = async (id) => {
         try {
@@ -123,7 +148,7 @@ const ManagePortfolio = () => {
         setStartupId(startup._id);
         setFormData({
             name: startup.name,
-            image: startup.image,
+            image: null,
             description: startup.description,
             websiteLink: startup.websiteLink,
             targetAudience: startup.targetAudience,
@@ -154,13 +179,11 @@ const ManagePortfolio = () => {
                     required
                 />
                 <input
-                    type="text"
+                    type="file"
                     name="image"
-                    placeholder="Image URL"
-                    value={formData.image}
-                    onChange={handleChange}
-                    className="p-2 border rounded col-span-2"
-                    required
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="p-2 border rounded"
                 />
                 <textarea
                     type="text"
@@ -222,7 +245,7 @@ const ManagePortfolio = () => {
                     ))};
                 </select>
 
-                <div className="flex justify-end col-span-2 grid content-end">
+                <div className="grid content-end">
                     <button
                         type="submit"
                         className="p-2 bg-blue-500 text-white rounded ring-2 ring-black-500 w-[200px] h-[40px]"

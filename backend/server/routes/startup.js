@@ -1,14 +1,55 @@
 const express = require('express');
 const router = express.Router();
+const multer = require('multer');
+const cloudinary = require('cloudinary').v2;
 const StartUp = require('../models/Startup');
 
-router.post('/add-startup', async (req, res) => {
-    const { name, image, description, websiteLink, targetAudience, goals, achievements, schemes, founders } = req.body;
+cloudinary.config({ 
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET 
+});
+
+const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 5 * 1024 * 1024, // 5MB file size limit
+    },
+});
+
+const uploadToCloudinary = (file) => {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { folder: 'startups' },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+  
+      // Convert buffer to stream
+      const stream = require('stream');
+      const bufferStream = new stream.PassThrough();
+      bufferStream.end(file.buffer);
+      bufferStream.pipe(uploadStream);
+    });
+};
+
+
+router.post('/add-startup', upload.single('image'), async (req, res) => {
+    const { name, description, websiteLink, targetAudience, goals, achievements, schemes, founders } = req.body;
 
     try{
+        let imageUrl = '';
+
+        if (req.file) {
+            const cloudinaryResponse = await uploadToCloudinary(req.file);
+            imageUrl = cloudinaryResponse.secure_url;
+        }
+
         const newStartUp = new StartUp({
             name,
-            image,
+            image: imageUrl,
             description,
             websiteLink,
             targetAudience,
@@ -58,11 +99,15 @@ router.get('/get-startups/:id', async (req, res) => {
     }
 });
 
-router.put('/update-startup/:id', async (req, res) =>{
+router.put('/update-startup/:id', upload.single('image'), async (req, res) =>{
     const { id } = req.params;
     const updateData = req.body;
 
     try{
+        if (req.file) {
+            const cloudinaryResponse = await uploadToCloudinary(req.file);
+            updateData.image = cloudinaryResponse.secure_url;
+        } 
         const updatedStartup = await StartUp.findByIdAndUpdate(id, updateData, { new: true });
 
         if(!updateData) {

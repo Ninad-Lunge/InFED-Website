@@ -5,9 +5,12 @@ const ManageEvents = () => {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
-    image: '',
+    images: [],
     shortDesc: '',
-    date: '',
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
     venue: '',
     description: '',
     mode: ''
@@ -22,7 +25,7 @@ const ManageEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('https://infed-website-kkva.onrender.com/api/get-events');
+      const response = await fetch('/api/get-events');
       if (response.ok) {
         const data = await response.json();
         setEvents(data);
@@ -33,25 +36,36 @@ const ManageEvents = () => {
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value
+    });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      images: [...e.target.files]
     });
   };
 
   const handleEdit = (event) => {
     setFormData({
       name: event.name,
-      image: event.image,
+      images: event.images || [], // ensure images is always an array
       shortDesc: event.shortDesc,
-      date: event.date.split('T')[0], // Format date for input
+      startDate: event.startDate ? event.startDate.split('T')[0] : '', // Ensure startDate exists
+      endDate: event.endDate ? event.endDate.split('T')[0] : '', // Ensure endDate exists
+      startTime: event.startTime || '', // Ensure startTime exists
+      endTime: event.endTime || '', // Ensure endTime exists
       venue: event.venue,
       description: event.description,
       mode: event.mode
     });
     setEditingId(event._id);
     setIsAddingNew(false);
-  };
+  };  
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
@@ -75,28 +89,46 @@ const ManageEvents = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataToSend = new FormData();
+
+    // Append all the form data including images
+    formDataToSend.append('name', formData.name);
+    formDataToSend.append('shortDesc', formData.shortDesc);
+    formDataToSend.append('startDate', formData.startDate);
+    formDataToSend.append('endDate', formData.endDate);
+    formDataToSend.append('startTime', formData.startTime);
+    formDataToSend.append('endTime', formData.endTime);
+    formDataToSend.append('venue', formData.venue);
+    formDataToSend.append('description', formData.description);
+    formDataToSend.append('mode', formData.mode);
+
+    // Append all the images
+    formData.images.forEach((image, index) => {
+      formDataToSend.append('images', image);
+    });
+
+    const url = editingId
+      ? `https://infed-website-kkva.onrender.com/api/update-event/${editingId}`
+      : 'https://infed-website-kkva.onrender.com/api/add-event';
+
+    const method = editingId ? 'PUT' : 'POST';
+
     try {
-      const url = editingId 
-        ? `https://infed-website-kkva.onrender.com/api/update-event/${editingId}`
-        : 'https://infed-website-kkva.onrender.com/api/add-event';
-      
-      const method = editingId ? 'PUT' : 'POST';
-      
       const response = await fetch(url, {
         method,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
+        body: formDataToSend
       });
-      
+
       if (response.ok) {
         setMessage(editingId ? 'Event updated successfully' : 'Event added successfully');
         setFormData({
           name: '',
-          image: '',
+          images: [],
           shortDesc: '',
-          date: '',
+          startDate: '',
+          endDate: '',
+          startTime: '',
+          endTime: '',
           venue: '',
           description: '',
           mode: ''
@@ -108,7 +140,7 @@ const ManageEvents = () => {
         setMessage(editingId ? 'Failed to update event' : 'Failed to add event');
       }
     } catch (error) {
-      console.error(error);
+      console.error('Error processing event:', error);
       setMessage('Error processing event');
     }
   };
@@ -123,9 +155,12 @@ const ManageEvents = () => {
             setEditingId(null);
             setFormData({
               name: '',
-              image: '',
+              images: [],
               shortDesc: '',
-              date: '',
+              startDate: '',
+              endDate: '',
+              startTime: '',
+              endTime: '',
               venue: '',
               description: '',
               mode: ''
@@ -156,19 +191,42 @@ const ManageEvents = () => {
               className="w-full p-2 border rounded"
               required
             />
+            {/* Handling multiple images */}
             <input
-              type="text"
-              name="image"
-              placeholder="Event Image URL"
-              value={formData.image}
+              type="file"
+              name="images"
+              onChange={handleFileChange}
+              className="w-full p-2 border rounded"
+              multiple
+            />
+            <input
+              type="date"
+              name="startDate"
+              value={formData.startDate}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               required
             />
             <input
               type="date"
-              name="date"
-              value={formData.date}
+              name="endDate"
+              value={formData.endDate}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              required
+            />
+            <input
+              type="time"
+              name="startTime"
+              value={formData.startTime}
+              onChange={handleChange}
+              className="w-full p-2 border rounded"
+              required
+            />
+            <input
+              type="time"
+              name="endTime"
+              value={formData.endTime}
               onChange={handleChange}
               className="w-full p-2 border rounded"
               required
@@ -222,16 +280,21 @@ const ManageEvents = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.map((event) => (
           <div key={event._id} className="border rounded-lg overflow-hidden shadow-sm">
-            <img
-              src={event.image}
-              alt={event.name}
-              className="w-full h-48 object-cover"
-            />
+            <div className="flex flex-wrap">
+              {event.images.map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={event.name}
+                  className="w-1/3 h-48 object-cover"
+                />
+              ))}
+            </div>
             <div className="p-4">
               <h3 className="font-bold text-xl mb-2">{event.name}</h3>
               <p className="text-gray-600 mb-2">{event.shortDesc}</p>
               <p className="text-sm text-gray-500 mb-2">
-                {new Date(event.date).toLocaleDateString()}
+                {new Date(event.startDate).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}
               </p>
               <p className="text-sm text-gray-500 mb-4">{event.venue}</p>
               
