@@ -8,6 +8,8 @@ import ManageEvents from './pages/ManageEvents';
 import ManagePersons from './pages/ManagePersons';
 import FounderManager from './pages/FounderManager';
 import ManageInitiatives from './pages/ManageInitiatives';
+import LoginForm from './pages/LoginForm';
+import RegisterForm from './pages/RegisterForm';
 
 function App() {
   return (
@@ -16,7 +18,7 @@ function App() {
         <VerticalNavbar />
         <div className="px-5 flex-auto mt-2">
           <Routes>
-            <Route path="/" element={<Home />} />    
+            <Route path="/" element={<LoginForm />} />    
             <Route path="/manage-events" element={<ManageEvents />} />  
             <Route path="/manage-initiatives" element={<ManageInitiatives/>}/>
             <Route path="/manage-portfolio" element={<ManagePortfolio />} />    
