@@ -225,31 +225,33 @@ const ManagePersons = () => {
       </form>
 
       <h3 className="text-lg font-semibold mb-4">Persons List</h3>
-      <ul className="border border-gray-400 p-2 rounded-md">
-        {persons.map((person) => (
-          <li
-            key={person._id}
-            className="grid grid-cols-5 gap-x-6 p-1 mb-0.5 border border-gray-400"
-          >
-            <span className="col-span-2">{person.name}</span>
-            <span className="col-span-2">{person.heading}</span>
-            <div className="grid grid-cols-2 place-items-end">
-              <button
-                onClick={() => handleEdit(person)}
-                className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => deletePerson(person._id)}
-                className="py-1 px-2 bg-red-500 text-white rounded"
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="border border-gray-400 p-2 rounded-md max-h-[400px] overflow-y-auto">
+        <ul>
+          {persons.map((person) => (
+            <li
+              key={person._id}
+              className="grid grid-cols-5 gap-x-6 p-1 mb-0.5 border border-gray-400"
+            >
+              <span className="col-span-2">{person.name}</span>
+              <span className="col-span-2">{person.heading}</span>
+              <div className="grid grid-cols-2 place-items-end">
+                <button
+                  onClick={() => handleEdit(person)}
+                  className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => deletePerson(person._id)}
+                  className="py-1 px-2 bg-red-500 text-white rounded"
+                >
+                  Delete
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

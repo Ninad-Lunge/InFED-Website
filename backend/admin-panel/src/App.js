@@ -8,6 +8,7 @@ import ManageEvents from './pages/ManageEvents';
 import ManagePersons from './pages/ManagePersons';
 import FounderManager from './pages/FounderManager';
 import ManageInitiatives from './pages/ManageInitiatives';
+import PartnerUpload from './pages/PartnerManager';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/manage-schemes" element={<ManageSchemes />} />
             <Route path="/manage-persons" element={<ManagePersons />} />
             <Route path="/manage-founders" element={<FounderManager />} />
+            <Route path="/manage-partners" element={<PartnerUpload />} />
           </Routes>
         </div>
       </div>

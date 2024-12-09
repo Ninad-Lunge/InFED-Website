@@ -7,20 +7,20 @@ const Contact = forwardRef((props, ref) => {
 
             <img src={require('../assests/images/InFED-mono.png')} alt="logo" className="logo w-52 py-20 ms-20" />
 
-            <div className="links grid grid-cols-2 md:grid-cols-3 gap-x-48 py-8 mx-20 mb-20">
+            <div className="links grid grid-cols-1 md:grid-cols-3 gap-x-48 py-8 mx-20 mb-20">
                 <div className="collaboration text-white text-left">
                     <h1 className="text-3xl pb-10 font-bold">Collaboration</h1>
                     <p className="text-[20px] my-2">Industry Partners</p>
                     <p className="text-[20px] my-2">Outreach Partners</p>
                 </div>
 
-                <div className="links text-white text-left">
+                <div className="links text-white text-left mt-12">
                     <h1 className="text-3xl pb-10 font-bold">Quick Links</h1>
                     <p className="text-[20px] my-2">Important Links</p>
                     <p className="text-[20px] my-2">Brand Guidelines</p>
                 </div>
 
-                <div className="follow text-white text-left">
+                <div className="follow text-white text-left mt-12">
                     <h1 className="text-3xl pb-10 font-bold" >Follow Us</h1>
                     <div className="icons flex flex-row gap-x-5">
                         <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
