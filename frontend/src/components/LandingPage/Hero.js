@@ -72,7 +72,7 @@ const Hero = () => {
                 }}
                 className="right-side w-full md:w-1/2 me-0 md:me-20 ms-0 md:ms-20 mt-10 md:mt-0 order-1 md:order-2"
             >
-                <img src={require('./../../assests/images/Landing Page/Landing Tile 01.png')} alt="hero-img" className="hero-img" />
+                <img src={require('./../../assests/images/Landing Page/Landing Tile 02.png')} alt="hero-img" className="hero-img" />
             </motion.div>
         </motion.div>
     );
