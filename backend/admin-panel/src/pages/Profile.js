@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
+  const [admins, setAdmins] = useState([]);
+  const [newAdminEmail, setNewAdminEmail] = useState('');
+  const [newAdminPassword, setNewAdminPassword] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,8 +14,22 @@ const Profile = () => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+
+      // Fetch the list of admins if the user is a super admin
+      if (JSON.parse(storedUser).role === 'super-admin') {
+        fetchAdmins();
+      }
     }
   }, []);
+
+  const fetchAdmins = async () => {
+    try {
+      const response = await axios.get('/api/admin/list');
+      setAdmins(response.data);
+    } catch (error) {
+      console.error('Error fetching admins:', error);
+    }
+  };
 
   const handleLogout = () => {
     // Remove the token and user data from the session
@@ -19,7 +37,30 @@ const Profile = () => {
     localStorage.removeItem('user');
 
     // Redirect the user to the login page
-    navigate('/login');
+    navigate('/');
+  };
+
+  const handleAddAdmin = async () => {
+    try {
+      await axios.post('/api/admin/create', {
+        email: newAdminEmail,
+        password: newAdminPassword,
+      });
+      setNewAdminEmail('');
+      setNewAdminPassword('');
+      fetchAdmins();
+    } catch (error) {
+      console.error('Error adding admin:', error);
+    }
+  };
+
+  const handleRemoveAdmin = async (adminId) => {
+    try {
+      await axios.delete(`/api/admin/${adminId}`);
+      fetchAdmins();
+    } catch (error) {
+      console.error('Error removing admin:', error);
+    }
   };
 
   if (!user) {
@@ -27,18 +68,75 @@ const Profile = () => {
   }
 
   return (
-    <div className="flex justify-between items-center px-4 py-2 bg-gray-200">
-      <div>
-        <h2 className="text-xl font-bold">Welcome, {user.name}!</h2>
+    <div>
+      <div className="flex justify-between items-center px-4 py-2 bg-gray-200">
+        <div>
+          <h2 className="text-xl font-bold">Welcome, {user.name}!</h2>
+        </div>
+        <div>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Logout
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Logout
-        </button>
-      </div>
+
+      {user.role === 'super-admin' && (
+        <div className="mt-4">
+          <h3 className="text-lg font-bold">Manage Admins</h3>
+          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+            <div className="mb-4">
+              <label htmlFor="newAdminEmail" className="block font-medium text-gray-700 mb-2">
+                New Admin Email
+              </label>
+              <input
+                type="email"
+                id="newAdminEmail"
+                value={newAdminEmail}
+                onChange={(e) => setNewAdminEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="newAdminPassword" className="block font-medium text-gray-700 mb-2">
+                New Admin Password
+              </label>
+              <input
+                type="password"
+                id="newAdminPassword"
+                value={newAdminPassword}
+                onChange={(e) => setNewAdminPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </div>
+            <button
+              onClick={handleAddAdmin}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Add Admin
+            </button>
+          </div>
+
+          <h3 className="text-lg font-bold">Current Admins</h3>
+          <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+            <ul>
+              {admins.map((admin) => (
+                <li key={admin._id} className="flex justify-between items-center py-2 border-b">
+                  <div>{admin.email}</div>
+                  <button
+                    onClick={() => handleRemoveAdmin(admin._id)}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
