@@ -1,5 +1,9 @@
-const Home = () =>{
-    return(
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import VerticalNavbar from '../components/VerticalNavbar';
+
+
+function Home() {
+    return (
         <div className="home-section">
             <h1 className="heading text-xl font-bold my-4">
                 Welcome to InFED Website Admin Panel!
@@ -7,4 +11,5 @@ const Home = () =>{
         </div>
     );
 }
+
 export default Home;
