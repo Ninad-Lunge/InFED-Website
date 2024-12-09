@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
 
 const Partners = () => {
   const [partners, setPartners] = useState([]);
 
   useEffect(() => {
-    // Fetch data from backend
-    axios
-      .get('https://infed-website-kkva.onrender.com/api/partners/get')
-      .then(response => {
-        setPartners(response.data);
+    // Fetch data from backend using fetch()
+    fetch('https://infed-website-kkva.onrender.com/api/partners/get')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
       })
-      .catch(error => {
+      .then((data) => {
+        setPartners(data);
+        console.log(data);
+      })
+      .catch((error) => {
         console.error('Error fetching partners:', error);
       });
   }, []);
@@ -50,7 +55,6 @@ const Partners = () => {
                 alt={partner.name}
                 className="object-contain my-auto"
               />
-              {/* <h1 className="font-semibold">{partner.name}</h1> */}
             </div>
           ))}
         </div>
@@ -71,8 +75,8 @@ const Partners = () => {
                 src={partner.logoUrl}
                 alt={partner.name}
                 className="object-contain my-auto"
+                loading="eager"
               />
-              {/* <h1 className="font-semibold">{partner.name}</h1> */}
             </div>
           ))}
         </div>

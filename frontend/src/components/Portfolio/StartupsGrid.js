@@ -6,20 +6,26 @@ const StartupsGrid = ({ scheme }) => {
 
     useEffect(() => {
         fetch('https://infed-website-kkva.onrender.com/api/get-startups')
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                // If scheme is specified, filter startups by scheme
-                const filteredStartups = scheme 
-                    ? data.filter((startup) => startup.schemes.includes(scheme))
-                    : data; // If no scheme, keep all startups
-                setStartups(filteredStartups);
-            })
-            .catch((error) => console.error('Error fetching startups:', error));
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log('Fetched startups data:', data); // Log the response
+            const formattedData = data.map((startup) => ({
+                ...startup,
+                schemes: JSON.parse(startup.schemes), // Parse stringified array
+            }));
+            const filteredStartups = scheme 
+                ? formattedData.filter((startup) => startup.schemes.includes(scheme))
+                : formattedData;
+
+            setStartups(filteredStartups);
+            console.log('Filtered startups:', filteredStartups);
+        })
+        .catch((error) => console.error('Error fetching startups:', error));      
     }, [scheme]); // Rerun if scheme changes
 
     return (
