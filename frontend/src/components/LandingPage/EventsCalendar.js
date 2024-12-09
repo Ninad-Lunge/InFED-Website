@@ -100,7 +100,7 @@ const EventsCalendar = () => {
                         className="text-lg md:text-xl font-semibold"
                         style={{ color: monthColor }}
                       >
-                        {new Date(event.date).toLocaleDateString("en-US", {
+                        {new Date(event.startDate).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
                         })}
