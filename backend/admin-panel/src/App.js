@@ -10,6 +10,7 @@ import FounderManager from './pages/FounderManager';
 import ManageInitiatives from './pages/ManageInitiatives';
 import LoginForm from './pages/LoginForm';
 import RegisterForm from './pages/RegisterForm';
+import Profile from './pages/Profile';
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/manage-schemes" element={<ManageSchemes />} />
                 <Route path="/manage-persons" element={<ManagePersons />} />
                 <Route path="/manage-founders" element={<FounderManager />} />
+                <Route path="/profile" element={<Profile />} />
               </Routes>
             </div>
           </div>
@@ -43,6 +45,7 @@ function App() {
           <div className="flex justify-center items-center h-screen">
             <Routes>
               <Route path="/" element={<LoginForm />} />
+              <Route path="/login" element={<LoginForm />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>

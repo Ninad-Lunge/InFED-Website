@@ -1,7 +1,3 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import VerticalNavbar from '../components/VerticalNavbar';
-
-
 function Home() {
     return (
         <div className="home-section">
