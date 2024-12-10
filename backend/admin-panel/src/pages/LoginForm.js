@@ -10,7 +10,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/login', {
+      const response = await axios.post('https://infed-website-kkva.onrender.com/api/auth/login', {
         email,
         password,
       });
