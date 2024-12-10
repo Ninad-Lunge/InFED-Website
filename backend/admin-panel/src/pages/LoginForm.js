@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import InfedLogo from '../assests/InFED-logo.jpg'
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -27,9 +28,17 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen w-full ">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        {/* Logo Container */}
+        <div className="flex justify-center mb-6">
+          <img 
+            src={InfedLogo}
+            alt="Company Logo" 
+            className="max-h-20 object-contain"
+          />
+        </div>
+        <h2 className="text-2xl font-bold mb-4 text-center">Admin Panel Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block font-medium text-gray-700 mb-2">
@@ -57,7 +66,7 @@ const LoginForm = () => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
           >
             Login
           </button>

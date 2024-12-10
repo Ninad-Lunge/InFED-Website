@@ -23,14 +23,6 @@ const Profile = () => {
     }
   }, []);
 
-  // const fetchAdmins = async () => {
-  //   try {
-  //     const response = await axios.get('/api/admin/list');
-  //     setAdmins(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching admins:', error);
-  //   }
-  // };
   const fetchAdmins = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -46,27 +38,11 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    // Remove the token and user data from the session
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
-    // Redirect the user to the login page
-    navigate('/login');
+    window.location.replace('/login');
   };
 
-  // const handleAddAdmin = async () => {
-  //   try {
-  //     await axios.post('/api/admin/create', {
-  //       email: newAdminEmail,
-  //       password: newAdminPassword,
-  //     });
-  //     setNewAdminEmail('');
-  //     setNewAdminPassword('');
-  //     fetchAdmins();
-  //   } catch (error) {
-  //     console.error('Error adding admin:', error);
-  //   }
-  // };
   const handleAddAdmin = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -83,21 +59,29 @@ const Profile = () => {
       setNewAdminEmail('');
       setNewAdminPassword('');
       fetchAdmins();
+      alert('Admin added successfully')
     } catch (error) {
       console.error('Full error details:', error);
-    console.error('Error response:', error.response?.data);
-    console.error('Error status:', error.response?.status);
-    alert(error.response?.data?.message || 'Failed to add admin');
+      console.error('Error response:', error.response?.data);
+      console.error('Error status:', error.response?.status);
+      alert(error.response?.data?.message || 'Failed to add admin');
     }
   };
   
 
   const handleRemoveAdmin = async (adminId) => {
     try {
-      await axios.delete(`/api/admin/${adminId}`);
+      const token = localStorage.getItem('token');
+      await axios.delete(`/api/admin/${adminId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       fetchAdmins();
+      alert('Admin removed successfully!!!')
     } catch (error) {
       console.error('Error removing admin:', error);
+      alert(error.response?.data?.message || 'Failed to remove admin');
     }
   };
 
@@ -148,6 +132,7 @@ const Profile = () => {
                 value={newAdminEmail}
                 onChange={(e) => setNewAdminEmail(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Admin's Email"
               />
             </div>
             <div className="mb-4">
@@ -160,6 +145,7 @@ const Profile = () => {
                 value={newAdminPassword}
                 onChange={(e) => setNewAdminPassword(e.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter Strong Password"
               />
             </div>
             <button
