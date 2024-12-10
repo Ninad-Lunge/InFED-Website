@@ -35,7 +35,7 @@ const StartupDetails = () => {
             <Navbar contactRef={contactRef} />
             <div className="flex flex-col md:flex-row mt-12 mx-1 gap-x-2 md:mx-24 gap-y-8 md:gap-x-14">
                 <div className="image flex flex-col items-center md:basis-1/5">
-                    <img src={startup.image} alt={startup.name} className="rounded-full w-40 h-40 md:w-[200px] md:h-[200px] object-contain shadow-xl mb-6" />
+                    <img src={startup.image} alt={startup.name} className="rounded-md w-40 h-40 md:w-[200px] md:h-[200px] object-contain shadow-md mb-6" />
                     <h1 className="text-xl font-semibold md:m-2">
                         {startup.name}
                     </h1>
@@ -48,16 +48,16 @@ const StartupDetails = () => {
                 </div>
                 <div className="desc md:basis-4/5 grid place-content-start text-left">
                     <h1 className='text-xl font-semibold text-[#F7A221] mb-7'>Description</h1>
-                    <p className='text-base'>{startup.description}</p>
+                    <p className='text-lg'>{startup.description}</p>
 
                     <h1 className='text-xl font-semibold text-[#F7A221] mt-12 mb-7'>Target Audience</h1>
-                    <p className='text-base'>{startup.targetAudience}</p>
+                    <p className='text-lg'>{startup.targetAudience}</p>
                 </div>
             </div>
 
             <div className='mt-12 md:mx-24 text-left'>
                 <h1 className='text-xl font-semibold text-[#F7A221] mt-12 mb-7'>Goals</h1>
-                <p className='text-base'>{startup.goals}</p>
+                <p className='text-lg'>{startup.goals}</p>
             </div>
 
             <div className="founders mx-6 md:mx-24 mt-12 text-left">
@@ -71,7 +71,7 @@ const StartupDetails = () => {
 
             <div className="achievements mx-6 md:mx-24 mt-12 mb-10 text-left">
                 <h1 className="text-xl font-semibold text-[#F7A221] mb-7">Achievements</h1>
-                <p className='text-left text-base'>{startup.achievements}</p>
+                <p className='text-left text-lg'>{startup.achievements}</p>
             </div>
 
             <Contact ref={contactRef} />

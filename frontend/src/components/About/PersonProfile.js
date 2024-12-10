@@ -9,7 +9,6 @@ const PeopleGrid = () => {
         'ISMC', 
         'Mentors', 
         'Executive Team',
-        'Independent Observer', 
         'Consultants'
     ];
 
@@ -77,7 +76,7 @@ const PeopleGrid = () => {
                                 {group.people.map((person, personIndex) => (
                                     <div 
                                         key={personIndex} 
-                                        className="person w-full max-w-[400px] mx-auto bg-white rounded-lg shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-xl flex flex-col"
+                                        className="person w-full max-w-[400px] mx-auto bg-white rounded-lg shadow-sm overflow-hidden transform transition hover:scale-105 hover:shadow-xl flex flex-col"
                                     >
                                         <div className="flex flex-col items-center p-6 flex-grow">
                                             <img
