@@ -7,6 +7,7 @@ const Profile = () => {
   const [admins, setAdmins] = useState([]);
   const [newAdminEmail, setNewAdminEmail] = useState('');
   const [newAdminPassword, setNewAdminPassword] = useState('');
+  const [newAdminName, setNewAdminName] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,12 +23,25 @@ const Profile = () => {
     }
   }, []);
 
+  // const fetchAdmins = async () => {
+  //   try {
+  //     const response = await axios.get('/api/admin/list');
+  //     setAdmins(response.data);
+  //   } catch (error) {
+  //     console.error('Error fetching admins:', error);
+  //   }
+  // };
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get('/api/admin/list');
+      const token = localStorage.getItem('token');
+      const response = await axios.get('/api/admin/list', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       setAdmins(response.data);
     } catch (error) {
-      console.error('Error fetching admins:', error);
+      console.error('Error fetching admins:', error.response?.data || error.message);
     }
   };
 
@@ -37,22 +51,46 @@ const Profile = () => {
     localStorage.removeItem('user');
 
     // Redirect the user to the login page
-    navigate('/');
+    navigate('/login');
   };
 
+  // const handleAddAdmin = async () => {
+  //   try {
+  //     await axios.post('/api/admin/create', {
+  //       email: newAdminEmail,
+  //       password: newAdminPassword,
+  //     });
+  //     setNewAdminEmail('');
+  //     setNewAdminPassword('');
+  //     fetchAdmins();
+  //   } catch (error) {
+  //     console.error('Error adding admin:', error);
+  //   }
+  // };
   const handleAddAdmin = async () => {
     try {
+      const token = localStorage.getItem('token');
+      // console.log('Token being sent:', token);
       await axios.post('/api/admin/create', {
+        name: newAdminEmail.split('@')[0],
         email: newAdminEmail,
         password: newAdminPassword,
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
       setNewAdminEmail('');
       setNewAdminPassword('');
       fetchAdmins();
     } catch (error) {
-      console.error('Error adding admin:', error);
+      console.error('Full error details:', error);
+    console.error('Error response:', error.response?.data);
+    console.error('Error status:', error.response?.status);
+    alert(error.response?.data?.message || 'Failed to add admin');
     }
   };
+  
 
   const handleRemoveAdmin = async (adminId) => {
     try {
@@ -87,6 +125,19 @@ const Profile = () => {
         <div className="mt-4">
           <h3 className="text-lg font-bold">Manage Admins</h3>
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
+          <div className="mb-4">
+        <label htmlFor="newAdminName" className="block font-medium text-gray-700 mb-2">
+          New Admin Name
+        </label>
+        <input
+          type="text"
+          id="newAdminName"
+          value={newAdminName}
+          onChange={(e) => setNewAdminName(e.target.value)}
+          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          placeholder="Enter admin's name"
+        />
+      </div>
             <div className="mb-4">
               <label htmlFor="newAdminEmail" className="block font-medium text-gray-700 mb-2">
                 New Admin Email

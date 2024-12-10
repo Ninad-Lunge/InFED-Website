@@ -10,12 +10,12 @@ router.post('/register', authController.register);
 router.post('/login', authController.login);
 
 // Super admin-only route
-router.get('/super-admin', authMiddleware.isSuperAdmin, (req, res) => {
+router.get('/super-admin', authMiddleware.checkSuperAdmin, (req, res) => {
   res.json({ message: 'Super admin dashboard' });
 });
 
 // Admin-only route
-router.get('/admin', authMiddleware.isAdmin, (req, res) => {
+router.get('/admin', authMiddleware.checkAdmin, (req, res) => {
   res.json({ message: 'Admin dashboard' });
 });
 

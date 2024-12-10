@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Admin = require('../models/Admin'); // Assuming you have an Admin model
+const Admin = require('../models/Admin'); 
 const bcrypt = require('bcryptjs');
-const { authenticateToken, checkSuperAdmin } = require('../middleware/auth');
+const { authenticateToken, checkSuperAdmin } = require('../routes/auth/authMiddleware');
 
 // Get list of admins (only accessible by super admin)
 router.get('/list', authenticateToken, checkSuperAdmin, async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/list', authenticateToken, checkSuperAdmin, async (req, res) => {
 // Create a new admin (only accessible by super admin)
 router.post('/create', authenticateToken, checkSuperAdmin, async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     // Check if admin with this email already exists
     const existingAdmin = await Admin.findOne({ email });
@@ -32,6 +32,7 @@ router.post('/create', authenticateToken, checkSuperAdmin, async (req, res) => {
 
     // Create new admin
     const newAdmin = new Admin({
+      name,
       email,
       password: hashedPassword,
       role: 'admin' // Default role, can be modified as needed

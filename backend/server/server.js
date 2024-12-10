@@ -11,7 +11,7 @@ const eventRoutes = require('./routes/eventRoutes');
 const founderRoutes = require('./routes/founder');
 const initiativesRoutes = require('./routes/initiatives');
 const authRoutes = require('./routes/authRouter')
-const adminRoutes = require('./routes/adminRoute');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
