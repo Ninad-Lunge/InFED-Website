@@ -7,7 +7,7 @@ const Statistics = () => {
       {/* Enterprises */}
       <div className="flex flex-col items-center ">
         <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#F7A221]">
-          <CountUp end={600} duration={2.5} />+
+          <CountUp end={600} duration={3} />+
         </h1>
         <h3 className="text-lg md:text-xl">Enterprises</h3>
       </div>
@@ -23,7 +23,7 @@ const Statistics = () => {
       {/* Jobs Created */}
       <div className="flex flex-col items-center ">
         <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#F7A221]">
-          <CountUp end={5500} separator="," duration={3.5} />+
+          <CountUp end={5500} separator="," duration={3} />+
         </h1> 
         <h3 className="text-lg md:text-xl">Jobs Created</h3>
       </div>
