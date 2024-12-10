@@ -38,6 +38,7 @@ function App() {
                 <Route path="/manage-schemes" element={<ManageSchemes />} />
                 <Route path="/manage-persons" element={<ManagePersons />} />
                 <Route path="/manage-founders" element={<FounderManager />} />
+                <Route path="/manage-partners" element={<PartnerUpload />} />
                 <Route path="/profile" element={<Profile />} />
               </Routes>
             </div>
@@ -52,21 +53,6 @@ function App() {
             </Routes>
           </div>
         )}
-        <div className="flex">
-          <VerticalNavbar />
-          <div className="px-5 flex-auto mt-2">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/manage-events" element={<ManageEvents />} />
-              <Route path="/manage-initiatives" element={<ManageInitiatives />} />
-              <Route path="/manage-portfolio" element={<ManagePortfolio />} />
-              <Route path="/manage-schemes" element={<ManageSchemes />} />
-              <Route path="/manage-persons" element={<ManagePersons />} />
-              <Route path="/manage-founders" element={<FounderManager />} />
-              <Route path="/manage-partners" element={<PartnerUpload />} />
-            </Routes>
-          </div>
-        </div>
       </div>
     </Router>
   );
