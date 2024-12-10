@@ -10,7 +10,7 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('https://infed-website-kkva.onrender.com/api/auth/login', {
+      const response = await axios.post('/api/auth/login', {
         email,
         password,
       });
@@ -23,7 +23,26 @@ const LoginForm = () => {
       window.location.href = '/admin';
     } catch (error) {
       console.error('Error logging in:', error);
-      // Display an error message to the user
+      
+      // More detailed error handling
+    if (error.response) {
+      const errorMessage = error.response.data.message || 
+                           'Login failed. Please check your credentials.';
+      
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+      
+      alert(errorMessage);
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('No response received:', error.request);
+      alert('No response from server. Please check your internet connection.');
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error setting up request:', error.message);
+      alert('An unexpected error occurred. Please try again.');
+    }
+  
     }
   };
 

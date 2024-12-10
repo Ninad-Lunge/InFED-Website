@@ -26,7 +26,7 @@ const Profile = () => {
   const fetchAdmins = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('/api/admin/list', {
+      const response = await axios.get('https://infed-website-kkva.onrender.com/api/admin/list', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -46,8 +46,7 @@ const Profile = () => {
   const handleAddAdmin = async () => {
     try {
       const token = localStorage.getItem('token');
-      // console.log('Token being sent:', token);
-      await axios.post('/api/admin/create', {
+      await axios.post('https://infed-website-kkva.onrender.com//api/admin/create', {
         name: newAdminEmail.split('@')[0],
         email: newAdminEmail,
         password: newAdminPassword,
@@ -72,7 +71,7 @@ const Profile = () => {
   const handleRemoveAdmin = async (adminId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/${adminId}`, {
+      await axios.delete(`https://infed-website-kkva.onrender.com//api/admin/${adminId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
