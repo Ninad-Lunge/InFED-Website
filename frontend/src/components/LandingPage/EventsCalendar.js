@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const EventsCalendar = () => {
   const [events, setEvents] = useState([]);
   const containerRef = useRef(null);
-  const [timelineHeight, setTimelineHeight] = useState(0);
+  const timelineRef = useRef(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -23,8 +23,9 @@ const EventsCalendar = () => {
   }, []);
 
   useEffect(() => {
-    if (containerRef.current) {
-      setTimelineHeight(containerRef.current.scrollHeight);
+    if (containerRef.current && timelineRef.current) {
+      const containerHeight = containerRef.current.scrollHeight;
+      timelineRef.current.style.height = `${containerHeight}px`;
     }
   }, [events]);
 
@@ -46,9 +47,15 @@ const EventsCalendar = () => {
       </motion.div>
 
       {/* Scrollable container */}
-      <div className="relative w-full max-w-6xl mx-auto h-[600px] overflow-y-auto px-4">
-        {/* Timeline line: Hidden on small screens */}
-        <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 pointer-events-none" style={{ height: "100%" }} />
+      <div
+        ref={containerRef}
+        className="relative w-full max-w-6xl mx-auto h-[600px] overflow-y-auto px-4"
+      >
+        {/* Timeline line: Adjust height dynamically */}
+        <div
+          ref={timelineRef}
+          className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 pointer-events-none"
+        />
 
         {/* Events container */}
         <div className="relative">
@@ -60,7 +67,9 @@ const EventsCalendar = () => {
               <div
                 key={event._id}
                 className={`flex flex-col md:flex-row ${
-                  isLeft ? "md:justify-end md:mr-auto" : "md:justify-start md:ml-auto"
+                  isLeft
+                    ? "md:justify-end md:mr-auto"
+                    : "md:justify-start md:ml-auto"
                 } w-full md:w-1/2 mb-8`}
               >
                 {/* Timeline dot: Hidden on small screens */}

@@ -63,7 +63,7 @@ const Programme = () => {
         centeredSlides={true}
       >
         {programs.map((program) => (
-          <SwiperSlide key={program.id} className="pt-2">
+          <SwiperSlide key={program._id} className="pt-2">
             <div className="scale-effect flex mb-[100px] items-center gap-x-6 gap-y-4 p-2 md:p-6 border border-gray-200 rounded-xl hover:rounded-2xl hover:shadow-lg hover:scale-105 transition-transform duration-300 h-[220px] hover:border-[#F7A221]">
               <img
                 src={program.image}

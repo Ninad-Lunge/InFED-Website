@@ -81,7 +81,7 @@ const Objectives = () => {
         </motion.div>
 
         {/* Subtitle Section */}
-        <motion.div 
+        {/* <motion.div 
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ 
             opacity: 1, 
@@ -94,7 +94,7 @@ const Objectives = () => {
           className="text-xl md:text-2xl text-gray-700 mb-8"
         >
           We provide <span className="text-[#F7A221] font-bold">Everything</span> it takes.
-        </motion.div>
+        </motion.div> */}
 
         {/* Description Section */}
         <motion.div 
@@ -106,11 +106,14 @@ const Objectives = () => {
               delay: 0.4
             }
           }}
-          className="text-center text-base md:text-lg lg:text-xl 
-          text-gray-600 max-w-3xl mx-auto mb-16"
+          className="text-left text-base md:text-lg lg:text-xl 
+          text-gray-600 mx-auto mb-16"
         >
-          Mentoring entrepreneurs with incubation support, providing essential techno-business services, 
-          and empowering the startup ecosystem through research and education.
+          By offering a rich suite of resources, expert guidance, and strategic partnerships, 
+          InFED empowers startups to transform ideas into impactful ventures. Its comprehensive 
+          incubation programs, deep domain expertise, and strong market linkages provide entrepreneurs 
+          with the critical support needed to drive innovation, achieve sustained growth, and create 
+          meaningful societal impact.
         </motion.div>
 
         {/* Cards Section */}

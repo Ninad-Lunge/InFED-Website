@@ -24,13 +24,13 @@ const EventCard = ({ event }) => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <div className="flex flex-col md:flex-row">
-          {/* Image Section */}
-          <div className="md:w-1/3 relative">
+        <div className="flex flex-col">
+          {/* Image Section - Full Width at Top */}
+          <div className="w-full relative">
             <img 
               src={Array.isArray(event.images) ? event.images[0] : event.image} 
               alt={event.name} 
-              className="w-full h-60 md:h-full object-cover transition-transform duration-300 transform hover:scale-105"
+              className="w-full h-50 object-cover transition-transform duration-300 transform hover:scale-105"
             />
             {event.mode === 'Online' && (
               <div className="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
@@ -40,14 +40,14 @@ const EventCard = ({ event }) => {
           </div>
 
           {/* Content Section */}
-          <div className="p-6 md:w-2/3 flex flex-col justify-between">
-            <div>
+          <div className="p-6">
+            <div className="mb-4">
               <h1 className="text-2xl font-bold mb-3 text-customYellow-300 tracking-tight">
                 {event.name}
               </h1>
-              <p className="text-gray-600 mb-4 line-clamp-3">
+              {/* <p className="text-gray-600 mb-4 line-clamp-3">
                 {event.shortDesc}
-              </p>
+              </p> */}
             </div>
 
             <div className="space-y-3 mb-4">
