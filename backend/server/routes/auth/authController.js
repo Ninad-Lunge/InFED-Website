@@ -1,13 +1,13 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../../models/Admin');
+const Admin = require('../../models/Admin');
 
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
     // Check if user already exists
-    const existingUser = await User.findOne({ email });
+    const existingUser = await Admin.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
@@ -17,18 +17,18 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user
-    const newUser = new User({
+    const newUser = new Admin({
       name,
       email,
       password: hashedPassword,
-      role: 'admin', // Default role is 'admin'
+      role: 'admin',
     });
 
     await newUser.save();
 
     // Generate a JWT token
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: '24h',
+      expiresIn: '1h',
     });
 
     res.status(201).json({ token, user: { id: newUser._id, name, email, role: newUser.role } });
@@ -42,7 +42,7 @@ exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     // Find the user
-    const user = await User.findOne({ email });
+    const user = await Admin.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
 
     // Generate a JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '24h',
+      expiresIn: '1h',
     });
 
     res.status(200).json({ token, user: { id: user._id, name: user.name, email: user.email, role: user.role } });

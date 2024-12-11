@@ -26,7 +26,7 @@ const Profile = () => {
   const fetchAdmins = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('/api/admin/list', {
+      const response = await axios.get('https://infed-website-kkva.onrender.com/api/admin/list', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -46,8 +46,7 @@ const Profile = () => {
   const handleAddAdmin = async () => {
     try {
       const token = localStorage.getItem('token');
-      // console.log('Token being sent:', token);
-      await axios.post('/api/admin/create', {
+      await axios.post('https://infed-website-kkva.onrender.com/api/admin/create', {
         name: newAdminEmail.split('@')[0],
         email: newAdminEmail,
         password: newAdminPassword,
@@ -67,12 +66,12 @@ const Profile = () => {
       alert(error.response?.data?.message || 'Failed to add admin');
     }
   };
-  
+
 
   const handleRemoveAdmin = async (adminId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/${adminId}`, {
+      await axios.delete(`https://infed-website-kkva.onrender.com/api/admin/${adminId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -109,19 +108,19 @@ const Profile = () => {
         <div className="mt-4">
           <h3 className="text-lg font-bold">Manage Admins</h3>
           <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
-          <div className="mb-4">
-        <label htmlFor="newAdminName" className="block font-medium text-gray-700 mb-2">
-          New Admin Name
-        </label>
-        <input
-          type="text"
-          id="newAdminName"
-          value={newAdminName}
-          onChange={(e) => setNewAdminName(e.target.value)}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          placeholder="Enter admin's name"
-        />
-      </div>
+            <div className="mb-4">
+              <label htmlFor="newAdminName" className="block font-medium text-gray-700 mb-2">
+                New Admin Name
+              </label>
+              <input
+                type="text"
+                id="newAdminName"
+                value={newAdminName}
+                onChange={(e) => setNewAdminName(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter admin's name"
+              />
+            </div>
             <div className="mb-4">
               <label htmlFor="newAdminEmail" className="block font-medium text-gray-700 mb-2">
                 New Admin Email
