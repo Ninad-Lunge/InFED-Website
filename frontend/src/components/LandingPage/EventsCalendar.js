@@ -48,7 +48,7 @@ const EventsCalendar = () => {
       {/* Scrollable container */}
       <div className="relative w-full max-w-6xl mx-auto h-[600px] overflow-y-auto px-4">
         {/* Timeline line: Hidden on small screens */}
-        <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 pointer-events-none" style={{ height: `${timelineHeight}px` }} />
+        <div className="hidden md:block absolute top-0 left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 pointer-events-none" style={{ height: "100%" }} />
 
         {/* Events container */}
         <div className="relative">
@@ -100,7 +100,7 @@ const EventsCalendar = () => {
                         className="text-lg md:text-xl font-semibold"
                         style={{ color: monthColor }}
                       >
-                        {new Date(event.date).toLocaleDateString("en-US", {
+                        {new Date(event.startDate).toLocaleDateString("en-US", {
                           month: "short",
                           day: "numeric",
                         })}

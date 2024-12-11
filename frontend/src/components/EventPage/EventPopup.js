@@ -13,7 +13,7 @@ const EventPopup = ({ event, onClose }) => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  const formattedDate = new Date(event.date).toLocaleDateString("en-GB", {
+  const formattedDate = new Date(event.startDate).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric"

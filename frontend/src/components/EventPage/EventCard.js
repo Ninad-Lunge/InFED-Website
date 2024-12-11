@@ -6,7 +6,7 @@ const EventCard = ({ event }) => {
   const [showPopup, setShowPopup] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const formattedDate = new Date(event.date).toLocaleDateString("en-GB", {
+  const formattedDate = new Date(event.startDate).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric"

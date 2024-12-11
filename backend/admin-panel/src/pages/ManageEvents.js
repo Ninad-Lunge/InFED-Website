@@ -25,7 +25,7 @@ const ManageEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch('/api/get-events');
+      const response = await fetch('https://infed-website-kkva.onrender.com/api/get-events');
       if (response.ok) {
         const data = await response.json();
         setEvents(data);

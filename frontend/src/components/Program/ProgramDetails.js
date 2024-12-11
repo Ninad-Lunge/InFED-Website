@@ -46,12 +46,6 @@ const ProgramDetails = () => {
                         {scheme.desc}
                     </p>
                 )}
-
-                <a href={scheme.link}>
-                    <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-1 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1">
-                        Apply Now
-                    </button>
-                </a>
             </div>
 
             <div className="eligibility-criteria text-left m-12">
@@ -88,10 +82,18 @@ const ProgramDetails = () => {
                                     {index + 1}
                                 </h2>
                             </div>
-                            <p className="text-black break-words text-base my-2 mx-3 border-l-2 border-black ps-4">{benefit}</p>
+                            <p className="text-black break-words text-lg my-2 mx-3 border-l-2 border-black ps-4">{benefit}</p>
                         </div>
                     ))}
                 </div>
+            </div>
+
+            <div>
+                <a href={scheme.link}>
+                    <button className="mt-4 w-full md:w-40 bg-white text-black font-bold py-2 px-1 rounded border border-black hover:shadow-[4px_4px_0px_#F7A221] transition ease-in-out delay-150 hover:-translate-x-1 hover:-translate-y-1">
+                        Apply Now
+                    </button>
+                </a>
             </div>
 
             <div className="startups text-left m-12">

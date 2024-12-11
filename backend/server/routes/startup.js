@@ -99,23 +99,24 @@ router.get('/get-startups/:id', async (req, res) => {
     }
 });
 
-router.put('/update-startup/:id', upload.single('image'), async (req, res) =>{
+router.put('/update-startup/:id', upload.single('image'), async (req, res) => {
     const { id } = req.params;
-    const updateData = req.body;
-
-    try{
+    const updateData = { ...req.body };
+    
+    try {
         if (req.file) {
             const cloudinaryResponse = await uploadToCloudinary(req.file);
             updateData.image = cloudinaryResponse.secure_url;
-        } 
+        }
         const updatedStartup = await StartUp.findByIdAndUpdate(id, updateData, { new: true });
 
-        if(!updateData) {
-            return res.status(404).json({ message: 'Startup not found.'});
+        if (!updatedStartup) {
+            return res.status(404).json({ message: 'Startup not found' });
         }
 
         res.json({ message: 'Startup updated successfully', startup: updatedStartup });
     } catch (error) {
+        console.error('Error updating startup:', error);
         res.status(500).json({ message: 'Error updating startup', error });
     }
 });

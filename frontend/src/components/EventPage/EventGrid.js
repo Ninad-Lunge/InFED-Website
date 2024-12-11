@@ -26,7 +26,7 @@ const EventGrid = () => {
     today.setHours(0, 0, 0, 0);
 
     const filtered = eventsData.filter((event) => {
-      const eventDate = new Date(event.date);
+      const eventDate = new Date(event.startDate);
       eventDate.setHours(0, 0, 0, 0);
       
       if (filter === 'upcoming') {
