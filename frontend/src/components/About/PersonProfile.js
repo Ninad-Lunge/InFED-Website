@@ -92,36 +92,36 @@ const PeopleGrid = () => {
                                             </div>
                                             <div className="flex justify-center space-x-6 mt-auto pb-2">
                                                 {/* LinkedIn */}
-                                                {person.socialLinks?.linkedin && (
-                                                    <a 
-                                                        href={person.socialLinks.linkedin} 
-                                                        target="_blank" 
-                                                        rel="noopener noreferrer"
-                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                    >
-                                                        <BsLinkedin size={25} />
-                                                    </a>
-                                                )}
+                                                <a 
+                                                    href={person.socialLinks?.linkedin || "#"} 
+                                                    target={person.socialLinks?.linkedin ? "_blank" : "_self"} 
+                                                    rel="noopener noreferrer"
+                                                    className={`text-gray-700 hover:text-[#F7A221] transition-colors ${
+                                                        person.socialLinks?.linkedin ? "" : "cursor-default"
+                                                    }`}
+                                                >
+                                                    <BsLinkedin size={25} />
+                                                </a>
                                                 {/* Email */}
-                                                {person.socialLinks?.email && (
-                                                    <a 
-                                                        href={`mailto:${person.socialLinks.email}`} 
-                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                    >
-                                                        <BsEnvelope size={25} />
-                                                    </a>
-                                                )}
+                                                <a 
+                                                    href={person.socialLinks?.email ? `mailto:${person.socialLinks.email}` : "#"} 
+                                                    className={`text-gray-700 hover:text-[#F7A221] transition-colors ${
+                                                        person.socialLinks?.email ? "" : "cursor-default"
+                                                    }`}
+                                                >
+                                                    <BsEnvelope size={25} />
+                                                </a>
                                                 {/* Twitter */}
-                                                {person.socialLinks?.twitter && (
-                                                    <a 
-                                                        href={person.socialLinks.twitter} 
-                                                        target="_blank" 
-                                                        rel="noopener noreferrer"
-                                                        className="text-gray-700 hover:text-[#F7A221] transition-colors"
-                                                    >
-                                                        <BsTwitterX size={25} />
-                                                    </a>
-                                                )}
+                                                <a 
+                                                    href={person.socialLinks?.twitter || "#"} 
+                                                    target={person.socialLinks?.twitter ? "_blank" : "_self"} 
+                                                    rel="noopener noreferrer"
+                                                    className={`text-gray-700 hover:text-[#F7A221] transition-colors ${
+                                                        person.socialLinks?.twitter ? "" : "cursor-default"
+                                                    }`}
+                                                >
+                                                    <BsTwitterX size={25} />
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

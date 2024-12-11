@@ -6,7 +6,7 @@ const VerticalNavbar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="m-2 h-min w-56 bg-black flex flex-col items-center justify-start p-2 rounded-lg">
+    <div className="m-2 h-min min-w-56 bg-black flex flex-col items-center justify-start p-2 rounded-lg">
       <img 
         src={require('../assests/InFED-mono.png')} 
         alt="img" 

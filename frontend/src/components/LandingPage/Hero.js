@@ -46,30 +46,32 @@ const Hero = () => {
         variants={heroVariants}
         initial="hidden"
         animate="visible"
-        className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col-reverse md:flex-row items-center justify-between"
+        className="container mx-auto px-6 md:px-12 lg:px-12 relative z-10 flex flex-col-reverse md:flex-row items-center justify-between"
       >
         {/* Text Content */}
         <motion.div 
           variants={heroVariants}
-          className="w-full md:w-1/2 space-y-6 text-left"
+          className="w-full md:w-3/5 space-y-6 text-left mr-12"
         >
           <motion.h1 
             variants={textVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
           >
-            Transform Ideas
+            The Entrepreneurship and
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-customYellow-200 to-customYellow-300">
-              Into Impact
+              Innovation Organizer
             </span>
           </motion.h1>
 
           <motion.p 
             variants={textVariants}
-            className="text-xl text-gray-700 leading-relaxed"
+            className="text-xl text-gray-700 leading-relaxed text-justify"
           >
-            Unlock your entrepreneurial potential with InFED. We provide the resources, 
-            network, and support to turn your innovative concepts into reality.
+            InFED (IIMN Foundation for Entrepreneurship Development) is the business incubator of the 
+            Indian Institute of Management Nagpur (IIM Nagpur). InFED works with important stakeholders 
+            at regional, state, national and international level to create an enabling ecosystem for 
+            entrepreneurs and associated stakeholders.
           </motion.p>
 
           <motion.div 
@@ -85,7 +87,7 @@ const Hero = () => {
               rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-customYellow-400"
             >
-              Start Your Journey
+              Apply for Incubation
               <ArrowRight size={20} className="ml-2" />
             </motion.button>
 
@@ -99,7 +101,7 @@ const Hero = () => {
               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
             >
               <Globe size={20} className="mr-2" />
-              Join Community
+              Join the Community
             </motion.button>
           </motion.div>
         </motion.div>
@@ -107,9 +109,9 @@ const Hero = () => {
         {/* Image Content */}
         <motion.div 
           variants={textVariants}
-          className="w-full md:w-1/2 flex justify-center items-center mb-12 md:mb-0"
-          onHoverStart={() => setIsHovered(true)}
-          onHoverEnd={() => setIsHovered(false)}
+          className="w-full md:w-2/5 flex justify-center items-center mb-12 md:mb-0"
+          // onHoverStart={() => setIsHovered(true)}
+          // onHoverEnd={() => setIsHovered(false)}
         >
           <AnimatePresence>
             <motion.div
@@ -122,7 +124,7 @@ const Hero = () => {
               transition={{ duration: 0.3 }}
               className="relative w-full max-w-lg"
             >
-              <div className="absolute -inset-2 bg-gradient-to-r from-yellow-500 to-yellow-600 
+              <div className="absolute -inset-2 
               rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition duration-300"></div>
               
               <motion.img 
