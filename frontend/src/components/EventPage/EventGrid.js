@@ -20,7 +20,7 @@ const EventGrid = () => {
       })
       .catch((error) => console.error("Error fetching Events", error));
   }, []);
-  
+
   const filterEvents = (eventsData, filter) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -52,7 +52,7 @@ const EventGrid = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="mb-8 flex gap-4 mx-12">
-        <div className="text-gray-600">Filter Events:</div>
+        <div className="pt-2 text-gray-600">Filter Events:</div>
         <button
           onClick={() => filterEvents(events, 'upcoming')}
           className={`px-4 py-2 rounded-md ${
