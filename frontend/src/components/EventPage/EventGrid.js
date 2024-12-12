@@ -20,26 +20,7 @@ const EventGrid = () => {
       })
       .catch((error) => console.error("Error fetching Events", error));
   }, []);
-
-  // const filterEvents = (eventsData, filter) => {
-  //   const today = new Date();
-  //   today.setHours(0, 0, 0, 0);
-
-  //   const filtered = eventsData.filter((event) => {
-  //     const eventDate = new Date(event.startDate);
-  //     eventDate.setHours(0, 0, 0, 0);
-      
-  //     if (filter === 'upcoming') {
-  //       return eventDate >= today;
-  //     } else {
-  //       return eventDate < today;
-  //     }
-  //   });
-
-  //   setFilteredEvents(filtered);
-  //   setActiveFilter(filter);
-  // };
-
+  
   const filterEvents = (eventsData, filter) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
