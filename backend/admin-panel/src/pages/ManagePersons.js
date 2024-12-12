@@ -191,6 +191,7 @@ const ManagePersons = () => {
           <option value="Mentors">Mentors</option>
           <option value="Independent Observers">Independent Observer</option>
           <option value="Consultants">Consultants</option>
+          <option value="Past Team Members">Past Team Members</option>
         </select>
         <input
           type="text"
