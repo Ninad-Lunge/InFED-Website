@@ -44,6 +44,16 @@ const Navbar = ({ contactRef }) => {
                 </svg>
             </button>
 
+            {/* <div className={`links ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row gap-y-4 md:gap-1 gap-x-6 md:gap-x-14 mb-4 md:mb-0 text-sm`}>
+                <Link to="/about" className={isActive('/about')} onClick={handleScrollToTop}>About</Link>
+                <Link to="/program" className={isActive('/program')} onClick={handleScrollToTop}>Program</Link>
+                <Link to="/portfolio" className={isActive('/portfolio')} onClick={handleScrollToTop}>Portfolio</Link>
+                <Link to="/initiatives" className={isActive('/initiatives')} onClick={handleScrollToTop}>Initiatives</Link>
+                <Link to="/event" className={isActive('/event')} onClick={handleScrollToTop}>Events</Link>
+                <Link to="/reports" className={isActive('/reports')} onClick={handleScrollToTop}>Reports</Link>
+                <button onClick={handleClickContact} className={isActive('#contact')}>Contact</button>
+            </div> */}
+
             <div className={`links ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row gap-y-4 md:gap-1 gap-x-6 md:gap-x-14 mb-4 md:mb-0 text-sm`}>
                 {['About', 'Program', 'Portfolio', 'Initiatives', 'Events', 'Reports'].map((item, index) => (
                     <Link
