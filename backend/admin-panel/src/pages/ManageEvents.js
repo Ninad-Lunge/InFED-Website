@@ -65,7 +65,7 @@ const ManageEvents = () => {
     });
     setEditingId(event._id);
     setIsAddingNew(false);
-  };  
+  };
 
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
@@ -73,7 +73,7 @@ const ManageEvents = () => {
         const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-event/${id}`, {
           method: 'DELETE'
         });
-        
+
         if (response.ok) {
           setMessage('Event deleted successfully');
           fetchEvents(); // Refresh the list
@@ -149,7 +149,7 @@ const ManageEvents = () => {
     <div className="max-w-5xl mx-auto mt-5">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">Manage Events</h2>
-        <button 
+        <button
           onClick={() => {
             setIsAddingNew(!isAddingNew);
             setEditingId(null);
@@ -250,24 +250,43 @@ const ManageEvents = () => {
             rows="2"
             required
           />
-          <textarea
-            name="description"
-            placeholder="Event Detailed Description"
-            value={formData.description}
-            onChange={handleChange}
-            className="w-full p-2 border rounded"
-            rows="4"
-            required
-          />
-          <textarea
+          <div>
+            <textarea
+              name="description"
+              placeholder="Event Detailed Description (Max 150 words)"
+              value={formData.description}
+              onChange={(e) => {
+                const words = e.target.value.trim().split(/\s+/);
+                if (words.length <= 150) {
+                  handleChange(e);
+                } else {
+                  // Limit to 150 words
+                  const limitedText = words.slice(0, 150).join(' ');
+                  setFormData({
+                    ...formData,
+                    description: limitedText
+                  });
+                }
+              }}
+              className="w-full p-2 border rounded"
+              rows="4"
+              required
+            />
+            <p className="text-sm text-gray-500 mt-1">
+              {formData.description.trim().split(/\s+/).filter(word => word.length > 0).length}/150 words
+            </p>
+          </div>
+          <select
             name="mode"
-            placeholder="Mode of Conduction of Event"
             value={formData.mode}
             onChange={handleChange}
             className="w-full p-2 border rounded"
-            rows="2"
             required
-          />
+          >
+            <option value="">Select Event Mode</option>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option>
+          </select>
           <button
             type="submit"
             className="bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
@@ -297,7 +316,7 @@ const ManageEvents = () => {
                 {new Date(event.startDate).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}
               </p>
               <p className="text-sm text-gray-500 mb-4">{event.venue}</p>
-              
+
               <div className="flex justify-end gap-2">
                 <button
                   onClick={() => handleEdit(event)}

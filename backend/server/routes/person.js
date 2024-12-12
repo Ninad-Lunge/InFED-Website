@@ -1,135 +1,140 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
 const Person = require('../models/Person');
+const upload = require('../middleware/upload'); // Assume you have a multer upload middleware
 
-// Configure Cloudinary
-cloudinary.config({ 
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET 
+// Get all persons (sorted by index)
+router.get('/people', async (req, res) => {
+  try {
+    const persons = await Person.find({}).sort('index');
+    res.json(persons);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching persons', error });
+  }
 });
 
-const upload = multer({ 
-  storage: multer.memoryStorage(),
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB file size limit
-  },
+// Add a new person
+router.post('/add-person', upload.single('image'), async (req, res) => {
+  try {
+    const { 
+      name, 
+      designation, 
+      heading, 
+      email, 
+      linkedin, 
+      twitter 
+    } = req.body;
+
+    const maxIndexPerson = await Person.findOne({}).sort('-index');
+    const newIndex = maxIndexPerson ? maxIndexPerson.index + 1 : 0;
+
+    const newPerson = new Person({
+      name,
+      designation,
+      heading,
+      socialLinks: {
+        email,
+        linkedin,
+        twitter
+      },
+      image: req.file ? req.file.path : null,
+      index: newIndex
+    });
+
+    await newPerson.save();
+    res.status(201).json({ person: newPerson });
+  } catch (error) {
+    res.status(400).json({ message: 'Error adding person', error });
+  }
 });
 
-// Helper function to upload image to Cloudinary
-const uploadToCloudinary = (file) => {
-  return new Promise((resolve, reject) => {
-    const uploadStream = cloudinary.uploader.upload_stream(
-      { folder: 'persons' }, // Optional: organize uploads in a folder
-      (error, result) => {
-        if (error) reject(error);
-        else resolve(result);
+// Update person (including index for reordering)
+router.put('/update-person/:id', upload.single('image'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { 
+      name, 
+      designation, 
+      heading, 
+      email, 
+      linkedin, 
+      twitter,
+      index
+    } = req.body;
+
+    const updateData = {
+      name,
+      designation,
+      heading,
+      socialLinks: {
+        email,
+        linkedin,
+        twitter
       }
+    };
+
+    // Update image if a new file is uploaded
+    if (req.file) {
+      updateData.image = req.file.path;
+    }
+
+    // Update index if provided
+    if (index !== undefined) {
+      updateData.index = index;
+    }
+
+    const updatedPerson = await Person.findByIdAndUpdate(
+      id, 
+      updateData, 
+      { new: true }
     );
 
-    // Convert buffer to stream
-    const stream = require('stream');
-    const bufferStream = new stream.PassThrough();
-    bufferStream.end(file.buffer);
-    bufferStream.pipe(uploadStream);
-  });
-};
-
-// POST route to add a person with image upload
-router.post('/add-person', upload.single('image'), async (req, res) => {
-    const { name, designation, email, linkedin, twitter, heading } = req.body;
-
-    if (!heading) {
-        return res.status(400).json({ message: 'Heading is required' });
-    }
-
-    try {
-        let imageUrl = '';
-        
-        // Upload image if file exists
-        if (req.file) {
-            const cloudinaryResponse = await uploadToCloudinary(req.file);
-            imageUrl = cloudinaryResponse.secure_url;
-        }
-
-        // Prepare social links object
-        const socialLinks = {
-            email: email || '',
-            linkedin: linkedin || '',
-            twitter: twitter || ''
-        };
-
-        const newPerson = new Person({
-            name,
-            image: imageUrl,
-            designation,
-            socialLinks,
-            heading
-        });
-
-        await newPerson.save();
-        res.status(201).json({ message: 'Person added successfully', person: newPerson });
-    } catch (error) {
-        console.error('Error adding person:', error);
-        res.status(500).json({ message: 'Error adding person', error: error.message });
-    }
-});
-
-// PUT route to update a person with optional image upload
-router.put('/update-person/:id', upload.single('image'), async (req, res) => {
-    const { id } = req.params;
-    const { name, designation, email, linkedin, twitter, heading } = req.body;
-
-    try {
-        let updateData = { name, designation, heading };
-
-        // Prepare social links object
-        const socialLinks = {
-            email: email || '',
-            linkedin: linkedin || '',
-            twitter: twitter || ''
-        };
-        
-        updateData.socialLinks = socialLinks;
-
-        // Upload new image if file exists
-        if (req.file) {
-            const cloudinaryResponse = await uploadToCloudinary(req.file);
-            updateData.image = cloudinaryResponse.secure_url;
-        }
-
-        const updatedPerson = await Person.findByIdAndUpdate(
-            id, 
-            updateData, 
-            { new: true }
-        );
-
-        if (!updatedPerson) {
-            return res.status(404).json({ message: 'Person not found' });
-        }
-
-        res.json({ message: 'Person updated successfully', person: updatedPerson });
-    } catch (error) {
-        console.error('Error updating person:', error);
-        res.status(500).json({ message: 'Error updating person', error: error.message });
-    }
-});
-
-router.delete('/delete-person/:id', async (req, res) => {
-  const { id } = req.params;
-
-  try{
-      const deletedPerson = await Person.findByIdAndDelete(id);
-
-      if(!deletedPerson) {
-          return res.status(404).json({ message: 'Person not found' });
-      }
-
-      res.json({ message: 'Person deleted successfully' });
+    res.json({ person: updatedPerson });
   } catch (error) {
-      res.status(500).json({ message: 'Error deleting person', error });
+    res.status(400).json({ message: 'Error updating person', error });
+  }
+});
+
+// Reorder persons (bulk update of indices)
+router.post('/reorder-persons', async (req, res) => {
+  try {
+    const { persons } = req.body;
+
+    if (!Array.isArray(persons)) {
+      return res.status(400).json({ message: 'Invalid input' });
+    }
+
+    // Validate that indices are unique and sequential
+    const indices = persons.map(p => p.index);
+    const uniqueIndices = new Set(indices);
+    if (uniqueIndices.size !== persons.length) {
+      return res.status(400).json({ message: 'Indices must be unique' });
+    }
+
+    const bulkOps = persons.map(person => ({
+      updateOne: {
+        filter: { _id: person._id },
+        update: { index: person.index }
+      }
+    }));
+
+    await Person.bulkWrite(bulkOps);
+
+    res.json({ message: 'Persons reordered successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error reordering persons', error });
+  }
+});
+
+
+// Delete a person
+router.delete('/delete-person/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Person.findByIdAndDelete(id);
+    res.json({ message: 'Person deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: 'Error deleting person', error });
   }
 });
 

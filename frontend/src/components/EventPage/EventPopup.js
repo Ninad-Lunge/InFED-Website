@@ -48,13 +48,13 @@ const EventPopup = ({ event, onClose }) => {
                 <>
                   <button
                     onClick={prevImage}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1 shadow-md hover:shadow-[4px_4px_0px_#F7A221] transition-all duration-200"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1 transition-all duration-200"
                   >
                     <ChevronLeft size={24} />
                   </button>
                   <button
                     onClick={nextImage}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1 shadow-md hover:shadow-[4px_4px_0px_#F7A221] transition-all duration-200"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-1 transition-all duration-200"
                   >
                     <ChevronRight size={24} />
                   </button>
