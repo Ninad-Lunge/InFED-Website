@@ -74,7 +74,7 @@ const [error, setError] = useState(null);
   
     try {
       // Send reordering request to backend
-      await axios.post("/api/reorder-persons", {
+      await axios.post("https://infed-website-kkva.onrender.com/api/reorder-persons", {
         persons: updatedPersons
       });
       
@@ -209,6 +209,7 @@ const [error, setError] = useState(null);
           <option value="Mentors">Mentors</option>
           <option value="Independent Observers">Independent Observers</option>
           <option value="Consultants">Consultants</option>
+          <option value="Past Team Members">Past Team Members</option>
         </select>
         <input type="text" name="email" placeholder="Email" value={formData.email} onChange={handleChange} className="p-2 border rounded" />
         <input type="text" name="linkedin" placeholder="LinkedIn Link" value={formData.linkedin} onChange={handleChange} className="p-2 border rounded" />

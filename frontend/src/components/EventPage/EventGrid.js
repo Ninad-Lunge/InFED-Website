@@ -24,7 +24,7 @@ const EventGrid = () => {
   const filterEvents = (eventsData, filter) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
+    
     const filtered = eventsData.filter((event) => {
       const eventDate = new Date(event.startDate);
       eventDate.setHours(0, 0, 0, 0);
@@ -35,7 +35,16 @@ const EventGrid = () => {
         return eventDate < today;
       }
     });
-
+  
+    // Sort upcoming events in ascending order (earliest first)
+    if (filter === 'upcoming') {
+      filtered.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+    } 
+    // Sort past events in descending order (most recent first)
+    else {
+      filtered.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+    }
+  
     setFilteredEvents(filtered);
     setActiveFilter(filter);
   };
@@ -43,7 +52,7 @@ const EventGrid = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="mb-8 flex gap-4 mx-12">
-        <div className="text-gray-600">Filter Events:</div>
+        <div className="pt-2 text-gray-600">Filter Events:</div>
         <button
           onClick={() => filterEvents(events, 'upcoming')}
           className={`px-4 py-2 rounded-md ${
