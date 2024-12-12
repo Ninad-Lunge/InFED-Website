@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Globe } from 'lucide-react';
 
 const Navbar = ({ contactRef }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,6 +11,10 @@ const Navbar = ({ contactRef }) => {
     function handleToggleMenu() {
         setIsMenuOpen(!isMenuOpen);
     }
+
+    const handleCommunityClick = () => {
+        console.log('Connecting to Community');
+    };
 
     function handleScrollToTop() {
         // Scrolls the page to the top
@@ -54,11 +60,20 @@ const Navbar = ({ contactRef }) => {
                 <button onClick={handleClickContact} className={isActive('#contact')}>Contact</button>
             </div>
 
-            <div>
-                <button className='join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md text-sm hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform' onClick={handleClickContact}>
+            <motion.div>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleCommunityClick}
+                    className="flex items-center justify-center gap-2 px-3 py-1.5 
+                    border-2 border-yellow-300 text-gray-800 text-sm 
+                    rounded-lg hover:bg-yellow-50 transition-all duration-300
+                    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-300"
+                >
+                    <Globe size={15} className="mr-1" />
                     Join the Community
-                </button>
-            </div>
+                </motion.button>
+            </motion.div>
         </nav>
     );
 };
