@@ -9,7 +9,8 @@ const PeopleGrid = () => {
         'ISMC', 
         'Mentors', 
         'Executive Team',
-        'Consultants'
+        'Consultants',
+        'Past Team Members'
     ];
 
     const headingRefs = useRef(headings.map(() => React.createRef()));
