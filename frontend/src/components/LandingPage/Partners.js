@@ -41,7 +41,7 @@ const Partners = () => {
       </motion.div>
 
       {/* Marquee towards left */}
-      <Marquee gradient={false} speed={100} className="mb-20">
+      <Marquee gradient={false} speed={100} className="mb-16">
         {partners.map((partner, index) => (
           <div
             key={partner.id || index}
