@@ -6,8 +6,8 @@ const eventSchema = new mongoose.Schema({
     shortDesc: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
-    startTime: { type: String, required: true },
-    endTime: { type: String, required: true },
+    startTime: { type: String},
+    endTime: { type: String},
     venue: { type: String, required: true },
     description: { type: String, required: true },
     mode: {
