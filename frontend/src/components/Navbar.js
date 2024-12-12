@@ -10,13 +10,20 @@ const Navbar = ({ contactRef }) => {
         setIsMenuOpen(!isMenuOpen);
     }
 
-    function handleClick() {
+    function handleScrollToTop() {
+        // Scrolls the page to the top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleClickContact() {
+        // Scroll to the contact section
         contactRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
 
     function handleClickonImage() {
         navigate('/LandingPage');
     }
+
     const isActive = (path) => location.pathname === path ? 'text-[#F7A221]' : 'text-black';
 
     return (
@@ -38,17 +45,17 @@ const Navbar = ({ contactRef }) => {
             </button>
 
             <div className={`links ${isMenuOpen ? 'block' : 'hidden'} md:flex flex-col md:flex-row gap-y-4 md:gap-1 gap-x-6 md:gap-x-14 mb-4 md:mb-0 text-sm`}>
-                <Link to="/about" className={isActive('/about')}>About</Link>
-                <Link to="/program" className={isActive('/program')}>Program</Link>
-                <Link to="/portfolio" className={isActive('/portfolio')}>Portfolio</Link>
-                <Link to="/initiatives" className={isActive('/initiatives')}>Initiatives</Link>
-                <Link to="/event" className={isActive('/event')}>Events</Link>
-                <Link to="/reports" className={isActive('/reports')}>Reports</Link>
-                <button onClick={handleClick} className={isActive('#contact')}>Contact</button>
+                <Link to="/about" className={isActive('/about')} onClick={handleScrollToTop}>About</Link>
+                <Link to="/program" className={isActive('/program')} onClick={handleScrollToTop}>Program</Link>
+                <Link to="/portfolio" className={isActive('/portfolio')} onClick={handleScrollToTop}>Portfolio</Link>
+                <Link to="/initiatives" className={isActive('/initiatives')} onClick={handleScrollToTop}>Initiatives</Link>
+                <Link to="/event" className={isActive('/event')} onClick={handleScrollToTop}>Events</Link>
+                <Link to="/reports" className={isActive('/reports')} onClick={handleScrollToTop}>Reports</Link>
+                <button onClick={handleClickContact} className={isActive('#contact')}>Contact</button>
             </div>
 
             <div>
-                <button className='join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md text-sm hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform' onClick={handleClick}>
+                <button className='join-btn p-2 md:px-4 md:py-2 bg-white text-black border border-black rounded-md text-sm hover:shadow-[4px_4px_0px_#F7A221] hover:scale-105 transition-transform' onClick={handleClickContact}>
                     Join the Community
                 </button>
             </div>

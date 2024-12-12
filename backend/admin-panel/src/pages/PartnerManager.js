@@ -79,8 +79,9 @@ const PartnerUpload = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-white">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Partners</h1>
+    <div className="max-w-4xl mx-auto bg-white">
+      {/* <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Partners</h1> */}
+      <h1 className="title text-2xl font-bold py-4">Manage Partners</h1>
 
       {successMessage && (
         <div className="p-4 mb-4 text-green-700 bg-green-100 rounded-lg">
@@ -91,7 +92,7 @@ const PartnerUpload = () => {
       {/* Partner Upload Form */}
       <form
         onSubmit={handleUpload}
-        className="mb-8 p-4 bg-gray-100 rounded-lg shadow-sm"
+        className="mb-8 p-4 rounded-lg shadow-sm"
       >
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-2">
@@ -125,45 +126,47 @@ const PartnerUpload = () => {
       {/* Existing Partners */}
       <h2 className="text-xl font-bold text-gray-800 mb-4">Existing Partners</h2>
       <div className="overflow-x-auto">
-        <table className="w-full table-auto border-collapse border border-gray-200">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-300 px-4 py-2">Logo</th>
-              <th className="border border-gray-300 px-4 py-2">Name</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {partners.map((partner) => (
-              <tr key={partner._id} className="hover:bg-gray-50">
-                <td className="border border-gray-300 px-4 py-2">
-                  <img
-                    src={partner.logoUrl}
-                    alt={partner.name}
-                    className="h-16 w-16 object-cover rounded"
-                  />
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {partner.name}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  <button
-                    onClick={() => handleEdit(partner)}
-                    className="px-3 py-1 mr-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(partner._id)}
-                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-                  >
-                    Delete
-                  </button>
-                </td>
+        <div className="max-h-96 overflow-y-auto">
+          <table className="w-full table-auto border-collapse border border-gray-200">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 px-4 py-2">Logo</th>
+                <th className="border border-gray-300 px-4 py-2 max-w-xl">Name</th>
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {partners.map((partner) => (
+                <tr key={partner._id} className="hover:bg-gray-50">
+                  <td className="border border-gray-300 px-4 py-2">
+                    <img
+                      src={partner.logoUrl}
+                      alt={partner.name}
+                      className="h-16 w-16 object-cover rounded"
+                    />
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 max-w-xl">
+                    {partner.name}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <button
+                      onClick={() => handleEdit(partner)}
+                      className="px-3 py-1 mr-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(partner._id)}
+                      className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

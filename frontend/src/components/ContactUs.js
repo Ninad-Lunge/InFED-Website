@@ -5,7 +5,7 @@ const Contact = forwardRef((props, ref) => {
     return(
         <div ref={ref} id="contact" className="contact bg-black mt-20">
 
-            <img src={require('../assests/images/InFED-mono.png')} alt="logo" className="logo w-52 py-20 ms-20" />
+            <img src={require('../assests/images/InFED-mono.png')} alt="logo" className="logo w-52 pt-20 pb-5 ms-20" />
 
             <div className="links grid grid-cols-1 md:grid-cols-3 gap-x-48 py-8 mx-20 mb-20">
                 <div className="collaboration text-white text-left">
@@ -14,31 +14,32 @@ const Contact = forwardRef((props, ref) => {
                     <p className="text-[20px] my-2">Outreach Partners</p>
                 </div>
 
-                <div className="links text-white text-left mt-12">
+                <div className="links text-white text-left">
                     <h1 className="text-3xl pb-10 font-bold">Quick Links</h1>
                     <p className="text-[20px] my-2">Important Links</p>
                     <p className="text-[20px] my-2">Brand Guidelines</p>
                 </div>
 
-                <div className="follow text-white text-left mt-12">
-                    <h1 className="text-3xl pb-10 font-bold" >Follow Us</h1>
+                <div className="follow text-white text-left">
+                    <h1 className="text-3xl pb-10 font-bold">Follow Us</h1>
                     <div className="icons flex flex-row gap-x-5">
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/company/infed/" target="_blank" rel="noopener noreferrer">
                             <FaLinkedin className="text-white" size={30} />
                         </a>
-                        <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://x.com/infed_iimn" target="_blank" rel="noopener noreferrer">
                             <FaTwitter className="text-white" size={30} />
                         </a>
-                        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.facebook.com/infed.iimn" target="_blank" rel="noopener noreferrer">
                             <FaFacebook className="text-white" size={30} />
                         </a>
-                        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.instagram.com/infed_iimnagpur/" target="_blank" rel="noopener noreferrer">
                             <FaInstagram className="text-white" size={30} />
                         </a>
-                        <a href="https://www.gmail.com" target="_blank" rel="noopener noreferrer">
+                        {/* <a href="" target="_blank" rel="noopener noreferrer">
                             <FaEnvelope className="text-white" size={30} />
-                        </a>
+                        </a> */}
                     </div>
+                    <h1 className="text-[20px] mt-5 font-semibold">Email: <span className="text-[20px] font-normal">infed@iimnagpur.ac.in</span></h1>
                 </div>
             </div>
 

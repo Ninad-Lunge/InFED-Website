@@ -66,7 +66,7 @@ const EventGrid = () => {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-12 mx-12">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-12 mx-12">
         {filteredEvents.map((event, index) => (
           <EventCard key={index} event={event} />
         ))}
