@@ -66,7 +66,7 @@ const Hero = () => {
 
           <motion.p 
             variants={textVariants}
-            className="text-xl text-gray-700 leading-relaxed text-justify"
+            className="text-l text-gray-900 leading-relaxed text-justify"
           >
             InFED (IIMN Foundation for Entrepreneurship Development) is the business incubator of the 
             Indian Institute of Management Nagpur (IIM Nagpur). InFED works with important stakeholders 
@@ -130,7 +130,7 @@ const Hero = () => {
               <motion.img 
                 src={require('./../../assests/images/aboutPage/iimn-front-night.png')} 
                 alt="Entrepreneurship Illustration"
-                className="relative z-10 w-full h-auto rounded-2xl shadow-xl 
+                className="relative z-10 w-full h-80 rounded-2xl shadow-xl 
                 border-4 border-white transform transition-all duration-300"
               />
             </motion.div>
