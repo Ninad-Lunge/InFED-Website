@@ -9,7 +9,7 @@ const About = () => {
     const contactRef = useRef(null);
 
     return(
-        <div className="about mt-10">
+        <div className="about md:mt-10">
             <Navbar contactRef={contactRef} />
             <AboutInFED />
             <Leadership />

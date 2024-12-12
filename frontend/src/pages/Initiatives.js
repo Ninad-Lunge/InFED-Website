@@ -7,7 +7,7 @@ const Initiatives = () => {
     const contactRef = useRef(null);
 
     return(
-        <div className="initiatives mt-10">
+        <div className="initiatives md:mt-10">
             <Navbar contactRef={contactRef}/>
             <InitiativeDetails />
             <Contact ref={contactRef} />

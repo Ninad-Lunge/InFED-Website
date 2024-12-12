@@ -51,7 +51,7 @@ const Hero = () => {
         {/* Text Content */}
         <motion.div 
           variants={heroVariants}
-          className="w-full md:w-3/5 space-y-6 text-left mr-12"
+          className="w-full md:w-3/5 space-y-6 text-left md:mr-12"
         >
           <motion.h1 
             variants={textVariants}

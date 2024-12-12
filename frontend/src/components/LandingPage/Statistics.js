@@ -33,7 +33,7 @@ const Statistics = () => {
         <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#F7A221]">
           <CountUp end={32} separator="," duration={4} />Cr+
         </h1>
-        <h3 className="text-lg md:text-xl">Seed Funding (INR)</h3>
+        <h3 className="text-lg md:text-xl">Follow-on Funding (INR)</h3>
       </div>
     </div>
   );
