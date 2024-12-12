@@ -1,16 +1,48 @@
 const mongoose = require('mongoose');
 
-const personSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    image: { type: String, required: true },
-    designation: { type: String, required: true },
-    socialLinks: {
-        email: { type: String },
-        linkedin: { type: String },
-        twitter: { type: String }
+const PersonSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  designation: {
+    type: String,
+    trim: true
+  },
+  heading: {
+    type: String,
+    trim: true
+  },
+  socialLinks: {
+    email: {
+      type: String,
+      trim: true,
+      lowercase: true
     },
-    heading: { type: String, required: true }
+    linkedin: {
+      type: String,
+      trim: true
+    },
+    twitter: {
+      type: String,
+      trim: true
+    }
+  },
+  image: {
+    type: String  // Store image path or URL
+  },
+  index: {
+    type: Number,
+    default: 0,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+}, {
+  timestamps: true
 });
 
-const Person = mongoose.model('Person', personSchema);
-module.exports = Person;
+module.exports = mongoose.model('Person', PersonSchema);

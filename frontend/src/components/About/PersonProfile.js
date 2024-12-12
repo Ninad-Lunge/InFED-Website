@@ -16,9 +16,13 @@ const PeopleGrid = () => {
 
     useEffect(() => {
         fetch('https://infed-website-kkva.onrender.com/api/people')
-            .then((response) => response.json())
-            .then((data) => setPeople(data))
-            .catch((error) => console.error('Error fetching people:', error));
+        .then((response) => response.json())
+        .then((data) => {
+            // Sort the people by their index field
+            const sortedPeople = data.sort((a, b) => a.index - b.index);
+            setPeople(sortedPeople);
+        })
+        .catch((error) => console.error('Error fetching people:', error));
     }, []);
 
     useEffect(() => {
