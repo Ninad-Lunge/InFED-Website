@@ -74,7 +74,7 @@ const [error, setError] = useState(null);
   
     try {
       // Send reordering request to backend
-      await axios.post("/api/reorder-persons", {
+      await axios.post("https://infed-website-kkva.onrender.com/api/reorder-persons", {
         persons: updatedPersons
       });
       
