@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 import { MapPin, Users, Target, Trophy } from "lucide-react";
+import IBFC1 from "../../assests/images/Initiatives/IBFC/IBFC1.jpg";
+import IBFC2 from "../../assests/images/Initiatives/IBFC/IBFC2.jpg";
+import IBFC3 from "../../assests/images/Initiatives/IBFC/IBFC3.jpg";
+import II1 from "../../assests/images/Initiatives/Idea2Impact/I2I1.jpg";
+import II2 from "../../assests/images/Initiatives/Idea2Impact/I2I2.jpg";
+import II3 from "../../assests/images/Initiatives/Idea2Impact/I2I3.jpg";
+import Wardhini1 from "../../assests/images/Initiatives/Wardhini/Wardhini1.jpg";
+import Wardhini2 from "../../assests/images/Initiatives/Wardhini/Wardhini2.jpg";
+import Wardhini3 from "../../assests/images/Initiatives/Wardhini/Wardhini3.jpg";
+import Magent1 from "../../assests/images/Initiatives/Magnet/Magnet1.JPG";
+import Magent2 from "../../assests/images/Initiatives/Magnet/Magnet2.JPG";
+import Magent3 from "../../assests/images/Initiatives/Magnet/Magnet3.JPG";
 
 const InitiativeDetails = () => {
   // Array of initiatives with their details
@@ -22,11 +34,7 @@ const InitiativeDetails = () => {
         success_rate: "75%",
       },
       locations: ["Wardha", "Bhandara"],
-      images: [
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-      ],
+      images: [IBFC1, IBFC2, IBFC3],
     },
     {
       id: 2,
@@ -46,11 +54,7 @@ const InitiativeDetails = () => {
         success_rate: "65%",
       },
       locations: ["Wardha"],
-      images: [
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-      ],
+      images: [Wardhini1, Wardhini2, Wardhini3],
     },
     {
       id: 3,
@@ -70,11 +74,7 @@ const InitiativeDetails = () => {
         success_rate: "75%",
       },
       locations: ["Wardha", "Nagpur"],
-      images: [
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-      ],
+      images: [II1, II2, II3],
     },
     {
       id: 4,
@@ -144,11 +144,7 @@ const InitiativeDetails = () => {
         success_rate: "75%",
       },
       locations: ["Nagpur"],
-      images: [
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-        "/api/placeholder/600/400",
-      ],
+      images: [Magent1, Magent2, Magent3],
     },
     {
       id: 5,
@@ -406,11 +402,10 @@ const InitiativeDetails = () => {
                       rounded-md
                       transition-all
                       duration-300
-                      ${
-                        activeTabs[initiative.id] === tab
+                      ${activeTabs[initiative.id] === tab
                           ? "bg-orange-500 text-white hover:bg-orange-600"
                           : "text-gray-700 hover:bg-orange-50 hover:text-orange-800 border border-transparent hover:border-orange-300"
-                      }
+                        }
                     `}
                     >
                       {tab.charAt(0).toUpperCase() + tab.slice(1)}

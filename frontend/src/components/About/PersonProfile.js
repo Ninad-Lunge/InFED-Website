@@ -49,13 +49,22 @@ const PeopleGrid = () => {
     }));
 
     const scrollToHeading = (index) => {
-        headingRefs.current[index].current.scrollIntoView({ behavior: 'smooth' });
+        const element = headingRefs.current[index].current;
+        const offset = 100; // The amount you want to scroll above the target
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - offset;
+    
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
     };
+    
 
     return (
         <div className='mx-12'>
             {/* Fixed Navbar for headings */}
-            <nav className="flex gap-4 mb-8 fixed-navbar flex-wrap">
+            <nav className="flex gap-4 mb-8 z-30 bg-white sticky top-[65px] flex-wrap">
                 {headings.map((heading, index) => (
                     <button 
                         key={index} 
@@ -70,7 +79,7 @@ const PeopleGrid = () => {
             </nav>
 
             {/* Content */}
-            <div className="pt-20">
+            <div className="pt-5">
                 {groupedPeople.map((group, index) => (
                     <div key={index} ref={headingRefs.current[index]}>
                         <h1 className='text-2xl text-left my-10'>
