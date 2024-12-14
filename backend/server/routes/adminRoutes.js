@@ -74,4 +74,65 @@ router.delete('/:adminId', authenticateToken, checkSuperAdmin, async (req, res) 
   }
 });
 
+// For Community
+
+// const express = require('express');
+// const router = express.Router();
+const adminController = require('../controllers/adminController');
+const adminMiddleware = require('../middleware/adminMiddleware.js');
+
+// Event Routes
+router.get('/events', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.getAllEvents
+);
+router.post('/events', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.createEvent
+);
+router.put('/events/:id', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.updateEvent
+);
+router.delete('/events/:id', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.deleteEvent
+);
+
+// Opportunity Routes
+router.get('/opportunities', adminController.getAllOpportunities);
+
+router.post('/opportunities', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.createOpportunity
+);
+router.put('/opportunities/:id', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.updateOpportunity
+);
+router.delete('/opportunities/:id', 
+  authenticateToken, 
+  adminMiddleware, 
+  adminController.deleteOpportunity
+);
+
+// User Routes
+router.get('/users', 
+  authenticateToken, 
+  adminMiddleware,
+  adminController.getAllUsers
+);
+
+router.get('/users', 
+  authenticateToken, 
+  adminMiddleware,
+  adminController.deleteUser
+);
+
 module.exports = router;

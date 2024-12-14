@@ -54,10 +54,10 @@ const ObjectiveCard = ({ img, text }) => {
 const Objectives = () => {
   const objectivesData = [
     { img: image, text: 'Curated\nMentoring' },
-    { img: image1, text: 'Market\nLinkages' },
     { img: image2, text: 'Networking\nOpportunities' },
     { img: image3, text: 'Startup-Scaleup\nSupport' },
     { img: image4, text: 'Paid Pilot\nOpportunity' },
+    { img: image1, text: 'Market\nLinkages' },
     { img: image5, text: 'Funding\nOpportunities' },
   ];
 

@@ -13,6 +13,8 @@ const initiativesRoutes = require('./routes/initiatives');
 const authRoutes = require('./routes/authRouter')
 const adminRoutes = require('./routes/adminRoutes');
 const partnerRoutes = require('./routes/partners');
+const communityRoutes = require('./routes/communityDashboardRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -39,7 +41,9 @@ app.use('/api', founderRoutes);
 app.use('/api', initiativesRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/partners', partnerRoutes);
+app.use('/api/dashboard', communityRoutes);
 
 // Home route
 app.get('/', (req, res) => {

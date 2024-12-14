@@ -37,6 +37,9 @@ const VerticalNavbar = () => {
       <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-persons')}>
         <FaInfoCircle className="mr-2" /> Edit About Page
       </button>
+      {/* <button className="w-full bg-transparent text-white border-none py-3 px-4 text-left cursor-pointer text-lg mb-2 flex items-center" onClick={() => navigate('/manage-community')}>
+        <FaInfoCircle className="mr-2" /> Manage Community
+      </button> */}
 
       <hr className="bg-white w-40 my-4" />
 

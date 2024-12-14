@@ -11,17 +11,22 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the logged-in user's information from the backend or localStorage
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-
-      // Fetch the list of admins if the user is a super admin
-      if (JSON.parse(storedUser).role === 'super-admin') {
-        fetchAdmins();
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        setUser(parsedUser);
+  
+        if (parsedUser.role === 'super-admin') {
+          fetchAdmins();
+        }
       }
+    } catch (error) {
+      console.error('Error parsing user data:', error);
+      localStorage.clear();
+      navigate('/login');
     }
-  }, []);
+  }, [navigate]);
 
   const fetchAdmins = async () => {
     try {
@@ -40,14 +45,19 @@ const Profile = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    window.location.replace('/login');
+    navigate('/login', { replace: true });
   };
 
   const handleAddAdmin = async () => {
+    if (!newAdminEmail || !newAdminPassword) {
+      alert('Please fill in all fields');
+      return;
+    }
+  
     try {
       const token = localStorage.getItem('token');
-      await axios.post('https://infed-website-kkva.onrender.com/api/admin/create', {
-        name: newAdminEmail.split('@')[0],
+      const response = await axios.post('https://infed-website-kkva.onrender.com/api/admin/create', {
+        name: newAdminName || newAdminEmail.split('@')[0],
         email: newAdminEmail,
         password: newAdminPassword,
       }, {
@@ -55,19 +65,20 @@ const Profile = () => {
           'Authorization': `Bearer ${token}`
         }
       });
+      
       setNewAdminEmail('');
       setNewAdminPassword('');
+      setNewAdminName('');
       fetchAdmins();
-      alert('Admin added successfully')
+      alert('Admin added successfully');
     } catch (error) {
-      console.error('Full error details:', error);
-      console.error('Error response:', error.response?.data);
-      console.error('Error status:', error.response?.status);
-      alert(error.response?.data?.message || 'Failed to add admin');
+      const errorMessage = error.response?.data?.message || 
+                           'Failed to add admin. Please try again.';
+      console.error('Admin creation error:', error);
+      alert(errorMessage);
     }
   };
-
-
+  
   const handleRemoveAdmin = async (adminId) => {
     try {
       const token = localStorage.getItem('token');

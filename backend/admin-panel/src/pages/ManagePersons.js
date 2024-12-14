@@ -16,18 +16,15 @@ const ManagePersons = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [persons, setPersons] = useState([]);
   const [personId, setPersonId] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-const [error, setError] = useState(null);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPersons = async () => {
       try {
         const response = await axios.get("https://infed-website-kkva.onrender.com/api/people");
         const data = response.data;
-        
-        // Add logging
-        console.log("Fetched persons:", data);
-        
+    
         // Ensure data is sorted by index
         const sortedPersons = data.sort((a, b) => a.index - b.index);
         
@@ -204,7 +201,7 @@ const [error, setError] = useState(null);
         <select name="heading" value={formData.heading} onChange={handleChange} className="p-2 border rounded col-span-2">
           <option value="">Select Heading</option>
           <option value="Honourable Advisory Board">Honourable Advisory Board</option>
-          <option value="ISMC">ISMC</option>
+          <option value="Incubator Seed Management Committee">Incubator Seed Management Committee</option>
           <option value="Executive Team">Executive Team</option>
           <option value="Mentors">Mentors</option>
           <option value="Independent Observers">Independent Observers</option>

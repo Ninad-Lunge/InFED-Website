@@ -38,7 +38,7 @@ const uploadToCloudinary = (file) => {
 
 // Add a new event with multiple image uploads
 router.post('/add-event', upload.array('images', 5), async (req, res) => {
-    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode } = req.body;
+    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode, registrationLink } = req.body;
 
     if (!['Online', 'Offline'].includes(mode)) {
         return res.status(400).json({ message: 'Invalid mode. Allowed values are Online or Offline.' });
@@ -67,6 +67,7 @@ router.post('/add-event', upload.array('images', 5), async (req, res) => {
             venue,
             description,
             mode,
+            registrationLink,
         });
 
         await newEvent.save();
@@ -104,7 +105,7 @@ router.get('/get-event/:id', async (req, res) => {
 
 // Update an event by ID
 router.put('/update-event/:id', upload.array('images', 5), async (req, res) => {
-    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode } = req.body;
+    const { name, shortDesc, startDate, endDate, startTime, endTime, venue, description, mode, registrationLink } = req.body;
 
     if (!['Online', 'Offline'].includes(mode)) {
         return res.status(400).json({ message: 'Invalid mode. Allowed values are Online or Offline.' });
@@ -135,6 +136,7 @@ router.put('/update-event/:id', upload.array('images', 5), async (req, res) => {
                 venue,
                 description,
                 mode,
+                registrationLink
             },
             { new: true }
         );

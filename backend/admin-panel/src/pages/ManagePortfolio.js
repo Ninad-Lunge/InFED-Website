@@ -256,30 +256,32 @@ const ManagePortfolio = () => {
             </form>
 
             <h3 className="text-lg font-semibold mb-4">Startups List</h3>
-            <ul className="border border-gray-400 p-2 rounded-md">
-                {startups.map((startup) => (
-                    <li
-                        key={startup._id}
-                        className="grid grid-cols-3 gap-x-6 p-1 mb-0.5 border border-gray-400"
-                    >
-                        <span className="col-span-2">{startup.name}</span>
-                        <div className="grid grid-cols-2 place-items-end">
-                            <button
-                                onClick={() => handleEdit(startup)}
-                                className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => deleteStartup(startup._id)}
-                                className="py-1 px-2 bg-red-500 text-white rounded"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+            <div className='max-h-96 overflow-y-auto'>
+                <ul className="border border-gray-400 p-2 rounded-md">
+                    {startups.map((startup) => (
+                        <li
+                            key={startup._id}
+                            className="grid grid-cols-3 gap-x-6 p-1 mb-0.5 border border-gray-400"
+                        >
+                            <span className="col-span-2">{startup.name}</span>
+                            <div className="grid grid-cols-2 place-items-end">
+                                <button
+                                    onClick={() => handleEdit(startup)}
+                                    className="mr-2 py-1 px-5 bg-yellow-400 text-white rounded"
+                                >
+                                    Edit
+                                </button>
+                                <button
+                                    onClick={() => deleteStartup(startup._id)}
+                                    className="py-1 px-2 bg-red-500 text-white rounded"
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

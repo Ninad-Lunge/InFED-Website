@@ -17,7 +17,7 @@ const Statistics = () => {
         <h1 className="text-3xl md:text-4xl lg:text-4xl font-bold text-[#F7A221]">
           <CountUp end={67} separator="," duration={3} />%
         </h1>
-        <h3 className="text-lg md:text-xl">Women-Led Startups </h3>
+        <h3 className="text-lg md:text-xl">Women-Led Businesses</h3>
       </div>
 
       {/* Jobs Created */}

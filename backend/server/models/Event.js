@@ -16,6 +16,9 @@ const eventSchema = new mongoose.Schema({
         enum: ['Online', 'Offline'],
         default: 'Offline',
     },
+    registrationLink: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
