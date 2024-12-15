@@ -13,7 +13,6 @@ const StartupsGrid = ({ scheme }) => {
             return response.json();
         })
         .then((data) => {
-            console.log('Fetched startups data:', data); // Log the response
             const formattedData = data.map((startup) => ({
                 ...startup,
                 schemes: JSON.parse(startup.schemes), // Parse stringified array
@@ -23,7 +22,6 @@ const StartupsGrid = ({ scheme }) => {
                 : formattedData;
 
             setStartups(filteredStartups);
-            console.log('Filtered startups:', filteredStartups);
         })
         .catch((error) => console.error('Error fetching startups:', error));      
     }, [scheme]); // Rerun if scheme changes

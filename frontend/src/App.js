@@ -10,6 +10,7 @@ import ProgramDetails from "./components/Program/ProgramDetails";
 import Reports from "./pages/Reports";
 import Program from "./pages/Program";
 import Privacy from "./pages/PrivacyPolicy";
+import Terms from './pages/Terms';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/startup/:id" element={<StartupDetails />} />
           <Route path="/scheme/:id" element={<ProgramDetails />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
         </Routes>
       </Router>
     </div>

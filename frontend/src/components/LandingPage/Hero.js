@@ -29,7 +29,7 @@ const textVariants = {
 };
 
 const Hero = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered] = useState(false);
 
   const handleApplyClick = () => {
     console.log('Exploring Incubation');
@@ -110,8 +110,6 @@ const Hero = () => {
         <motion.div 
           variants={textVariants}
           className="w-full md:w-2/5 flex justify-center items-center mb-12 md:mb-0"
-          // onHoverStart={() => setIsHovered(true)}
-          // onHoverEnd={() => setIsHovered(false)}
         >
           <AnimatePresence>
             <motion.div
