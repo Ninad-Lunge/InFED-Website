@@ -13,7 +13,7 @@ const Navbar = ({ contactRef }) => {
     }
 
     const handleCommunityClick = () => {
-        console.log('Connecting to Community');
+        window.open("https://in-fed-community-platform.vercel.app/", '_blank', 'noopener,noreferrer');
     };
 
     function handleScrollToTop() {
