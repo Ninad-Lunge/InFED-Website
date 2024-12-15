@@ -160,7 +160,7 @@ const ManagePortfolio = () => {
 
     return (
         <div className="startup-manager">
-            <h1 className="title text-2xl font-bold py-4">Manage Portfolio</h1>
+            <h1 className="title text-xl font-bold py-4">Manage Portfolio</h1>
 
             {successMessage && (
                 <div className="success-msg text-green-500 mb-4">

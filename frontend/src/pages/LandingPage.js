@@ -8,6 +8,8 @@ import Partners from "../components/LandingPage/Partners";
 import EventsCalendar from "../components/LandingPage/EventsCalendar";
 import { useRef } from "react";
 // import Objs from "../components/LandingPage/Objs";
+import DynamicMarquee from "../components/LandingPage/Marquee";
+import Videos from "../components/LandingPage/Videos";
 
 const LandingPage = () => {
   const contactRef = useRef(null);
@@ -17,8 +19,10 @@ const LandingPage = () => {
       <Navbar contactRef={contactRef} />
       <Hero />
       <Statistics />
+      <DynamicMarquee />
       <Objectives />
       {/* <Objs/> */}
+      <Videos />
       <Programs />
       <EventsCalendar/>
       <Partners />

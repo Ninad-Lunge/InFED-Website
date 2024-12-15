@@ -79,9 +79,9 @@ const PartnerUpload = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white">
+    <div className="mx-auto bg-white">
       {/* <h1 className="text-3xl font-bold text-gray-800 mb-6">Manage Partners</h1> */}
-      <h1 className="title text-2xl font-bold py-4">Manage Partners</h1>
+      <h1 className="title text-xl font-bold py-4">Manage Partners</h1>
 
       {successMessage && (
         <div className="p-4 mb-4 text-green-700 bg-green-100 rounded-lg">
@@ -124,7 +124,7 @@ const PartnerUpload = () => {
       </form>
 
       {/* Existing Partners */}
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Existing Partners</h2>
+      <h2 className="text-lg font-bold text-gray-800 mb-4">Existing Partners</h2>
       <div className="overflow-x-auto">
         <div className="max-h-96 overflow-y-auto">
           <table className="w-full table-auto border-collapse border border-gray-200">

@@ -177,7 +177,7 @@ const SchemeManager = () => {
     
     return (
         <div className="scheme-manager">
-            <h1 className="title text-2xl font-bold py-4">Manage Scheme</h1>
+            <h1 className="title text-xl font-bold py-4">Manage Scheme</h1>
 
             {successMessage && (
                 <div className="success-msg text-green-500 mb-4">

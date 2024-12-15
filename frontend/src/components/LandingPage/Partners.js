@@ -16,7 +16,6 @@ const Partners = () => {
       })
       .then((data) => {
         setPartners(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error('Error fetching partners:', error);

@@ -1,4 +1,5 @@
 import AdminDashboard from "./ManageCommunity";
+import MarqueeManager from "./ManageMarquee";
 
 function Home() {
     return (
@@ -6,6 +7,7 @@ function Home() {
             <h1 className="heading text-xl font-bold my-4">
                 Welcome to InFED Website Admin Panel!
             </h1>
+            <MarqueeManager />
             <AdminDashboard />
         </div>
     );

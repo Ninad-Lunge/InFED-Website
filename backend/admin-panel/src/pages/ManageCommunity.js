@@ -488,9 +488,9 @@ const AdminDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6">
+        <div className="p-4">
             <div className="container mx-auto">
-                <h1 className="text-2xl font-bold mb-6">Manage Community</h1>
+                <h1 className="text-xl font-bold mb-2">Manage Community</h1>
 
                 {/* Tabs */}
                 <div className="flex mb-6 bg-white shadow-md rounded-lg">
