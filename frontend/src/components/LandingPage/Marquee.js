@@ -8,7 +8,7 @@ const DynamicMarquee = () => {
   useEffect(() => {
     const fetchMarqueeItems = async () => {
       try {
-        const response = await axios.get('/api/admin/marquee');
+        const response = await axios.get('https://infed-website-kkva.onrender.com/api/admin/marquee');
         setMarqueeItems(response.data);
       } catch (error) {
         console.error('Error fetching marquee items:', error);
