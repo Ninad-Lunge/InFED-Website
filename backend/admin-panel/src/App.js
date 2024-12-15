@@ -13,6 +13,8 @@ import RegisterForm from './pages/RegisterForm';
 import Profile from './pages/Profile';
 import { useState, useEffect } from 'react';
 import PartnerUpload from './pages/PartnerManager';
+import AdminDashboard from './pages/ManageCommunity';
+import { jwtDecode } from 'jwt-decode';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,8 +22,37 @@ function App() {
   useEffect(() => {
     // Check if the user is logged in (e.g., by checking the token in localStorage)
     const token = localStorage.getItem('token');
-    setIsLoggedIn(!!token);
-  }, []);
+    
+    // If there is no token, the user is not logged in
+    if (!token) {
+      setIsLoggedIn(false);
+      return;
+    }
+
+    try {
+      // Decode the token to check the expiration
+      const decodedToken = jwtDecode(token); // Corrected usage
+
+      // Get the current time in seconds (JWT expiration time is also in seconds)
+      const currentTime = Date.now() / 1000;
+
+      // If the token is expired, log out the user
+      if (decodedToken.exp < currentTime) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setIsLoggedIn(false);
+        alert('Your session has expired. Please log in again.');
+      } else {
+        setIsLoggedIn(true); // Token is valid, user is logged in
+      }
+    } catch (error) {
+      // If decoding fails, treat it as an invalid token and log out the user
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setIsLoggedIn(false);
+      console.error('Error decoding token:', error);
+    }
+  }, []); // This effect runs once when the component mounts
 
   return (
     <Router>
@@ -39,6 +70,7 @@ function App() {
                 <Route path="/manage-persons" element={<ManagePersons />} />
                 <Route path="/manage-founders" element={<FounderManager />} />
                 <Route path="/manage-partners" element={<PartnerUpload />} />
+                <Route path="/manage-community" element={<AdminDashboard />} />
                 <Route path="/profile" element={<Profile />} />
               </Routes>
             </div>

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import InfedLogo from '../assests/InFED-logo.jpg'
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,9 +21,11 @@ const LoginForm = () => {
       // Store the token and user data in the session
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', JSON.stringify(response.data.user));
+      console.log( JSON.stringify(response.data.user));
+      navigate('/');
 
       // Redirect the user to the admin panel or dashboard
-      window.location.href = '/admin';
+      // window.location.href = '/admin';
     } catch (error) {
       console.error('Error logging in:', error);
       

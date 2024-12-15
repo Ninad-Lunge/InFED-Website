@@ -6,7 +6,7 @@ const PeopleGrid = () => {
     const [activeIndex, setActiveIndex] = useState(null);
     const headings = [
         'Honourable Advisory Board', 
-        'ISMC', 
+        'Incubator Seed Management Committee', 
         'Mentors', 
         'Executive Team',
         'Consultants',
@@ -100,7 +100,7 @@ const PeopleGrid = () => {
                                             />
                                             <div className="text-center mb-4 flex flex-col items-center">
                                                 <h2 className="font-bold text-xl text-gray-800">{person.name}</h2>
-                                                <p className="text-gray-500 text-base text-center break-words max-w-full px-2 mt-2">
+                                                <p className="text-gray-500 text-base text-center break-words max-w-full px-7 mt-2">
                                                     {person.designation}
                                                 </p>
                                             </div>

@@ -13,7 +13,8 @@ const ManageEvents = () => {
     endTime: '',
     venue: '',
     description: '',
-    mode: ''
+    mode: '',
+    registrationLink: ''
   });
   const [editingId, setEditingId] = useState(null);
   const [isAddingNew, setIsAddingNew] = useState(false);
@@ -61,7 +62,8 @@ const ManageEvents = () => {
       endTime: event.endTime || '', // Ensure endTime exists
       venue: event.venue,
       description: event.description,
-      mode: event.mode
+      mode: event.mode,
+      registrationLink: event.registrationLink
     });
     setEditingId(event._id);
     setIsAddingNew(false);
@@ -101,6 +103,7 @@ const ManageEvents = () => {
     formDataToSend.append('venue', formData.venue);
     formDataToSend.append('description', formData.description);
     formDataToSend.append('mode', formData.mode);
+    formDataToSend.append('registrationLink', formData.registrationLink);
 
     // Append all the images
     formData.images.forEach((image, index) => {
@@ -131,7 +134,8 @@ const ManageEvents = () => {
           endTime: '',
           venue: '',
           description: '',
-          mode: ''
+          mode: '',
+          registrationLink: ''
         });
         setEditingId(null);
         setIsAddingNew(false);
@@ -163,7 +167,8 @@ const ManageEvents = () => {
               endTime: '',
               venue: '',
               description: '',
-              mode: ''
+              mode: '',
+              registrationLink: ''
             });
           }}
           className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -213,7 +218,6 @@ const ManageEvents = () => {
               value={formData.endDate}
               onChange={handleChange}
               className="w-full p-2 border rounded"
-              required
             />
             <input
               type="time"
@@ -239,6 +243,14 @@ const ManageEvents = () => {
               onChange={handleChange}
               className="w-full p-2 border rounded"
               required
+            />
+            <input 
+              type="text"
+              name="registrationLink"
+              placeholder='Event Registration Link'
+              value={formData.registrationLink}
+              onChange={handleChange}
+              className='w-full p-2 border rounded'
             />
           </div>
           <textarea
@@ -313,7 +325,8 @@ const ManageEvents = () => {
               <h3 className="font-bold text-xl mb-2">{event.name}</h3>
               <p className="text-gray-600 mb-2">{event.shortDesc}</p>
               <p className="text-sm text-gray-500 mb-2">
-                {new Date(event.startDate).toLocaleDateString()} - {new Date(event.endDate).toLocaleDateString()}
+                {new Date(event.startDate).toLocaleDateString()}
+                {event.endDate && ` - ${new Date(event.endDate).toLocaleDateString()}`}
               </p>
               <p className="text-sm text-gray-500 mb-4">{event.venue}</p>
 
