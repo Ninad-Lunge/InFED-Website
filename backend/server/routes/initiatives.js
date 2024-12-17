@@ -45,7 +45,7 @@ router.post('/add-initiative', upload.array('images', 5), async (req, res) => {
     // Create new initiative
     const newInitiative = new Initiative({
       title: req.body.title,
-      description: req.body.description,
+      // description: req.body.description,
       about: req.body.about || '',
       locations: locations,
       objectives: objectives,
@@ -119,7 +119,7 @@ router.put('/update-initiatives/:id', upload.array('images', 5), async (req, res
 
     // Update initiative
     existingInitiative.title = req.body.title;
-    existingInitiative.description = req.body.description;
+    // existingInitiative.description = req.body.description;
     existingInitiative.about = req.body.about || '';
     existingInitiative.locations = locations;
     existingInitiative.objectives = objectives;
