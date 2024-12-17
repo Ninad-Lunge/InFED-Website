@@ -11,7 +11,7 @@ const MarqueeManager = () => {
     // Fetch all marquee entries
     const fetchMarquees = async () => {
         try {
-            const response = await axios.get('/api/admin/marquee');
+            const response = await axios.get('https://infed-website-kkva.onrender.com/api/admin/marquee');
             setMarquees(response.data);
         } catch (error) {
             console.error('Error fetching marquees:', error);
@@ -26,10 +26,10 @@ const MarqueeManager = () => {
         try {
             if (editingId) {
                 // Update existing marquee
-                await axios.put(`/api/admin/marquee/${editingId}`, { text, link });
+                await axios.put(`https://infed-website-kkva.onrender.com/api/admin/marquee/${editingId}`, { text, link });
             } else {
                 // Add new marquee
-                await axios.post('/api/admin/marquee', { text, link });
+                await axios.post('https://infed-website-kkva.onrender.com/api/admin/marquee', { text, link });
             }
             setText('');
             setLink('');
@@ -51,7 +51,7 @@ const MarqueeManager = () => {
     // Delete a marquee
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`/api/admin/marquee/${id}`);
+            await axios.delete(`https://infed-website-kkva.onrender.com/api/admin/marquee/${id}`);
             fetchMarquees();
         } catch (error) {
             console.error('Error deleting marquee:', error);
