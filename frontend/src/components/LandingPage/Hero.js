@@ -29,7 +29,7 @@ const textVariants = {
 };
 
 const Hero = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered] = useState(false);
 
   const handleApplyClick = () => {
     console.log('Exploring Incubation');
@@ -40,7 +40,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative pt-6 pb-5 flex items-center">
+    <div className="relative pt-6 flex items-center">
       
       <motion.div 
         variants={heroVariants}
@@ -66,7 +66,7 @@ const Hero = () => {
 
           <motion.p 
             variants={textVariants}
-            className="text-l text-gray-900 leading-relaxed text-justify"
+            className="text-lg text-gray-900 leading-relaxed text-justify"
           >
             InFED (IIMN Foundation for Entrepreneurship Development) is the business incubator of the 
             Indian Institute of Management Nagpur (IIM Nagpur). InFED works with important stakeholders 
@@ -110,8 +110,6 @@ const Hero = () => {
         <motion.div 
           variants={textVariants}
           className="w-full md:w-2/5 flex justify-center items-center mb-12 md:mb-0"
-          // onHoverStart={() => setIsHovered(true)}
-          // onHoverEnd={() => setIsHovered(false)}
         >
           <AnimatePresence>
             <motion.div
