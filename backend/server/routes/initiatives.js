@@ -5,9 +5,14 @@ const cloudinary = require('cloudinary').v2;
 const Initiative = require('../models/Initiatives');
 
 // Multer configuration for file upload
-const upload = multer({ 
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 1024 * 1024 } // 10MB file size limit
+const upload = multer({
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB limit
+  fileFilter(req, file, cb) {
+    if (!file.mimetype.startsWith("image/")) {
+      return cb(new Error("Only image files are allowed!"));
+    }
+    cb(null, true);
+  },
 });
 
 // Cloudinary configuration
@@ -18,7 +23,7 @@ cloudinary.config({
 });
 
 // Add new initiative
-router.post('/add-initiative', upload.array('images', 5), async (req, res) => {
+router.post('/add-initiative', upload.array('images', 3), async (req, res) => {
   try {
     // Parse JSON string inputs
     const locations = JSON.parse(req.body.locations || '[]');
