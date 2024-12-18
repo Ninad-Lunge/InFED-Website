@@ -12,7 +12,7 @@ const InitiativesPage = () => {
   useEffect(() => {
     const fetchInitiatives = async () => {
       try {
-        const response = await axios.get("/api/get-initiatives");
+        const response = await axios.get("https://infed-website-kkva.onrender.com/api/get-initiatives");
         const initialActiveTabs = {};
         response.data.forEach((initiative) => {
           initialActiveTabs[initiative._id] = "about";
