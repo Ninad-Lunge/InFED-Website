@@ -114,41 +114,30 @@ const InitiativesPage = () => {
               <h2 className="text-2xl font-bold mb-4 text-black">
                 Impact <span className="text-[#F7A221]">Created</span>
               </h2>
+              {initiative.impact.length < 4 && (
+                <div className="text-red-500 mb-4">
+                  <p>
+                    <strong>Warning:</strong> Please add at least 4 impact
+                    values.
+                  </p>
+                </div>
+              )}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  {
-                    icon: Users,
-                    value: initiative.impact.startups,
-                    label: "Startups Supported",
-                  },
-                  {
-                    icon: Award,
-                    value: initiative.impact.success_rate,
-                    label: "Success Rate",
-                  },
-                  {
-                    icon: Users,
-                    value: initiative.impact.jobs,
-                    label: "Jobs Created",
-                  },
-                  {
-                    icon: Award,
-                    value: initiative.impact.funding,
-                    label: "Funding Facilitated",
-                  },
-                ].map((item, index) => {
-                  const Icon = item.icon;
+                {initiative.impact.map((item, index) => {
+                  const Icon = item.icon; // Assuming icon is dynamically provided in the data
                   return (
                     <div
                       key={index}
                       className="text-center p-4 rounded-lg border border-[#F7A221]/20 bg-[#F7A221]/10 hover:bg-[#F7A221]/20 transition-all group"
                     >
-                      <Icon className="h-8 w-8 mx-auto mb-2 text-[#F7A221] group-hover:scale-110 transition-transform" />
-                      <div className="text-2xl font-bold text-black group-hover:text-[#F7A221] transition-colors">
+                      {Icon && (
+                        <Icon className="h-8 w-8 mx-auto mb-2 text-[#F7A221] group-hover:scale-110 transition-transform" />
+                      )}
+                      <div className="text-2xl font-bold text-black transition-colors">
                         {item.value}
                       </div>
-                      <div className="text-sm text-gray-800 group-hover:text-black transition-colors">
-                        {item.label}
+                      <div className="text-sm text-gray-800 transition-colors">
+                        {item.key} {/* Displaying dynamic key */}
                       </div>
                     </div>
                   );

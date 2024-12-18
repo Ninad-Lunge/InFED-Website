@@ -5,16 +5,10 @@ const ManageInitiative = () => {
   const [initiative, setInitiative] = useState({
     id: "",
     title: "",
-    description: "",
     about: "",
     locations: [],
     objectives: [],
-    impact: {
-      startups: "",
-      success_rate: "",
-      jobs: "",
-      funding: "",
-    },
+    impact: [], // Dynamic array of { key, value } objects
     images: [],
   });
 
@@ -52,17 +46,6 @@ const ManageInitiative = () => {
     }));
   };
 
-  const handleImpactChange = (e) => {
-    const { name, value } = e.target;
-    setInitiative((prev) => ({
-      ...prev,
-      impact: {
-        ...prev.impact,
-        [name]: value,
-      },
-    }));
-  };
-
   const handleLocationChange = (e) => {
     const { value } = e.target;
     setInitiative((prev) => ({
@@ -74,17 +57,59 @@ const ManageInitiative = () => {
   const handleObjectivesChange = (e) => {
     const { value } = e.target;
     const objectives = value.split(",").map((obj) => obj.trim());
-
     if (objectives.length > 3) {
       alert("You can specify a maximum of 3 objectives.");
       return;
     }
-
     setInitiative((prev) => ({
       ...prev,
       objectives,
     }));
   };
+
+  const handleImpactChange = (index, field, value) => {
+    setInitiative((prev) => {
+      const updatedImpact = [...prev.impact];
+      updatedImpact[index][field] = value;
+      return { ...prev, impact: updatedImpact };
+    });
+  };
+
+  const addImpactItem = () => {
+    if (initiative.impact.length < 4) {
+      setInitiative((prev) => ({
+        ...prev,
+        impact: [...prev.impact, { key: "", value: "" }],
+      }));
+    } else {
+      alert("You cannot add more than 4 impact items.");
+    }
+  };
+
+  const removeImpactItem = (index) => {
+    if (initiative.impact.length > 4) {
+      setInitiative((prev) => ({
+        ...prev,
+        impact: prev.impact.filter((_, i) => i !== index),
+      }));
+    } else {
+      alert("You must have at least 4 impact items.");
+    }
+  };
+
+  // const addImpactItem = () => {
+  //   setInitiative((prev) => ({
+  //     ...prev,
+  //     impact: [...prev.impact, { key: "", value: "" }],
+  //   }));
+  // };
+
+  // const removeImpactItem = (index) => {
+  //   setInitiative((prev) => ({
+  //     ...prev,
+  //     impact: prev.impact.filter((_, i) => i !== index),
+  //   }));
+  // };
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -111,6 +136,11 @@ const ManageInitiative = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+
+    if (initiative.impact.length !== 4) {
+      setError("You must have exactly 4 impact items.");
+      return;
+    }
 
     if (initiative.images.length > 3) {
       setError("You can upload a maximum of 3 images.");
@@ -173,16 +203,10 @@ const ManageInitiative = () => {
     setInitiative({
       id: "",
       title: "",
-      description: "",
       about: "",
       locations: [],
       objectives: [],
-      impact: {
-        startups: "",
-        success_rate: "",
-        jobs: "",
-        funding: "",
-      },
+      impact: [], // Reset to an empty array
       images: [],
     });
   };
@@ -194,12 +218,7 @@ const ManageInitiative = () => {
       about: selectedInitiative.about,
       locations: selectedInitiative.locations || [],
       objectives: selectedInitiative.objectives || [],
-      impact: {
-        startups: selectedInitiative.impact?.startups || "",
-        success_rate: selectedInitiative.impact?.success_rate || "",
-        jobs: selectedInitiative.impact?.jobs || "",
-        funding: selectedInitiative.impact?.funding || "",
-      },
+      impact: selectedInitiative.impact || [], // Load impact as an array
       images: selectedInitiative.images || [],
     });
     setIsModalOpen(true);
@@ -281,29 +300,57 @@ const ManageInitiative = () => {
                   placeholder="Locations (comma-separated)"
                   className="w-full p-2 border rounded"
                 />
+                <input
+                  type="text"
+                  name="objectives"
+                  value={initiative.objectives.join(", ")}
+                  onChange={handleObjectivesChange}
+                  placeholder="Objectives (up to 3, comma-separated)"
+                  className="w-full p-2 border rounded"
+                />
+                
                 <div>
-                  <label className="block mb-2">
-                    Objectives (Max 3)
-                    <span className="text-gray-500 text-sm ml-2">
-                      ({initiative.objectives.length}/3 set)
-                    </span>
-                  </label>
-                  <input
-                    type="text"
-                    name="objectives"
-                    value={initiative.objectives.join(", ")}
-                    onChange={handleObjectivesChange}
-                    placeholder="Objectives (comma-separated)"
-                    className="w-full p-2 border rounded"
-                  />
+                  <h4 className="font-semibold mb-2">Impact</h4>
+                  {initiative.impact.map((item, index) => (
+                    <div key={index} className="flex items-center gap-4 mb-2">
+                      <input
+                        type="text"
+                        placeholder="Key"
+                        value={item.key}
+                        onChange={(e) =>
+                          handleImpactChange(index, "key", e.target.value)
+                        }
+                        className="w-1/2 p-2 border rounded"
+                      />
+                      <input
+                        type="text"
+                        placeholder="Value"
+                        value={item.value}
+                        onChange={(e) =>
+                          handleImpactChange(index, "value", e.target.value)
+                        }
+                        className="w-1/2 p-2 border rounded"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => removeImpactItem(index)}
+                        className="text-red-500 hover:text-red-700"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addImpactItem}
+                    className="flex items-center gap-2 text-green-500 hover:text-green-700 mt-2"
+                  >
+                    <Plus size={16} />
+                    Add Impact
+                  </button>
                 </div>
                 <div>
-                  <label className="block mb-2">
-                    Upload Images (Max 3, each up to 5 MB)
-                    <span className="text-gray-500 text-sm ml-2">
-                      ({initiative.images.length}/3 uploaded)
-                    </span>
-                  </label>
+                  <h4 className="font-semibold mb-2">Images</h4>
                   <input
                     type="file"
                     multiple
@@ -311,21 +358,43 @@ const ManageInitiative = () => {
                     onChange={handleImageUpload}
                     className="w-full p-2 border rounded"
                   />
+                  <div className="flex gap-2 mt-2">
+                    {initiative.images.map((image, index) => (
+                      <div
+                        key={index}
+                        className="w-16 h-16 border border-gray-300 rounded bg-gray-100 flex items-center justify-center"
+                      >
+                        {image instanceof File ? (
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt="Uploaded"
+                            className="w-full h-full object-cover rounded"
+                          />
+                        ) : (
+                          <img
+                            src={image} // If the image is already a URL, display it directly
+                            alt="Uploaded"
+                            className="w-full h-full object-cover rounded"
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-              <div className="mt-6 flex justify-end gap-4">
+              <div className="mt-6 flex justify-end">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border rounded hover:bg-gray-100"
+                  className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 mr-2"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                 >
-                  Save Initiative
+                  {initiative.id ? "Update Initiative" : "Add Initiative"}
                 </button>
               </div>
             </form>
@@ -334,38 +403,40 @@ const ManageInitiative = () => {
       )}
 
       {isLoading ? (
-        <p>Loading...</p>
+        <div>Loading initiatives...</div>
       ) : (
-        <table className="w-full border-collapse border border-gray-300">
+        <table className="table-auto w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 px-4 py-2">Title</th>
-              <th className="border border-gray-300 px-4 py-2">Locations</th>
+              <th className="border border-gray-300 px-4 py-2">About</th>
               <th className="border border-gray-300 px-4 py-2">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {initiatives.map((initiative) => (
-              <tr key={initiative._id} className="hover:bg-gray-50">
+            {initiatives.map((item) => (
+              <tr key={item._id}>
                 <td className="border border-gray-300 px-4 py-2">
-                  {initiative.title}
+                  {item.title}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {initiative.locations.join(", ")}
+                  {item.about}
                 </td>
-                <td className="border border-gray-300 px-4 py-3 flex gap-4">
-                  <button
-                    onClick={() => handleEdit(initiative)}
-                    className="text-blue-500 hover:underline"
-                  >
-                    <Pencil size={16} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(initiative._id)}
-                    className="text-red-500 hover:underline"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                <td className="border border-gray-300 px-4 py-2">
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="text-blue-500 hover:text-blue-700"
+                    >
+                      <Pencil size={16} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(item._id)}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
