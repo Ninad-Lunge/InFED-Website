@@ -11,6 +11,7 @@ const Reports = () => {
     const [selectedReport, setSelectedReport] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [error, setError] = useState(null);
+    const [hoveredId, setHoveredId] = useState(null);
 
     useEffect(() => {
         fetchReports();
@@ -53,21 +54,39 @@ const Reports = () => {
                 {reports.map((report) => (
                     <div
                         key={report._id}
-                        className="border rounded-lg shadow-md overflow-hidden"
+                        className="relative bg-white rounded-xl overflow-hidden shadow-lg transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
+                        onMouseEnter={() => setHoveredId(report._id)}
+                        onMouseLeave={() => setHoveredId(null)}
                     >
-                        <img
-                            src={`http://localhost:5000${report.previewImagePath}`}
-                            alt={`${report.name} Preview`}
-                            className="w-full h-48 object-cover"
-                        />
-                        <div className="p-4">
-                            <h3 className="text-lg font-semibold mb-2">{report.name}</h3>
-                            <button
-                                onClick={() => handleViewPdf(report)}
-                                className="bg-[#F7A221] text-white px-4 py-2 rounded hover:bg-opacity-90"
-                            >
-                                View PDF
-                            </button>
+                        <div className="relative">
+                            <img
+                                src={`http://localhost:5000${report.previewImagePath}`}
+                                alt={`${report.name} Preview`}
+                                className="w-full h-48 object-cover"
+                            />
+                            <div className={`absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 ${hoveredId === report._id ? 'opacity-100' : 'opacity-0'}`} />
+                        </div>
+                        
+                        <div className="p-6">
+                            <h3 className="text-xl font-semibold mb-3 text-gray-800">{report.name}</h3>
+                            <div className="space-y-4">
+                                {report.description && (
+                                    <p className="text-gray-600 text-sm line-clamp-2">
+                                        {report.description}
+                                    </p>
+                                )}
+                                <button
+                                    onClick={() => handleViewPdf(report)}
+                                    className="w-full py-3 px-6 bg-[#F7A221] text-white font-semibold rounded-lg 
+                                             transition-all duration-300 flex items-center justify-center
+                                             hover:bg-opacity-90 hover:shadow-md group"
+                                >
+                                    View Report
+                                    <span className="ml-2 transform transition-transform duration-300 group-hover:translate-x-1">
+                                        →
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}
