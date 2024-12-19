@@ -23,7 +23,9 @@ const ManageInitiative = () => {
 
   const fetchInitiatives = async () => {
     try {
-      const response = await fetch("https://infed-website-kkva.onrender.com/api/get-initiatives");
+      const response = await fetch(
+        "https://infed-website-kkva.onrender.com/api/get-initiatives"
+      );
       if (response.ok) {
         const data = await response.json();
         setInitiatives(data);
@@ -76,25 +78,36 @@ const ManageInitiative = () => {
   };
 
   const addImpactItem = () => {
-    if (initiative.impact.length < 4) {
-      setInitiative((prev) => ({
-        ...prev,
-        impact: [...prev.impact, { key: "", value: "" }],
-      }));
-    } else {
+    if (initiative.impact.length >= 4) {
       alert("You cannot add more than 4 impact items.");
+      return;
     }
+
+    setInitiative((prev) => ({
+      ...prev,
+      impact: [...prev.impact, { key: "", value: "" }],
+    }));
   };
 
   const removeImpactItem = (index) => {
-    if (initiative.impact.length > 4) {
-      setInitiative((prev) => ({
-        ...prev,
-        impact: prev.impact.filter((_, i) => i !== index),
-      }));
-    } else {
-      alert("You must have at least 4 impact items.");
+    if (initiative.impact.length <= 4) {
+      alert("You must have exactly 4 impact items.");
+      return;
     }
+
+    setInitiative((prev) => ({
+      ...prev,
+      impact: prev.impact.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Validate impact count before submitting
+  const validateImpactCount = () => {
+    if (initiative.impact.length !== 4) {
+      setError("You must have exactly 4 impact items.");
+      return false;
+    }
+    return true;
   };
 
   // const addImpactItem = () => {
@@ -142,6 +155,9 @@ const ManageInitiative = () => {
   };
 
   const handleSubmit = async (e) => {
+    if (!validateImpactCount()) {
+    return;
+  }
     e.preventDefault();
     setError(null);
 
@@ -234,9 +250,12 @@ const ManageInitiative = () => {
 
   const handleDelete = async (initiativeId) => {
     try {
-      const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-initiatives/${initiativeId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://infed-website-kkva.onrender.com/api/delete-initiatives/${initiativeId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         setInitiatives(initiatives.filter((init) => init._id !== initiativeId));
