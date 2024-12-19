@@ -114,7 +114,8 @@ const ManageInitiative = () => {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
 
-    if (files.length + initiative.images.length > 3) {
+    // Ensure only 3 images are allowed
+    if (files.length > 3) {
       alert("You can upload a maximum of 3 images.");
       return;
     }
@@ -129,7 +130,14 @@ const ManageInitiative = () => {
 
     setInitiative((prev) => ({
       ...prev,
-      images: [...prev.images, ...validFiles],
+      images: validFiles, // Replace images with newly selected files
+    }));
+  };
+
+  const handleRemoveImage = (index) => {
+    setInitiative((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
     }));
   };
 
@@ -308,7 +316,7 @@ const ManageInitiative = () => {
                   placeholder="Objectives (up to 3, comma-separated)"
                   className="w-full p-2 border rounded"
                 />
-                
+
                 <div>
                   <h4 className="font-semibold mb-2">Impact</h4>
                   {initiative.impact.map((item, index) => (
@@ -349,6 +357,7 @@ const ManageInitiative = () => {
                     Add Impact
                   </button>
                 </div>
+
                 <div>
                   <h4 className="font-semibold mb-2">Images</h4>
                   <input
@@ -362,21 +371,23 @@ const ManageInitiative = () => {
                     {initiative.images.map((image, index) => (
                       <div
                         key={index}
-                        className="w-16 h-16 border border-gray-300 rounded bg-gray-100 flex items-center justify-center"
+                        className="relative w-16 h-16 border border-gray-300 rounded bg-gray-100"
                       >
-                        {image instanceof File ? (
-                          <img
-                            src={URL.createObjectURL(image)}
-                            alt="Uploaded"
-                            className="w-full h-full object-cover rounded"
-                          />
-                        ) : (
-                          <img
-                            src={image} // If the image is already a URL, display it directly
-                            alt="Uploaded"
-                            className="w-full h-full object-cover rounded"
-                          />
-                        )}
+                        <img
+                          src={
+                            image instanceof File
+                              ? URL.createObjectURL(image)
+                              : image
+                          }
+                          alt="Uploaded"
+                          className="w-full h-full object-cover rounded"
+                        />
+                        <button
+                          onClick={() => handleRemoveImage(index)}
+                          className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full text-xs"
+                        >
+                          &times;
+                        </button>
                       </div>
                     ))}
                   </div>

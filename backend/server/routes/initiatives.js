@@ -129,8 +129,8 @@ router.put('/update-initiatives/:id', upload.array('images', 3), async (req, res
       return res.status(400).json({ error: 'Invalid impact format. Expected an array of { key, value } objects.' });
     }
 
-    // Upload images to Cloudinary
-    const imageUrls = req.files?.length > 0 ? await uploadImagesToCloudinary(req.files) : [];
+    // Upload new images to Cloudinary
+    const newImageUrls = req.files?.length > 0 ? await uploadImagesToCloudinary(req.files) : [];
 
     // Find existing initiative
     const existingInitiative = await Initiative.findById(id);
@@ -138,13 +138,15 @@ router.put('/update-initiatives/:id', upload.array('images', 3), async (req, res
       return res.status(404).json({ error: 'Initiative not found' });
     }
 
-    // Update initiative
+    // Replace images if new ones are provided, otherwise keep existing ones
+    existingInitiative.images = newImageUrls.length > 0 ? newImageUrls : existingInitiative.images;
+
+    // Update other fields
     existingInitiative.title = req.body.title || existingInitiative.title;
     existingInitiative.about = req.body.about || existingInitiative.about;
     existingInitiative.locations = locations.length > 0 ? locations : existingInitiative.locations;
     existingInitiative.objectives = objectives.length > 0 ? objectives : existingInitiative.objectives;
     existingInitiative.impact = impact.length > 0 ? impact : existingInitiative.impact;
-    existingInitiative.images = [...(existingInitiative.images || []), ...imageUrls];
 
     // Save updated initiative
     const updatedInitiative = await existingInitiative.save();
@@ -157,6 +159,7 @@ router.put('/update-initiatives/:id', upload.array('images', 3), async (req, res
     });
   }
 });
+
 
 // Delete an initiative
 router.delete('/delete-initiatives/:id', async (req, res) => {
