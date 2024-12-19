@@ -30,7 +30,7 @@ const EventCard = ({ event }) => {
             <img 
               src={Array.isArray(event.images) ? event.images[0] : event.image} 
               alt={event.name} 
-              className="w-full h-50 object-cover transition-transform duration-300 transform hover:scale-105"
+              className="w-full h-56 object-cover transition-transform duration-300 transform hover:scale-105"
             />
             {event.mode === 'Online' && (
               <div className="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs">
