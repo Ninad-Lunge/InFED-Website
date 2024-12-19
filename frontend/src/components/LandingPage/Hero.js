@@ -126,7 +126,7 @@ const Hero = () => {
               rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition duration-300"></div>
               
               <motion.img 
-                src={require('./../../assests/images/aboutPage/iimn-front-night.png')} 
+                src={require('./../../assests/images/Landing Page/iimn-front-night.jpg')} 
                 alt="Entrepreneurship Illustration"
                 className="relative z-10 w-full h-80 rounded-2xl shadow-xl 
                 border-4 border-white transform transition-all duration-300"
