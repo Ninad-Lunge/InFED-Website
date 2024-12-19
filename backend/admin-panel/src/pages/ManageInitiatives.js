@@ -23,7 +23,7 @@ const ManageInitiative = () => {
 
   const fetchInitiatives = async () => {
     try {
-      const response = await fetch("/api/get-initiatives");
+      const response = await fetch("https://infed-website-kkva.onrender.com/api/get-initiatives");
       if (response.ok) {
         const data = await response.json();
         setInitiatives(data);
@@ -173,8 +173,8 @@ const ManageInitiative = () => {
     try {
       const method = initiative.id ? "PUT" : "POST";
       const url = initiative.id
-        ? `/api/update-initiatives/${initiative.id}`
-        : "/api/add-initiative";
+        ? `https://infed-website-kkva.onrender.com/api/update-initiatives/${initiative.id}`
+        : "https://infed-website-kkva.onrender.com/api/add-initiative";
 
       const response = await fetch(url, {
         method,
@@ -234,7 +234,7 @@ const ManageInitiative = () => {
 
   const handleDelete = async (initiativeId) => {
     try {
-      const response = await fetch(`/api/delete-initiatives/${initiativeId}`, {
+      const response = await fetch(`https://infed-website-kkva.onrender.com/api/delete-initiatives/${initiativeId}`, {
         method: "DELETE",
       });
 
