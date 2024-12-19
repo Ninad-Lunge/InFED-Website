@@ -22,57 +22,70 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+// Reusable function to upload images to Cloudinary
+const uploadImagesToCloudinary = async (files) => {
+  const imageUrls = [];
+  for (const file of files) {
+    const b64 = Buffer.from(file.buffer).toString("base64");
+    const dataURI = `data:${file.mimetype};base64,${b64}`;
+    const uploadResponse = await cloudinary.uploader.upload(dataURI, {
+      folder: 'initiatives',
+    });
+    imageUrls.push(uploadResponse.secure_url);
+  }
+  return imageUrls;
+};
+
 // Add new initiative
 router.post('/add-initiative', upload.array('images', 3), async (req, res) => {
   try {
     // Parse JSON string inputs
-    const locations = JSON.parse(req.body.locations || '[]');
-    const objectives = JSON.parse(req.body.objectives || '[]');
-    const impact = JSON.parse(req.body.impact || '{}');
+    let locations = [];
+    let objectives = [];
+    let impact = [];
+    try {
+      locations = JSON.parse(req.body.locations || '[]');
+      objectives = JSON.parse(req.body.objectives || '[]');
+      impact = JSON.parse(req.body.impact || '[]');
+    } catch (parseError) {
+      return res.status(400).json({ error: 'Invalid JSON format in request body.' });
+    }
+
+    if (!Array.isArray(impact) || impact.length < 4) {
+      return res.status(400).json({ error: 'At least 4 impact values are required.' });
+    }
+    
+    // Validate `impact` field
+    if (!Array.isArray(impact) || impact.some(item => typeof item !== 'object' || !item.key || !item.value)) {
+      return res.status(400).json({ error: 'Invalid impact format. Expected an array of { key, value } objects.' });
+    }
 
     // Upload images to Cloudinary
-    const imageUrls = [];
-    if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        // Convert buffer to base64
-        const b64 = Buffer.from(file.buffer).toString("base64");
-        const dataURI = "data:" + file.mimetype + ";base64," + b64;
-        
-        // Upload to Cloudinary
-        const uploadResponse = await cloudinary.uploader.upload(dataURI, {
-          folder: 'initiatives'
-        });
-        
-        imageUrls.push(uploadResponse.secure_url);
-      }
+    const imageUrls = req.files?.length > 0 ? await uploadImagesToCloudinary(req.files) : [];
+
+    // Validate required fields
+    if (!req.body.title) {
+      return res.status(400).json({ error: 'Title is required.' });
     }
 
     // Create new initiative
     const newInitiative = new Initiative({
       title: req.body.title,
-      // description: req.body.description,
       about: req.body.about || '',
-      locations: locations,
-      objectives: objectives,
-      impact: {
-        startups: impact.startups || '',
-        success_rate: impact.success_rate || '',
-        jobs: impact.jobs || '',
-        funding: impact.funding || ''
-      },
-      images: imageUrls
+      locations,
+      objectives,
+      impact,
+      images: imageUrls,
     });
 
     // Save initiative to database
     const savedInitiative = await newInitiative.save();
-
-    // Respond with saved initiative
     res.status(201).json(savedInitiative);
   } catch (error) {
     console.error('Error adding initiative:', error);
-    res.status(500).json({ 
-      error: 'Failed to add initiative', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Failed to add initiative',
+      details: error.message,
     });
   }
 });
@@ -80,41 +93,44 @@ router.post('/add-initiative', upload.array('images', 3), async (req, res) => {
 // Get all initiatives
 router.get('/get-initiatives', async (req, res) => {
   try {
-    const initiatives = await Initiative.find().sort({ createdAt: -1 });
+    const initiatives = await Initiative.find()
+      .sort({ createdAt: -1 })
+      .select('-__v');
+
     res.json(initiatives);
   } catch (error) {
     console.error('Error fetching initiatives:', error);
-    res.status(500).json({ 
-      error: 'Failed to fetch initiatives', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Failed to fetch initiatives',
+      details: error.message,
     });
   }
 });
 
 // Update an existing initiative
-router.put('/update-initiatives/:id', upload.array('images', 5), async (req, res) => {
+router.put('/update-initiatives/:id', upload.array('images', 3), async (req, res) => {
   try {
     const { id } = req.params;
-    
+
     // Parse JSON string inputs
-    const locations = JSON.parse(req.body.locations || '[]');
-    const objectives = JSON.parse(req.body.objectives || '[]');
-    const impact = JSON.parse(req.body.impact || '{}');
+    let locations = [];
+    let objectives = [];
+    let impact = [];
+    try {
+      locations = JSON.parse(req.body.locations || '[]');
+      objectives = JSON.parse(req.body.objectives || '[]');
+      impact = JSON.parse(req.body.impact || '[]');
+    } catch (parseError) {
+      return res.status(400).json({ error: 'Invalid JSON format in request body.' });
+    }
+
+    // Validate `impact` field
+    if (!Array.isArray(impact) || impact.some(item => typeof item !== 'object' || !item.key || !item.value)) {
+      return res.status(400).json({ error: 'Invalid impact format. Expected an array of { key, value } objects.' });
+    }
 
     // Upload images to Cloudinary
-    const imageUrls = [];
-    if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        const b64 = Buffer.from(file.buffer).toString("base64");
-        const dataURI = "data:" + file.mimetype + ";base64," + b64;
-        
-        const uploadResponse = await cloudinary.uploader.upload(dataURI, {
-          folder: 'initiatives'
-        });
-        
-        imageUrls.push(uploadResponse.secure_url);
-      }
-    }
+    const imageUrls = req.files?.length > 0 ? await uploadImagesToCloudinary(req.files) : [];
 
     // Find existing initiative
     const existingInitiative = await Initiative.findById(id);
@@ -123,33 +139,21 @@ router.put('/update-initiatives/:id', upload.array('images', 5), async (req, res
     }
 
     // Update initiative
-    existingInitiative.title = req.body.title;
-    // existingInitiative.description = req.body.description;
-    existingInitiative.about = req.body.about || '';
-    existingInitiative.locations = locations;
-    existingInitiative.objectives = objectives;
-    existingInitiative.impact = {
-      startups: impact.startups || '',
-      success_rate: impact.success_rate || '',
-      jobs: impact.jobs || '',
-      funding: impact.funding || ''
-    };
-    
-    // Merge existing and new images
-    existingInitiative.images = [
-      ...(existingInitiative.images || []),
-      ...imageUrls
-    ];
+    existingInitiative.title = req.body.title || existingInitiative.title;
+    existingInitiative.about = req.body.about || existingInitiative.about;
+    existingInitiative.locations = locations.length > 0 ? locations : existingInitiative.locations;
+    existingInitiative.objectives = objectives.length > 0 ? objectives : existingInitiative.objectives;
+    existingInitiative.impact = impact.length > 0 ? impact : existingInitiative.impact;
+    existingInitiative.images = [...(existingInitiative.images || []), ...imageUrls];
 
     // Save updated initiative
     const updatedInitiative = await existingInitiative.save();
-
     res.json(updatedInitiative);
   } catch (error) {
     console.error('Error updating initiative:', error);
-    res.status(500).json({ 
-      error: 'Failed to update initiative', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Failed to update initiative',
+      details: error.message,
     });
   }
 });
@@ -158,20 +162,27 @@ router.put('/update-initiatives/:id', upload.array('images', 5), async (req, res
 router.delete('/delete-initiatives/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    
-    // Find and delete the initiative
-    const deletedInitiative = await Initiative.findByIdAndDelete(id);
-    
-    if (!deletedInitiative) {
+
+    const initiativeToDelete = await Initiative.findById(id);
+    if (!initiativeToDelete) {
       return res.status(404).json({ error: 'Initiative not found' });
     }
 
+    // Delete associated images from Cloudinary
+    if (initiativeToDelete.images && initiativeToDelete.images.length > 0) {
+      for (const imageUrl of initiativeToDelete.images) {
+        const publicId = imageUrl.split('/').pop().split('.')[0];
+        await cloudinary.uploader.destroy(`initiatives/${publicId}`);
+      }
+    }
+
+    await initiativeToDelete.deleteOne();
     res.json({ message: 'Initiative deleted successfully' });
   } catch (error) {
     console.error('Error deleting initiative:', error);
-    res.status(500).json({ 
-      error: 'Failed to delete initiative', 
-      details: error.message 
+    res.status(500).json({
+      error: 'Failed to delete initiative',
+      details: error.message,
     });
   }
 });
