@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import { useState, useEffect } from 'react';
 import PartnerUpload from './pages/PartnerManager';
 import AdminDashboard from './pages/ManageCommunity';
+import ManageReports from './pages/ManageReports';
 import { jwtDecode } from 'jwt-decode';
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
                 <Route path="/manage-founders" element={<FounderManager />} />
                 <Route path="/manage-partners" element={<PartnerUpload />} />
                 <Route path="/manage-community" element={<AdminDashboard />} />
+                <Route path="/manage-reports" element={<ManageReports />} />
                 <Route path="/profile" element={<Profile />} />
               </Routes>
             </div>
