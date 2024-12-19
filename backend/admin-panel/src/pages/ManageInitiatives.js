@@ -23,7 +23,9 @@ const ManageInitiative = () => {
 
   const fetchInitiatives = async () => {
     try {
-      const response = await fetch("/api/get-initiatives");
+      const response = await fetch(
+        "https://infed-website-kkva.onrender.com/api/get-initiatives"
+      );
       if (response.ok) {
         const data = await response.json();
         setInitiatives(data);
@@ -76,25 +78,36 @@ const ManageInitiative = () => {
   };
 
   const addImpactItem = () => {
-    if (initiative.impact.length < 4) {
-      setInitiative((prev) => ({
-        ...prev,
-        impact: [...prev.impact, { key: "", value: "" }],
-      }));
-    } else {
+    if (initiative.impact.length >= 4) {
       alert("You cannot add more than 4 impact items.");
+      return;
     }
+
+    setInitiative((prev) => ({
+      ...prev,
+      impact: [...prev.impact, { key: "", value: "" }],
+    }));
   };
 
   const removeImpactItem = (index) => {
-    if (initiative.impact.length > 4) {
-      setInitiative((prev) => ({
-        ...prev,
-        impact: prev.impact.filter((_, i) => i !== index),
-      }));
-    } else {
-      alert("You must have at least 4 impact items.");
+    if (initiative.impact.length <= 4) {
+      alert("You must have exactly 4 impact items.");
+      return;
     }
+
+    setInitiative((prev) => ({
+      ...prev,
+      impact: prev.impact.filter((_, i) => i !== index),
+    }));
+  };
+
+  // Validate impact count before submitting
+  const validateImpactCount = () => {
+    if (initiative.impact.length !== 4) {
+      setError("You must have exactly 4 impact items.");
+      return false;
+    }
+    return true;
   };
 
   // const addImpactItem = () => {
@@ -114,7 +127,8 @@ const ManageInitiative = () => {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
 
-    if (files.length + initiative.images.length > 3) {
+    // Ensure only 3 images are allowed
+    if (files.length > 3) {
       alert("You can upload a maximum of 3 images.");
       return;
     }
@@ -129,11 +143,21 @@ const ManageInitiative = () => {
 
     setInitiative((prev) => ({
       ...prev,
-      images: [...prev.images, ...validFiles],
+      images: validFiles, // Replace images with newly selected files
+    }));
+  };
+
+  const handleRemoveImage = (index) => {
+    setInitiative((prev) => ({
+      ...prev,
+      images: prev.images.filter((_, i) => i !== index),
     }));
   };
 
   const handleSubmit = async (e) => {
+    if (!validateImpactCount()) {
+    return;
+  }
     e.preventDefault();
     setError(null);
 
@@ -165,8 +189,8 @@ const ManageInitiative = () => {
     try {
       const method = initiative.id ? "PUT" : "POST";
       const url = initiative.id
-        ? `/api/update-initiatives/${initiative.id}`
-        : "/api/add-initiative";
+        ? `https://infed-website-kkva.onrender.com/api/update-initiatives/${initiative.id}`
+        : "https://infed-website-kkva.onrender.com/api/add-initiative";
 
       const response = await fetch(url, {
         method,
@@ -226,9 +250,12 @@ const ManageInitiative = () => {
 
   const handleDelete = async (initiativeId) => {
     try {
-      const response = await fetch(`/api/delete-initiatives/${initiativeId}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://infed-website-kkva.onrender.com/api/delete-initiatives/${initiativeId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (response.ok) {
         setInitiatives(initiatives.filter((init) => init._id !== initiativeId));
@@ -308,7 +335,7 @@ const ManageInitiative = () => {
                   placeholder="Objectives (up to 3, comma-separated)"
                   className="w-full p-2 border rounded"
                 />
-                
+
                 <div>
                   <h4 className="font-semibold mb-2">Impact</h4>
                   {initiative.impact.map((item, index) => (
@@ -349,6 +376,7 @@ const ManageInitiative = () => {
                     Add Impact
                   </button>
                 </div>
+
                 <div>
                   <h4 className="font-semibold mb-2">Images</h4>
                   <input
@@ -362,21 +390,23 @@ const ManageInitiative = () => {
                     {initiative.images.map((image, index) => (
                       <div
                         key={index}
-                        className="w-16 h-16 border border-gray-300 rounded bg-gray-100 flex items-center justify-center"
+                        className="relative w-16 h-16 border border-gray-300 rounded bg-gray-100"
                       >
-                        {image instanceof File ? (
-                          <img
-                            src={URL.createObjectURL(image)}
-                            alt="Uploaded"
-                            className="w-full h-full object-cover rounded"
-                          />
-                        ) : (
-                          <img
-                            src={image} // If the image is already a URL, display it directly
-                            alt="Uploaded"
-                            className="w-full h-full object-cover rounded"
-                          />
-                        )}
+                        <img
+                          src={
+                            image instanceof File
+                              ? URL.createObjectURL(image)
+                              : image
+                          }
+                          alt="Uploaded"
+                          className="w-full h-full object-cover rounded"
+                        />
+                        <button
+                          onClick={() => handleRemoveImage(index)}
+                          className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full text-xs"
+                        >
+                          &times;
+                        </button>
                       </div>
                     ))}
                   </div>

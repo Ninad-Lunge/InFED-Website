@@ -16,7 +16,7 @@ const AboutInFED = () =>{
                 </p>
             </div>
             <div className="about-image order-2">
-                <img src={require('../../assests/images/aboutPage/iimn-front-night.png')} alt="img" className=" border border-yellow-400 rounded-md h-[320px] mt-10 object-cover p-2" />
+                <img src={require('../../assests/images/aboutPage/Liberty_of_Statue.jpg')} alt="img" className=" border border-yellow-400 rounded-md mt-10 object-contain p-2" />
             </div>
         </div>
     );
