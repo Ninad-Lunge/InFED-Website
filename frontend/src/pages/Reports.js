@@ -50,7 +50,7 @@ const Reports = () => {
                 </h1>
             </div>
 
-            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4">
+            <div className="container grid grid-cols-1 md:grid-cols-3 gap-6 px-12">
                 {reports.map((report) => (
                     <div
                         key={report._id}
@@ -62,7 +62,7 @@ const Reports = () => {
                             <img
                                 src={`http://localhost:5000${report.previewImagePath}`}
                                 alt={`${report.name} Preview`}
-                                className="w-full h-48 object-cover"
+                                className="w-full h-96 object-cover"
                             />
                             <div className={`absolute inset-0 bg-black bg-opacity-40 transition-opacity duration-300 ${hoveredId === report._id ? 'opacity-100' : 'opacity-0'}`} />
                         </div>

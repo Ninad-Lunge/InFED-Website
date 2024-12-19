@@ -30,7 +30,7 @@ const ManagePersons = () => {
         
         // Verify each person has a unique ID
         const hasUniqueIds = new Set(sortedPersons.map(p => p._id)).size === sortedPersons.length;
-        console.log("All persons have unique IDs:", hasUniqueIds);
+        // console.log("All persons have unique IDs:", hasUniqueIds);
         
         setPersons(sortedPersons);
       } catch (error) {
