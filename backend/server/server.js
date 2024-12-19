@@ -15,6 +15,8 @@ const adminRoutes = require('./routes/adminRoutes');
 const partnerRoutes = require('./routes/partners');
 const communityRoutes = require('./routes/communityDashboardRoutes');
 const userRoutes = require('./routes/userRoutes');
+const reportRoutes = require('./routes/report.js');
+const path = require('path');
 
 const app = express();
 
@@ -44,6 +46,10 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/partners', partnerRoutes);
 app.use('/api/dashboard', communityRoutes);
+// Add static file serving for uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Add routes
+app.use('/api/reports', reportRoutes);
 
 // Home route
 app.get('/', (req, res) => {
